@@ -17,40 +17,28 @@ export default function Home() {
 
 
   useEffect(() => {
-    fetch('http://localhost:8000/auth', {
-      method: 'GET',
-      mode: "no-cors",
-      headers: new Headers({
-        'Authorization': `${uid}`, 
-        'Content-Type': 'application/json'
-    }), 
-      })
-        .then(response => response.text())
-        .then(text => console.log(text))
-
-        console.log(uid)
+    if(uid){
+      router.push("/dashboard")    }
   },[uid])
 
   if(loading) {
     return <div>Loading...</div>
   }
 
-  if(user){
-    // fetch('http://localhost:8000/auth', {
-    //   method: 'GET',
-    //   mode: "no-cors",
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     "Authorization": `${uid}`
-    //   }})
-    //     .then(response => response.text())
-    //     .then(text => console.log(text))
-     
-      // router.push("/dashboard")
-    }
-  
+  if(user && uid){
+    fetch('http://localhost:8000/auth/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `${uid}`, 
+      }
+    })
+        .then(response => response.text())
+        .then(text => console.log(text))
 
-    
+    }
+     
+      
+   
   
 
   async function signIn () {
