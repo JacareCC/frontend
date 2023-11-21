@@ -39,7 +39,7 @@ export default function Home() {
 
   useEffect(() =>{
     if(loginTry){
-    fetch(`http://localhost:8000/login/`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
       method: 'GET',
       headers: {
         'Authorization': `${uid}`, 
@@ -53,7 +53,7 @@ export default function Home() {
 
   useEffect(() =>{
     if(registrationReady){
-    fetch(`http://localhost:8000/register/`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json" , 
