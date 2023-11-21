@@ -45,7 +45,7 @@ export default function Home() {
     }
 
     if(user && uid && registrationReady){
-      fetch(`${process.env.BASE_URL}` + `login/`, {
+      fetch(`${process.env.BASE_URL}` + `signup/`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json" , 
