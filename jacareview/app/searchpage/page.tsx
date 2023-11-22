@@ -50,7 +50,7 @@ let searchObject: searchDataObject =
     openNow: openNow,
     amountOfOptions: amountOfOptions,
     distanceToTravel: distanceToTravel,
-    location
+    location : location
 };
 
 
