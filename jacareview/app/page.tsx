@@ -22,7 +22,10 @@ export default function Home() {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const router = useRouter();
-
+  
+  if(user){
+    router.push("/searchpage")
+  }
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -84,6 +87,8 @@ export default function Home() {
   }
 
   return (
+    <>
+    {!user &&(
     <main className="flex relative min-h-screen flex-col items-center justify-between p-24 z-0">
       {loading? <div>Loading...</div>:
       <div>
@@ -101,6 +106,8 @@ export default function Home() {
       </div>
 }
       <CookieConsent/>
-    </main>
+    </main>)
+    }
+    </>
   )
 }
