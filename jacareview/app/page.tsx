@@ -1,7 +1,7 @@
 "use client"
 
 import { initFirebase } from "@/firebase/firebaseapp"
-import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, getIdToken} from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
@@ -22,7 +22,12 @@ export default function Home() {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const router = useRouter();
-
+  
+  useEffect(()=>{
+    if(user){
+    router.push("/searchpage")
+    }
+  }, [user])
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -84,8 +89,10 @@ export default function Home() {
   }
 
   return (
+    <>
+    {!user?(
     <main className="flex relative min-h-screen flex-col items-center justify-between p-24 z-0">
-      {loading? <div>Loading...</div>:
+      {loading ? <div>Loading...</div>:
       <div>
       
       <div>
@@ -101,6 +108,9 @@ export default function Home() {
       </div>
 }
       <CookieConsent/>
-    </main>
+    </main>) :
+    <div>Loading...</div>
+    }
+    </>
   )
 }
