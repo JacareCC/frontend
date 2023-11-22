@@ -44,7 +44,7 @@ interface searchDataObject {
     location : {latitude: number, longitude: number}
 }
     
-let searchObject: searchDataObject = 
+const searchObject: searchDataObject = 
 { cuisineType: cuisineType,
     price: price,
     openNow: openNow,
