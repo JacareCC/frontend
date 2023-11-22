@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
+import ResultList from "@/components/ResultList";
 
 
 export default function SearchPage() {
@@ -13,6 +14,7 @@ export default function SearchPage() {
     const [openNow, setOpenNow] = useState<boolean>(false);
     const [amountOfOptions, setAmountOfOptions] = useState<number | null>(null);
     const [distanceToTravel, setDistanceToTravel] = useState<number | null>(null);
+    const [resultsFetched, setResultsFetched] = useState<any>(null)
 
     initFirebase();
     const auth = getAuth(); 
@@ -102,6 +104,8 @@ function handleSubmitWithLocation(){
 
     return(
         <>
+        { !resultsFetched ?
+        <>
         <div>Welcome {user?.displayName}</div>
         <select onChange={handleDistanceToTravel}>
             <option value="">Choose Travel Distance</option>
@@ -152,6 +156,8 @@ function handleSubmitWithLocation(){
             <option>No</option>
         </select>
         <button onClick={handleSubmitWithLocation}>Location</button>
+        </>
+      : <ResultList/>}
         </>
     )
 }
