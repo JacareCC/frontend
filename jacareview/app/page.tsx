@@ -90,7 +90,7 @@ export default function Home() {
 
   return (
     <>
-    {!uid &&(
+    {!user?(
     <main className="flex relative min-h-screen flex-col items-center justify-between p-24 z-0">
       {loading ? <div>Loading...</div>:
       <div>
@@ -108,7 +108,8 @@ export default function Home() {
       </div>
 }
       <CookieConsent/>
-    </main>)
+    </main>) :
+    <div>Loading...</div>
     }
     </>
   )
