@@ -10,8 +10,8 @@ import ResultList from "@/components/ResultList";
 export default function SearchPage() {
     const [location, setLocation] = useState<any>(null);
     const [cuisineType, setCuisineType] = useState<string | null> (null);
-    const [price, setPrice] = useState<string| null>(null);
-    const [openNow, setOpenNow] = useState<boolean>(false);
+    const [price, setPrice] = useState<number| null>(null);
+    const [openNow, setOpenNow] = useState<boolean | null>(null);
     const [amountOfOptions, setAmountOfOptions] = useState<number | null>(null);
     const [distanceToTravel, setDistanceToTravel] = useState<number | null>(null);
     const [resultsFetched, setResultsFetched] = useState<any>(null)
@@ -37,10 +37,11 @@ const uid = user.uid;
     
 interface searchDataObject {
     cuisineType: string | null,
-    price: string | null,
-    openNow: boolean,
+    price: number | null,
+    openNow: boolean | null,
     amountOfOptions: number | null,
     distanceToTravel: number | null
+    location : {latitude: number, longitude: number}
 }
     
 let searchObject: searchDataObject = 
@@ -48,14 +49,12 @@ let searchObject: searchDataObject =
     price: price,
     openNow: openNow,
     amountOfOptions: amountOfOptions,
-    distanceToTravel: distanceToTravel
+    distanceToTravel: distanceToTravel,
+    location
 };
 
 
 useEffect(()=>{   
-    if(location){
-    console.log(location);
-        }
     console.log(searchObject);
 },[location, cuisineType, price, openNow, amountOfOptions])
 
@@ -68,21 +67,22 @@ function handleCuisine(event:any) {
 function handleDistanceToTravel(event:any) {
     let stringDistance = event.target.value;
     let splitStringDistance = stringDistance.split("k")[0];
-    let parsedStringDistanceToKM = parseInt(splitStringDistance)
-    console.log(parsedStringDistanceToKM);
-    setDistanceToTravel(5);
+    let parsedStringDistanceToKM = parseInt(splitStringDistance) * 1000;
+    setDistanceToTravel(parsedStringDistanceToKM);
 }
 
 
 function handlePrice(event:any) {
-    setPrice(event.target.value);
+    let priceString = event.target.value;
+    let priceNumber = priceString.length - 1;
+    setPrice(priceNumber);
 }
 
 function handleOpen(event:any){
     if(event.target.value === "Yes"){
     setOpenNow(true);
     }
-    else {
+    else if (event.target.value === "No"){
     setOpenNow(false);
     }
 }
@@ -138,11 +138,11 @@ function handleSubmitWithLocation(){
         </select>
         <select onChange={handlePrice}>
             <option value="">Choose Max Price</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option>$</option>
+            <option>$$</option>
+            <option>$$$</option>
+            <option>$$$$</option>
+            <option>$$$$$</option>
         </select>
         <select  onChange={handleAmountOfOptions} >
             <option value="">How Many Results?</option>
