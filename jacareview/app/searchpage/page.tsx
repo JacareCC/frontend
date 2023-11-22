@@ -14,7 +14,10 @@ export default function SearchPage() {
     const [openNow, setOpenNow] = useState<boolean | null>(null);
     const [amountOfOptions, setAmountOfOptions] = useState<number | null>(null);
     const [distanceToTravel, setDistanceToTravel] = useState<number | null>(null);
-    const [resultsFetched, setResultsFetched] = useState<any>(null)
+    const [resultsFetched, setResultsFetched] = useState<boolean>(false);
+    const [searchAvailable, setSearchAvailable] =useState<boolean>(false);
+    const [results, setResults] = useState<any>(null);
+    const [statusCode, setStatusCode] = useState<number | null> (null)
 
     initFirebase();
     const auth = getAuth(); 
@@ -30,10 +33,6 @@ const uid = user.uid;
     router.push("/")
 }
 });
-
-    // if(!user){
-    //     router.push("/");
-    // }
     
 interface searchDataObject {
     cuisineType: string | null,
@@ -55,8 +54,36 @@ const searchObject: searchDataObject =
 
 
 useEffect(()=>{   
+    if( cuisineType && price && openNow !== null && amountOfOptions && distanceToTravel){
+        if('geolocation' in navigator) {
+            // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+            navigator.geolocation.getCurrentPosition(({ coords }) => {
+                const { latitude, longitude } = coords;
+                setLocation({ latitude, longitude });
+            });
+        }
+    }
     console.log(searchObject);
-},[location, cuisineType, price, openNow, amountOfOptions])
+},[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
+
+useEffect(()=>{
+    if(location){
+        setSearchAvailable(true);
+    }
+    console.log(location);
+}, [location]);
+
+useEffect (() => {
+    console.log(searchAvailable);
+    console.log(searchObject);
+},[searchAvailable])
+
+useEffect(() =>{
+    if(statusCode && statusCode !== 404){
+        setResultsFetched(true);
+    }
+    console.log(results);
+}, [results]);
 
 
 //handlers for Change
@@ -92,18 +119,22 @@ function handleAmountOfOptions(event:any){
     setAmountOfOptions(numberOfResults);
 }
 
-function handleSubmitWithLocation(){
-    if('geolocation' in navigator) {
-        // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-            const { latitude, longitude } = coords;
-            setLocation({ latitude, longitude });
-        });
-    }
+async function handleSubmitWithLocation(){
+    console.log(searchObject);
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}search/`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json" , 
+        },
+        body : JSON.stringify(searchObject)
+      })
+          .then(response => {setResults(response.body);
+        setStatusCode(response.status)} )
+          
 }
 
     return(
-        <>
+        <>{!user ?<div>Loading...</div> : <>
         { !resultsFetched ?
         <>
         <div>Welcome {user?.displayName}</div>
@@ -147,17 +178,20 @@ function handleSubmitWithLocation(){
         <select  onChange={handleAmountOfOptions} >
             <option value="">How Many Results?</option>
             <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
             <option>5</option>
-            <option>10</option>
         </select>
         <select  onChange={handleOpen} >
             <option value="">Open Now?</option>
             <option>Yes</option>
             <option>No</option>
         </select>
-        <button onClick={handleSubmitWithLocation}>Location</button>
+        { searchAvailable ?
+        <button onClick={handleSubmitWithLocation}>Search</button> : <button>Search</button>}
         </>
-      : <ResultList/>}
+      : <ResultList/>} </>}
         </>
     )
 }
