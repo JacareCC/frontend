@@ -23,9 +23,11 @@ export default function Home() {
   const [user, loading] = useAuthState(auth)
   const router = useRouter();
   
-  if(user){
+  useEffect(()=>{
+    if(user){
     router.push("/searchpage")
-  }
+    }
+  }, [user])
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -88,9 +90,9 @@ export default function Home() {
 
   return (
     <>
-    {!user &&(
+    {!uid &&(
     <main className="flex relative min-h-screen flex-col items-center justify-between p-24 z-0">
-      {loading? <div>Loading...</div>:
+      {loading ? <div>Loading...</div>:
       <div>
       
       <div>
