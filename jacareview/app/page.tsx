@@ -105,26 +105,38 @@ export default function Home() {
 
   return (
     <>
-    {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
-    {!user?(
-    <main className="bg-[url('../public/logo-home.png')] bg-no-repeat bg-top bg-contain h-screen">
-      {loading ? <div>Loading...</div>:
-      <div className="flex flex-col items-center">
-          <button className="button-4" onClick={signIn}>Sign In!</button>
-          { termsAgreed ? <button onClick={handleRegister}>Register</button> :
-          <button className="button-4" >Register</button>}
-          <h2 onClick={handleToggleToTerms}>Click here to read and agree to Terms and Conditions before Registration</h2>
-        {toggleAgreement && (<TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement}/>)}
-      </div>
-      }
-          {showConsent && (
-            <div className="cookie-consent-container absolute inset-0 flex items-center justify-center">
-              <CookieConsent onAccept={handlerCookiesAccept}/>
+      {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
+      {!user ? (
+        <main className="bg-[url('../public/logo-home.png')] bg-no-repeat bg-top bg-contain h-screen bg-[center_top_2rem]">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <div className="flex flex-col items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 bg-jgreen box-login max-w-full relative">
+              <button className="button-4 w-full" onClick={signIn}>
+                Sign In!
+              </button>
+              {termsAgreed ? (
+                <button className="button-4 w-full" onClick={handleRegister}>Register</button>
+              ) : (
+                <button className="button-4 w-full">Register</button>
+              )}
+              <h2 className="mb-0.5 text-xs" onClick={handleToggleToTerms}>
+                Click here to read and agree to Terms and Conditions before Registration
+              </h2>
+              {toggleAgreement && (
+                <TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement} />
+              )}
             </div>
           )}
-    </main>) :
-    <div>Loading...</div>
-    }
+          {showConsent && (
+            <div className="cookie-consent-container absolute inset-0 flex items-center justify-center">
+              <CookieConsent onAccept={handlerCookiesAccept} />
+            </div>
+          )}
+        </main>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   )
 }
