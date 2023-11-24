@@ -9,7 +9,8 @@ import ResultList from "@/components/ResultList";
 
 export default function SearchPage() {
     const [location, setLocation] = useState<any>(null);
-    const [cuisineType, setCuisineType] = useState<string | null> (null);
+    const [cuisineType, setCuisineType] = useState<string[]> ([]);
+    const [cuisineTypeList, setCuisineTypeList] = useState<string[]> ([]);
     const [price, setPrice] = useState<number| null>(null);
     const [openNow, setOpenNow] = useState<boolean | null>(null);
     const [amountOfOptions, setAmountOfOptions] = useState<number | null>(null);
@@ -35,7 +36,7 @@ const uid = user.uid;
 });
     
 interface searchDataObject {
-    cuisineType: string | null,
+    cuisineOptions: string[] | null,
     price: number | null,
     openNow: boolean | null,
     amountOfOptions: number | null,
@@ -44,7 +45,7 @@ interface searchDataObject {
 }
     
 const searchObject: searchDataObject = 
-{ cuisineType: cuisineType,
+{ cuisineOptions: cuisineType,
     price: price,
     openNow: openNow,
     amountOfOptions: amountOfOptions,
@@ -54,7 +55,7 @@ const searchObject: searchDataObject =
 
 
 useEffect(()=>{   
-    if( cuisineType && price && openNow !== null && amountOfOptions && distanceToTravel){
+    if( cuisineType.length > 0 && price && openNow !== null && amountOfOptions && distanceToTravel){
         if('geolocation' in navigator) {
             // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
             navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -63,32 +64,75 @@ useEffect(()=>{
             });
         }
     }
-    console.log(searchObject);
+    if(cuisineType.length === 0){
+        setSearchAvailable(false);
+    }
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
 useEffect(()=>{
-    if(location){
+    if(location && cuisineType.length > 0){
         setSearchAvailable(true);
     }
-    console.log(location);
 }, [location]);
 
-useEffect (() => {
-    console.log(searchAvailable);
-    console.log(searchObject);
-},[searchAvailable])
+// useEffect (() => {
+//     console.log(searchAvailable);
+//     console.log(searchObject);
+// },[searchAvailable])
 
 useEffect(() =>{
     if(statusCode && statusCode !== 404){
         setResultsFetched(true);
     }
-    console.log(results);
 }, [results]);
 
 
 //handlers for Change
-function handleCuisine(event:any) {
-    setCuisineType(event.target.value);
+function handleCuisineAdd(event:any) {
+    let cuisineTypeAdded:string = event.target.value;
+    let cuisineToSend: string = ""
+    console.log(cuisineTypeAdded);
+    if(!cuisineTypeList.includes(event.target.value)){
+        setCuisineTypeList((oldArray => [...oldArray, event.target.value]))
+    }
+  
+        if(cuisineTypeAdded === "Ice Cream"){
+            cuisineToSend = "ice_cream_shop"
+        }
+        if(cuisineTypeAdded === "All"){
+            cuisineToSend = "restaurant"
+        }
+        if(cuisineTypeAdded === "Fast Food"){
+            cuisineToSend = "fast_food_restaurant"
+        }
+        if(cuisineTypeAdded === "Sandwich Shop"){
+            cuisineToSend = "sandwich_shop"
+        }
+        if(cuisineTypeAdded === "Steak House"){
+            cuisineToSend = "steak_house"
+        }
+        if(cuisineTypeAdded === "Bar" || event.target.value === "Cafe" || event.target.value === "Bakery"){
+            cuisineToSend = cuisineTypeAdded.toLowerCase();
+        }
+        else if(cuisineToSend === "") {
+            cuisineToSend = cuisineTypeAdded.toLowerCase() + "_restaurant"
+        }
+
+    if(!cuisineType.includes(cuisineToSend))
+    setCuisineType((oldArray => [...oldArray, cuisineToSend]));
+}
+
+function handleCuisineRemoval (event:any){
+     let indexString:string= event.target.getAttribute('a-key');
+     let indexNumber: number = parseInt(indexString)
+     const newCuisineTypeList: string[] = [...cuisineTypeList];
+     newCuisineTypeList.splice(indexNumber, 1);
+     console.log(newCuisineTypeList)
+     setCuisineTypeList(newCuisineTypeList);
+    const newCuisineTypeArray: string[] = [...cuisineType];
+    newCuisineTypeArray.splice(indexNumber, 1) 
+    setCuisineType(newCuisineTypeArray);
+
 }
 
 function handleDistanceToTravel(event:any) {
@@ -101,7 +145,7 @@ function handleDistanceToTravel(event:any) {
 
 function handlePrice(event:any) {
     let priceString = event.target.value;
-    let priceNumber = priceString.length - 1;
+    let priceNumber = priceString.length;
     setPrice(priceNumber);
 }
 
@@ -144,28 +188,53 @@ async function handleSubmitWithLocation(){
             <option>10km</option>
             <option>15km</option>
             <option>20km</option>
+            <option>30km</option>
+            <option>40km</option>
+            <option>50km</option>
         </select>
-        <select onChangeCapture={handleCuisine}>
-            <option value="">Choose Food Type</option>
-            <optgroup label="Cuisine Type">
-                <option>All</option>
-                <option>Vegan</option>
-                <option>Japanese</option>
-                <option>Chinese</option>
-                <option>Korean</option>
-                <option>Italian</option>
-                <option>Indian</option>
-                <option>French</option>
+        <select onChangeCapture={handleCuisineAdd}>
+            <option value="">Choose Cuisine(s)</option>
+                <option>Any</option>
                 <option>American</option>
-            </optgroup>
-            <optgroup label="Non Restaurants">
-            <option>
-                Bar
-            </option>
-            <option>
-                Cafe
-            </option>
-            </optgroup>
+                <option>Brazilian</option>
+                <option>Chinese</option>
+                <option>French</option>
+                <option>Greek</option>
+                <option>Indian</option>
+                <option>Indonesian</option>
+                <option>Italian</option>
+                <option>Japanese</option>
+                <option>Korean</option>
+                <option>Lebanese</option>
+                <option>Mediterranean</option>
+                <option>Mexican</option>
+                <option>Middle Eastern</option>
+                <option>Spanish</option>
+                <option>Thai</option>
+                <option>Turkish</option>
+                <option>Vietnamese</option>
+                </select>
+        <select onChange={handleCuisineAdd}>
+            <option value="">Choose Shop Type(Optional)</option>
+            <option>Bakery</option>
+            <option>Bar</option>
+            <option>Breakfast</option>
+            <option>Brunch</option>
+            <option>Cafe</option>
+            <option>Fast Food</option>
+            <option>Hamburger</option>
+            <option>Ice Cream</option>
+            <option>Pizza</option>
+            <option>Ramen</option>
+            <option>Sandwich Shop</option>
+            <option>Steak House</option>
+            <option>Sushi</option>
+        </select>
+        <select onChange={handleCuisineAdd}>
+            <option value="">Dietary Options(Optional)</option>
+            <option>Vegetarian</option>
+            <option>Vegan</option>
+            <option>Seafood</option>
         </select>
         <select onChange={handlePrice}>
             <option value="">Choose Max Price</option>
@@ -173,7 +242,6 @@ async function handleSubmitWithLocation(){
             <option>$$</option>
             <option>$$$</option>
             <option>$$$$</option>
-            <option>$$$$$</option>
         </select>
         <select  onChange={handleAmountOfOptions} >
             <option value="">How Many Results?</option>
@@ -188,10 +256,13 @@ async function handleSubmitWithLocation(){
             <option>Yes</option>
             <option>No</option>
         </select>
+        {cuisineTypeList.length > 0 && (<ol><ul>Click To Remove</ul>{ cuisineTypeList.map((element, index )=> <ul onClick={handleCuisineRemoval}
+        key={index} a-key={index}>{element}</ul>)
+        }</ol>)}
         { searchAvailable ?
         <button onClick={handleSubmitWithLocation}>Search</button> : <button>Search</button>}
         </>
-      : <ResultList/>} </>}
+      : <ResultList results={results}/>} </>}
         </>
     )
 }

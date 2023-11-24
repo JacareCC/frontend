@@ -1,6 +1,6 @@
 import SingleRestaurant from "./SingleRestaurant"
 
-export default function ResultList(){
+export default function ResultList({results}:{results:any}){
 
 
 
