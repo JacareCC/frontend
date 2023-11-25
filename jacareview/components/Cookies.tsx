@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { hasCookie, setCookie } from "cookies-next";
 
-export default function CookieConsent ({ onAccept }) {
+export default function CookieConsent ({ onAccept }:{onAccept:any}) {
   const [showConsent, setShowConsent] = useState<boolean>(true);
 
   useEffect(() => {
