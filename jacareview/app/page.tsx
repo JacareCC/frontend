@@ -7,6 +7,11 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
 import CookieConsent from "@/components/Cookies";
 import TermsAndConditions from "@/components/TermsAndConditions";
+import './page.css'
+import './globals.css'
+import Image from "next/image";
+import googleIcon from '../public/google.png'
+import { Check } from 'lucide-react'
 
 export default function Home() {
   const [uid, setUid] = useState<string | null>(null);
@@ -15,6 +20,8 @@ export default function Home() {
   const [toggleAgreement, setToggleAgreement] = useState<boolean>(false)
   const [registrationReady, setRegistrationReady] = useState<boolean>(false)
   const [loginTry, setLoginTry] = useState<boolean>(false)
+  const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(false);
+  const [showConsent, setShowConsent] = useState<boolean>(true);
 
 
   initFirebase();
@@ -70,6 +77,17 @@ export default function Home() {
   }
   }, [registrationReady])
 
+  useEffect(() => {
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    setCookiesAccepted(!!cookiesAccepted);
+    setShowConsent(!cookiesAccepted);
+  }, []);
+
+  const handlerCookiesAccept = () => {
+    console.log(cookiesAccepted)
+    setCookiesAccepted(true);
+    setShowConsent(false);
+  }
 
   async function signIn () {
     const result = await signInWithPopup(auth, provider);
@@ -90,27 +108,54 @@ export default function Home() {
 
   return (
     <>
-    {!user?(
-    <main className="flex relative min-h-screen flex-col items-center justify-between p-24 z-0">
-      {loading ? <div>Loading...</div>:
-      <div>
-      
-      <div>
-        <div>Jacareview</div>
-      <button onClick={signIn}>Sign In!</button>
-      </div>
-      <div>
-        { termsAgreed ? <button onClick={handleRegister}>Register</button> :
-        <button>Register</button>}
-        <h2 onClick={handleToggleToTerms}>Click here to read and agree to Terms and Conditions before Registration</h2>
-       {toggleAgreement && (<TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement}/>)}
-      </div>
-      </div>
-}
-      <CookieConsent/>
-    </main>) :
-    <div>Loading...</div>
-    }
+      {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
+      {!user ? (
+        <main className="bg-[url('../public/logo-home.png')] bg-no-repeat bg-top bg-contain h-screen bg-[center_top_5rem]">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <div className="flex flex-col items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 bg-jgreen box-login max-w-full relative">
+              <button className="button-4 w-full flex justify-center items-center" onClick={signIn}>
+              <div className="flex items-center">
+                <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                <span className="ml-2">Sign In!</span>
+              </div>
+              </button>
+              {termsAgreed ? (
+                <button className="button-4 w-full flex justify-center items-center" onClick={handleRegister}>
+                  <div className="flex items-center">
+                  <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                  <span className="ml-2">Sign Up!</span>
+                  </div>
+                </button>
+              ) : (
+                <button className="button-4 w-full flex justify-center items-center">
+                  <div className="flex items-center">
+                  <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                  <span className="ml-2">Sign Up!</span>
+                  </div>
+                </button>
+              )}
+              <div className="flex">
+                <h2 className="mb-0.5 text-xs" onClick={handleToggleToTerms}>
+                  Click here to read and agree to Terms and Conditions before Registration
+                </h2>
+                {termsAgreed ? ( <Check style={{ width: '40px', height: '30px', stroke: 'var(--jyellow)' }} /> ) : null }
+              </div>
+              {toggleAgreement && (
+                <TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement} />
+              )}
+            </div>
+          )}
+          {showConsent && (
+            <div className="cookie-consent-container absolute inset-0 flex items-center justify-center">
+              <CookieConsent onAccept={handlerCookiesAccept} />
+            </div>
+          )}
+        </main>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   )
 }
