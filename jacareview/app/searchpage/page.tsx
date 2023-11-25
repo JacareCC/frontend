@@ -81,7 +81,7 @@ useEffect(()=>{
 // },[searchAvailable])
 
 useEffect(() =>{
-    if(statusCode && statusCode !== 404){
+    if(results){
         setResultsFetched(true);
     }
 }, [results]);
@@ -172,8 +172,9 @@ async function handleSubmitWithLocation(){
         },
         body : JSON.stringify(searchObject)
       })
-          .then(response => {setResults(response.body);
-        setStatusCode(response.status)} )
+          .then(response => {setStatusCode(response.status); return response.json()})
+          .then(data => { setResults(data);
+        })
           
 }
 
