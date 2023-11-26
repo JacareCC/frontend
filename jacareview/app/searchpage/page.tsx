@@ -164,7 +164,6 @@ function handleAmountOfOptions(event:any){
 }
 
 async function handleSubmitWithLocation(){
-    console.log(searchObject);
     const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}search/`, {
         method: 'POST',
         headers: {
