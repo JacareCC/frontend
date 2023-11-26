@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Doughnut } from "react-chartjs-2";
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dateVisited, setDateVisited] = useState<Date | null> (null)
+    const [dateVisited, setDateVisited] = useState<Date | null> (null);
+    const [dataForChart, setDataForChart] = useState<any> (null)
 
     useEffect(() => {
         fetchRestaurantData();
@@ -22,6 +24,27 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     const postObject: postObject = {
         id: idForFetch,
         date: dateVisited
+    }
+
+    const options = {
+
+    }
+
+    const textCenter = {
+        id: "textCenter",
+        beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
+            const {ctx, data} = chart;
+
+            ctx.save();
+            ctx.font = "bolder 5S0px sans-serif";
+            ctx.fillStyle = "black";
+            ctx.textAlign = "center"
+            ctx.textBaseline = "middle"
+            ctx.fillText("text", chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y);
+            
+        }
+
+    
     }
 
     async function fetchRestaurantData (){
@@ -48,7 +71,15 @@ async function postHistory() {
     return (
         <>
         { singleRestaurantData &&(
-        <div>PlaceHolder</div>)
+        <div>
+        <div>PlaceHolder</div>
+       <Doughnut
+       data={dataForChart}
+       options={options}
+       plugins={[textCenter]}
+       />
+        </div>)
+        
         }
         <button onClick={goBack}>Back</button>
         </>
