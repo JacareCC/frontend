@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import 'chart.js/auto';
-import { ArcElement } from "chart.js";
 import { Doughnut, Chart } from "react-chartjs-2";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth"
+import { initFirebase } from "@/firebase/firebaseapp"
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
     const [dateVisited, setDateVisited] = useState<Date | null> (null);
     const [dataForChart, setDataForChart] = useState<any> ()
+
+    initFirebase();
+    const auth = getAuth(); 
+    const [user, loading] = useAuthState(auth);
 
     // useEffect(() => {
     //     fetchRestaurantData();
@@ -27,11 +33,13 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
 
     interface postObject {
         id: string,
+        userId: string | undefined,
         date: Date | null,
     }
 
     const postObject: postObject = {
         id: idForFetch,
+        userId: user?.uid,
         date: dateVisited
     }
     
@@ -52,19 +60,22 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
         legend: {
           position: 'right',
         },
+        
       };
 
-    const textCenter = {
-        id: "textCenter",
+    const doughnutLabel = {
+        id: "doughtnutLaber",
         beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
             const {ctx, data} = chart;
 
             ctx.save();
-            ctx.font = "bolder 5S0px sans-serif";
-            ctx.fillStyle = "black";
+            const xCoor = chart.getDatasetMeta(0).data[0].x;
+            const yCoor = chart.getDatasetMeta(0).data[0].y;
+            ctx.font = 'bold 50px sans-serif';
+            ctx.fillStyle = '#FF6384';
             ctx.textAlign = "center"
             ctx.textBaseline = "middle"
-            ctx.fillText("text", chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y);
+            ctx.fillText("text", xCoor, yCoor);
             
         }
 
@@ -100,7 +111,7 @@ async function postHistory() {
        <Doughnut
        data={data}
        options={options}
-       plugins={[textCenter]}
+       plugins={[doughnutLabel]}
        />
         </div>)
         
@@ -109,7 +120,7 @@ async function postHistory() {
          <Doughnut
        data={data}
        options={options}
-       plugins={[textCenter]}
+       plugins={[doughnutLabel]}
        />
         </div>
         <button onClick={goBack}>Back</button>
