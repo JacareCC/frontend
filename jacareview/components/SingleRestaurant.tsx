@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
+import 'chart.js/auto';
 import { ArcElement } from "chart.js";
 import { Doughnut, Chart } from "react-chartjs-2";
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
     const [dateVisited, setDateVisited] = useState<Date | null> (null);
-    const [dataForChart, setDataForChart] = useState<any> (null)
+    const [dataForChart, setDataForChart] = useState<any> ()
 
-    useEffect(() => {
-        // fetchRestaurantData();
-        // postHistory();
-        setDateVisited(new Date());
-    }, []);
+    // useEffect(() => {
+    //     fetchRestaurantData();
+    //     postHistory();
+    //     setDateVisited(new Date());
+    // }, []);
+
+    // useEffect(() => {
+    
+    //     postHistory();
+        
+    // }, [dateVisited]);
 
     //helper
     function goBack(){
@@ -29,7 +36,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     }
     
     const data = {
-        labels: ['Category A', 'Category B', 'Category C', 'Category D', 'Category E'],
+        labels: [],
         datasets: [
           {
             data: [300, 50, 100, 40, 200],
