@@ -14,7 +14,7 @@ import googleIcon from '../public/google.png'
 import { Check } from 'lucide-react'
 
 export default function Home() {
-  const [uid, setUid] = useState<string | null>(null);
+  const [uid, setUid] = useState<string | null | undefined>(null);
   const [statusCode, setStatusCode] = useState<number | null> (null)
   const [termsAgreed, setTermsAgreed] = useState<boolean>(false)
   const [toggleAgreement, setToggleAgreement] = useState<boolean>(false)
@@ -31,10 +31,16 @@ export default function Home() {
   const router = useRouter();
   
   useEffect(()=>{
-    if(user){
-    router.push("/searchpage")
+    if(!loading){
+    setUid(user?.uid);
     }
-  }, [user])
+  },[loading]);
+
+  useEffect(()=>{
+    if(uid && user){
+    checkForUser();
+    }
+  }, [uid])
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -46,19 +52,13 @@ export default function Home() {
     if(statusCode === 400){
       setRegistrationReady((prev:boolean) => !prev);
     }
+    console.log(statusCode);
   },[statusCode])
 
 
   useEffect(() =>{
     if(loginTry){
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `${uid}`, 
-      }
-    })
-        .then(response =>  response.status)
-        .then(status => setStatusCode(status));
+    checkForUser()
   }
   
   }, [loginTry])
@@ -100,6 +100,17 @@ export default function Home() {
     setToggleAgreement((prev:boolean) => !prev)
   }
 
+  function checkForUser(){
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `${uid}`, 
+      }
+    })
+        .then(response =>  response.status)
+        .then(status => setStatusCode(status));
+  }
+
   async function handleRegister(){
     const result = await signInWithPopup(auth, provider);
     setUid(result.user.uid)
@@ -109,10 +120,10 @@ export default function Home() {
   return (
     <>
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
-      {!user ? (
+      {statusCode !== 200 && statusCode !== 201 ? (
         <main className="bg-[url('../public/logo-home.png')] bg-no-repeat bg-top bg-contain h-screen bg-[center_top_5rem]">
           {loading ? (
-            <div>Loading...</div>
+            null
           ) : (
             <div className="flex flex-col items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 bg-jgreen box-login max-w-full relative">
               <button className="button-4 w-full flex justify-center items-center" onClick={signIn}>
