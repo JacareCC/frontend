@@ -30,11 +30,11 @@ export default function Home() {
   const [user, loading] = useAuthState(auth)
   const router = useRouter();
   
-  useEffect(()=>{
-    if(user){
-    router.push("/searchpage")
-    }
-  }, [user])
+  // useEffect(()=>{
+  //   if(user){
+  //   router.push("/searchpage")
+  //   }
+  // }, [user])
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -46,6 +46,7 @@ export default function Home() {
     if(statusCode === 400){
       setRegistrationReady((prev:boolean) => !prev);
     }
+    console.log(statusCode);
   },[statusCode])
 
 
@@ -109,10 +110,10 @@ export default function Home() {
   return (
     <>
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
-      {!user ? (
+      {statusCode !== 200 && statusCode !== 201 ? (
         <main className="bg-[url('../public/logo-home.png')] bg-no-repeat bg-top bg-contain h-screen bg-[center_top_5rem]">
           {loading ? (
-            <div>Loading...</div>
+            null
           ) : (
             <div className="flex flex-col items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 bg-jgreen box-login max-w-full relative">
               <button className="button-4 w-full flex justify-center items-center" onClick={signIn}>
