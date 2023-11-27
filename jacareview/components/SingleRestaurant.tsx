@@ -106,11 +106,11 @@ async function postHistory() {
         { singleRestaurantData &&(
         <div>
         <div>PlaceHolder</div>
-       <Doughnut
+       {/* <Doughnut
        data={data}
        options={options}
        plugins={[doughnutLabel]}
-       />
+       /> */}
         </div>)
         
         }

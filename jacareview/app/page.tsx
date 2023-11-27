@@ -14,7 +14,7 @@ import googleIcon from '../public/google.png'
 import { Check } from 'lucide-react'
 
 export default function Home() {
-  const [uid, setUid] = useState<string | null>(null);
+  const [uid, setUid] = useState<string | null | undefined>(null);
   const [statusCode, setStatusCode] = useState<number | null> (null)
   const [termsAgreed, setTermsAgreed] = useState<boolean>(false)
   const [toggleAgreement, setToggleAgreement] = useState<boolean>(false)
@@ -30,11 +30,17 @@ export default function Home() {
   const [user, loading] = useAuthState(auth)
   const router = useRouter();
   
-  // useEffect(()=>{
-  //   if(user){
-  //   router.push("/searchpage")
-  //   }
-  // }, [user])
+  useEffect(()=>{
+    if(!loading){
+    setUid(user?.uid);
+    }
+  },[loading]);
+
+  useEffect(()=>{
+    if(uid && user){
+    checkForUser();
+    }
+  }, [uid])
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
@@ -52,14 +58,7 @@ export default function Home() {
 
   useEffect(() =>{
     if(loginTry){
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `${uid}`, 
-      }
-    })
-        .then(response =>  response.status)
-        .then(status => setStatusCode(status));
+    checkForUser()
   }
   
   }, [loginTry])
@@ -99,6 +98,17 @@ export default function Home() {
   //handler
   function handleToggleToTerms(){
     setToggleAgreement((prev:boolean) => !prev)
+  }
+
+  function checkForUser(){
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `${uid}`, 
+      }
+    })
+        .then(response =>  response.status)
+        .then(status => setStatusCode(status));
   }
 
   async function handleRegister(){

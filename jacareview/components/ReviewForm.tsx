@@ -49,8 +49,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
 
     const { register, handleSubmit, setValue } = useForm<ReviewData>();
 
-    const onSubmitHandler = (data: ReviewData) => {
-        // backend call comes here
+    const  onSubmitHandler = async (data: ReviewData) => {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}submitreview/`, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json" , 
+            },
+            body : JSON.stringify(data)
+          })
+              .then(response => console.log(response))
+            
         console.log(data);
     }
 
@@ -63,6 +71,7 @@ useEffect(() => {
     setValue('verified', false);
 }, [userUid, restaurantPlaceId])
 
+//handler
 
     return (
         <div className="w-[100vw] flex justify-center">
