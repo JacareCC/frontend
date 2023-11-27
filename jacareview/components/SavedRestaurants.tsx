@@ -44,7 +44,7 @@ async function getSavedRestaurants(){
     async function undoSaveRestaurant(event:any){
         const restaurantIdString:string = event.target.getAttribute("a-key");
         setRestaurantId(restaurantIdString);
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/remove`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/remove/`, {
             method: 'PATCH',
             headers: {
               "Content-Type": "application/json" , 
