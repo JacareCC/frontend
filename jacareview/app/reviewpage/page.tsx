@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import '../globals.css'
 import ReviewForm from "@/components/ReviewForm";
 import Navbar from "@/components/Navbar";
+import { getDisplayName } from "next/dist/shared/lib/utils";
 
 export default function ReviewPage() {
 
@@ -34,7 +35,7 @@ export default function ReviewPage() {
 
     return (
         <div className="min-h-screen overflow-auto">
-            <Navbar /> 
+            <Navbar/> 
             {/* need to pass the user's photo from google for navbar  */}
             <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
         </div>

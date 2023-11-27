@@ -2,15 +2,34 @@ import React from 'react';
 import { Menu } from 'lucide-react';
 import Image from "next/image";
 import logo from '../public/logo-nav-white.png'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { initFirebase } from "@/firebase/firebaseapp";
+import { useState, useEffect } from "react";
 
 
-interface NavbarProps {
-  logoSrc: string | null | undefined;
-  userPhotoSrc: string | null | undefined;
-  userName: string | null | undefined
-}
+// interface NavbarProps {
+//   logoSrc: string | null | undefined;
+//   userPhotoSrc: string | null | undefined;
+//   userName: string | null | undefined
+// }
 
-const Navbar: React.FC<NavbarProps> = ({ userPhotoSrc }) => {
+const Navbar = () => {
+  const[ userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
+
+  initFirebase();
+  const auth = getAuth(); 
+  const [user, loading] = useAuthState(auth);
+  
+  useEffect (() => {
+    if(user) {
+      if(user.photoURL)
+      setUserPhoto(user?.photoURL)
+    }
+  }, [user]);
+
+  
+
   return (
     <div className="fixed top-0 left-0 right-0 flex items-center align-center  p-4 bg-jgreen text-white">
       <div className='basis-5/6'>
@@ -18,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ userPhotoSrc }) => {
       </div>
       <div className='basis-1/6'>
         {/* img need to be userPhotoSrc */}
-        <img src={"https://lh3.googleusercontent.com/a/ACg8ocKAalEpszt2x7xUbGd83X4q3yiD885_E7QfuzlxVIwGX-k=s96-c"} alt="User" className="w-8 h-8 rounded-full" />
+        <img src={userPhoto} alt="User" className="w-8 h-8 rounded-full" />
       </div>
       <Menu className='basis-1/6' />
     </div>
