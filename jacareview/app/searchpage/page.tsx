@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import ResultList from "@/components/ResultList";
+import SignOut from "@/components/header_components/SignOut";
 
 
 export default function SearchPage() {
@@ -263,6 +264,7 @@ async function handleSubmitWithLocation(){
         <button onClick={handleSubmitWithLocation}>Search</button> : <button>Search</button>}
         </>
       : <ResultList results={results}/>} </>}
+      <SignOut/>
         </>
     )
 }

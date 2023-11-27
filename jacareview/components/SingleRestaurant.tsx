@@ -4,6 +4,7 @@ import { Doughnut, Chart } from "react-chartjs-2";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
+import SignOut from "./header_components/SignOut";
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
@@ -121,6 +122,7 @@ async function postHistory() {
        />
         </div>
         <button onClick={goBack}>Back</button>
+        <SignOut/>
         </>
     )
 }
