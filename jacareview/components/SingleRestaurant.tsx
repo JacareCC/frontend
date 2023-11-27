@@ -1,13 +1,30 @@
 import { useEffect, useState } from "react";
+import 'chart.js/auto';
+import { Doughnut, Chart } from "react-chartjs-2";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth"
+import { initFirebase } from "@/firebase/firebaseapp"
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dateVisited, setDateVisited] = useState<Date | null> (null)
+    const [dateVisited, setDateVisited] = useState<Date | null> (null);
+    const [dataForChart, setDataForChart] = useState<any> ()
 
-    useEffect(() => {
-        fetchRestaurantData();
-        setDateVisited(new Date());
-    }, []);
+    initFirebase();
+    const auth = getAuth(); 
+    const [user, loading] = useAuthState(auth);
+
+    // useEffect(() => {
+    //     fetchRestaurantData();
+    //     postHistory();
+    //     setDateVisited(new Date());
+    // }, []);
+
+    // useEffect(() => {
+    
+    //     postHistory();
+        
+    // }, [dateVisited]);
 
     //helper
     function goBack(){
@@ -16,12 +33,53 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
 
     interface postObject {
         id: string,
+        userId: string | undefined,
         date: Date | null,
     }
 
     const postObject: postObject = {
         id: idForFetch,
+        userId: user?.uid,
         date: dateVisited
+    }
+    
+    const data = {
+        labels: [],
+        datasets: [
+          {
+            data: [300, 50, 100, 40, 200],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
+          },
+        ],
+      };
+
+    const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          position: 'right',
+        },
+        
+      };
+
+    const doughnutLabel = {
+        id: "doughtnutLaber",
+        beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
+            const {ctx, data} = chart;
+
+            ctx.save();
+            const xCoor = chart.getDatasetMeta(0).data[0].x;
+            const yCoor = chart.getDatasetMeta(0).data[0].y;
+            ctx.font = 'bold 50px sans-serif';
+            ctx.fillStyle = '#FF6384';
+            ctx.textAlign = "center"
+            ctx.textBaseline = "middle"
+            ctx.fillText("text", xCoor, yCoor);
+            
+        }
+
+    
     }
 
     async function fetchRestaurantData (){
@@ -48,8 +106,23 @@ async function postHistory() {
     return (
         <>
         { singleRestaurantData &&(
-        <div>PlaceHolder</div>)
+        <div>
+        <div>PlaceHolder</div>
+       <Doughnut
+       data={data}
+       options={options}
+       plugins={[doughnutLabel]}
+       />
+        </div>)
+        
         }
+        <div>
+         <Doughnut
+       data={data}
+       options={options}
+       plugins={[doughnutLabel]}
+       />
+        </div>
         <button onClick={goBack}>Back</button>
         </>
     )
