@@ -44,11 +44,31 @@ export default function RestaurantsSeen(){
               .then(data => {SetHistoryData(data.success) });
         }
 
-    // function handlePathToReview(event:any){
-        
-    //     setRestaurantId(event.target.getAttribute("a-key"))
-    //     router.push({pathname: "/reviewpage", query: {restaurantId: restaurantId })
-    // }
+    async function saveRestaurant(event:any){
+        const restaurantIdString:string = event.target.getAttribute("a-key");
+            setRestaurantId(restaurantIdString);
+            const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add`, {
+                method: 'PATCH',
+                headers: {
+                  "Content-Type": "application/json" , 
+                },
+                body: JSON.stringify({uid: uid, restaurantId: restaurantId})
+              })
+                  .then(response => {return response.json()})
+        }
+    
+        async function undoSaveRestaurant(event:any){
+            const restaurantIdString:string = event.target.getAttribute("a-key");
+            setRestaurantId(restaurantIdString);
+            const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/remove`, {
+                method: 'PATCH',
+                headers: {
+                  "Content-Type": "application/json" , 
+                },
+                body: JSON.stringify({uid: uid, restaurantId: restaurantId})
+              })
+                  .then(response => {return response.json()})
+            }
     
 
     return (
@@ -60,6 +80,7 @@ export default function RestaurantsSeen(){
                 return <div>
                 <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format('MM/DD/YYYY')}</div>
                 <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`}>Review</Link>
+                {!element.saved ? <button onClick={saveRestaurant} a-key={element.restaurant_id_id}>Save</button>:<button onClick={undoSaveRestaurant} a-key={element.restaurant_id_id}>Unsave</button>}
                 </div>
             })}
             </div>

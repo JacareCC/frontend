@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useState, useEffect } from "react";
-
+import SignOut from './header_components/SignOut';
 
 // interface NavbarProps {
 //   logoSrc: string | null | undefined;
@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const[ userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
+  const[ hamburger, setHamburger] = useState<boolean>(false);
 
   initFirebase();
   const auth = getAuth(); 
@@ -28,6 +29,11 @@ const Navbar = () => {
     }
   }, [user]);
 
+  //handler
+  function handleHamburger() {
+    setHamburger((prev:boolean) => !prev)
+  }
+
   
 
   return (
@@ -39,7 +45,15 @@ const Navbar = () => {
         {/* img need to be userPhotoSrc */}
         <img src={userPhoto} alt="User" className="w-8 h-8 rounded-full" />
       </div>
+      {!hamburger ?
+      <div >
       <Menu className='basis-1/6' />
+      </div>:
+      <div >
+      <Menu className='basis-1/6'></Menu>
+      <SignOut/>
+      </div>
+}
     </div>
   );
 };
