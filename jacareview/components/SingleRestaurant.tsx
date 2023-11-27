@@ -7,24 +7,18 @@ import { initFirebase } from "@/firebase/firebaseapp"
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dateVisited, setDateVisited] = useState<Date | null> (null);
     const [dataForChart, setDataForChart] = useState<any> ()
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
 
-    // useEffect(() => {
-    //     fetchRestaurantData();
-    //     postHistory();
-    //     setDateVisited(new Date());
-    // }, []);
+    useEffect(() => {
+        fetchRestaurantData();
+        postHistory();
 
-    // useEffect(() => {
-    
-    //     postHistory();
-        
-    // }, [dateVisited]);
+    }, []);
+
 
     //helper
     function goBack(){
@@ -32,15 +26,13 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     }
 
     interface postObject {
-        id: string,
-        userId: string | undefined,
-        date: Date | null,
+        restaurant_id: string,
+        uid: string | undefined,
     }
 
     const postObject: postObject = {
-        id: idForFetch,
-        userId: user?.uid,
-        date: dateVisited
+        restaurant_id: idForFetch,
+        uid: user?.uid,
     }
     
     const data = {
@@ -83,7 +75,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     }
 
     async function fetchRestaurantData (){
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurants/${idForFetch}`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurant/?id=${idForFetch}/`, {
             method: 'GET',
             headers: {
               "Content-Type": "application/json" , 
@@ -94,7 +86,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
 }
 
 async function postHistory() {
-    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restauranthistory`, {
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/history/`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json" , 
