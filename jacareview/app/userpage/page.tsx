@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
+import RestaurantsSeen from "@/components/RestaurantsSeen";
 
 export default function UserPage(){
 
@@ -16,7 +17,7 @@ export default function UserPage(){
     return(
         <>
         <div>Welcome, {user?.displayName}</div>
-        
+        <RestaurantsSeen/>
         </>
     )
 }

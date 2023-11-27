@@ -23,6 +23,10 @@ export default function RestaurantsSeen(){
         getHistoryData();
     }, [uid])
 
+    useEffect(() => {
+        console.log(historyData);
+    }, [historyData]);
+
     //helper 
     async function getHistoryData(){
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/history`, {

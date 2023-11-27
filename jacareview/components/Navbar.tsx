@@ -5,9 +5,9 @@ import logo from '../public/logo-nav-white.png'
 
 
 interface NavbarProps {
-  logoSrc: string;
-  userPhotoSrc: string;
-  userName: string;
+  logoSrc: string | null | undefined;
+  userPhotoSrc: string | null | undefined;
+  userName: string | null | undefined
 }
 
 const Navbar: React.FC<NavbarProps> = ({ userPhotoSrc }) => {
