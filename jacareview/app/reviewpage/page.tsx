@@ -3,23 +3,34 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import '../globals.css'
 import ReviewForm from "@/components/ReviewForm";
 import Navbar from "@/components/Navbar";
-import { getDisplayName } from "next/dist/shared/lib/utils";
+// import { getDisplayName } from "next/dist/shared/lib/utils";
 
 export default function ReviewPage() {
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
-    const router = useRouter();
-    // const [user_uid, set]
     const [userUid, setUserUid] = useState<String | null> (null)
-    const [restaurantPlaceId, setRestarantPlaceId] = useState<String | null>(null)
+    const [restaurantPlaceId, setRestarantPlaceId] = useState<string | null>(null)
     const restaurantName = 'aaa' //need to pass the restaurant's name
-    // const { restaurantPlaceId, restaurantName } = router.query;
+    const params = useSearchParams()
+    const restaurant = params.get("restaurant");
+    const router = useRouter();
+    
+  
+
+    useEffect(()=>{
+        setRestarantPlaceId(restaurant);
+    },[])
+    
+    useEffect(()=>{
+        console.log(restaurantPlaceId);
+    },[restaurantPlaceId])
+    
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -27,7 +38,6 @@ export default function ReviewPage() {
             // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         setUserUid(uid);
-        setRestarantPlaceId('aa') 
         } else {
             router.push("/")
         }
@@ -36,7 +46,6 @@ export default function ReviewPage() {
     return (
         <div className="min-h-screen overflow-auto">
             <Navbar/> 
-            {/* need to pass the user's photo from google for navbar  */}
             <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
         </div>
     )
