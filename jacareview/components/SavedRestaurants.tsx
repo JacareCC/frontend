@@ -22,15 +22,16 @@ export default function SavedRestaurants(){
     }, [user]);
 
     useEffect(() => {
-        if(savedData){
+        if(savedData && savedData !== "No saved restaurants"){
             setFetchedData(true);
         }
+        console.log(savedData);
     }, [savedData])
 
 
    
 async function getSavedRestaurants(){
-    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites`, {
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/`, {
         method: 'GET',
         headers: {
           "Content-Type": "application/json" , 
@@ -38,7 +39,7 @@ async function getSavedRestaurants(){
         }
       })
           .then(response => {return response.json()})
-          .then(data => {setSavedData(data.success) });
+          .then(data => {setSavedData(data.message) });
     }
 
     async function undoSaveRestaurant(event:any){
@@ -56,13 +57,18 @@ async function getSavedRestaurants(){
 
     return (
     <div>
-        {!fetchedData ? <div>Loading...</div>:
-        savedData.map((element:any, index:number) => {
+        {savedData === "No saved restaurants" && (
+            <div>No saved restaurants</div>
+        )}
+        {fetchedData && (
+
+            savedData.map((element:any, index:number) => {
             return <div>
                 <div key={index}>{element}</div>
                 <button onClick={undoSaveRestaurant} a-key={element.restaurant_id} key={`a${index}`}>Unsave</button>
             </div>
-        })}
+        }))
+        }
 
     </div>
     )
