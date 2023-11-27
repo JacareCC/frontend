@@ -7,7 +7,7 @@ import { initFirebase } from "@/firebase/firebaseapp"
 
 export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dataForChart, setDataForChart] = useState<any> ()
+    const [dataForChart, setDataForChart] = useState<any> (null)
 
     initFirebase();
     const auth = getAuth(); 
@@ -16,8 +16,13 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     useEffect(() => {
         fetchRestaurantData();
         postHistory();
-
     }, []);
+
+    useEffect(()=>{
+      if(singleRestaurantData){
+      console.log(singleRestaurantData)
+      }
+    },[singleRestaurantData]);
 
 
     //helper
@@ -56,7 +61,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
       };
 
     const doughnutLabel = {
-        id: "doughtnutLaber",
+        id: "doughtnutLabel",
         beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
             const {ctx, data} = chart;
 
@@ -75,7 +80,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     }
 
     async function fetchRestaurantData (){
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurant/?id=${idForFetch}/`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurant/${idForFetch}`, {
             method: 'GET',
             headers: {
               "Content-Type": "application/json" , 
@@ -86,7 +91,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
 }
 
 async function postHistory() {
-    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/history/`, {
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/history/add/`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json" , 
