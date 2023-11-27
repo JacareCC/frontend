@@ -12,6 +12,9 @@ const config: Config = {
         jgreen: 'var(--jgreen)',
         jyellow: 'var(--jyellow)',
       },
+      fontFamily: {
+        yaro: ['yaro'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
