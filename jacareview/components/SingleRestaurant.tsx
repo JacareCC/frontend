@@ -5,22 +5,30 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import SignOut from "./header_components/SignOut";
+import GoogleMap from "./GoogleMap";
 
-export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
+export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited}:
+  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dataForChart, setDataForChart] = useState<any> (null)
+    const [dataForChart, setDataForChart] = useState<any> (null);
+    const [placeId, setPlaceId] = useState<string | null>(null)
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
+      if(pageVisited){
         fetchRestaurantData();
         postHistory();
-    }, []);
+      }
+    }, [pageVisited]);
 
     useEffect(()=>{
       if(singleRestaurantData){
+        
       console.log(singleRestaurantData)
       }
     },[singleRestaurantData]);
@@ -29,6 +37,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     //helper
     function goBack(){
         setSingleClicked((prev:boolean) => !prev);
+        setPageVisited((prev:boolean) => !prev);
     }
 
     interface postObject {
@@ -88,7 +97,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
             }
           })
               .then(response => {return response.json()})
-              .then(data => {setSingleRestaurantData(data) })
+              .then(data => {setSingleRestaurantData(data.success); setPlaceId(data.success.place_id) })
 }
 
 async function postHistory() {
@@ -111,6 +120,10 @@ async function postHistory() {
        options={options}
        plugins={[doughnutLabel]}
        /> */}
+       <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-4xl font-bold mb-6">{singleRestaurantData.name}</h1>
+      <GoogleMap apiKey={apiKey} placeId={placeId} />
+    </div>
         </div>)
         
         }
