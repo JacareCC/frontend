@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-export default function ToUserPage(){
+export default function ToSearchPage(){
 
     const router = useRouter();
     function routeToUser(){

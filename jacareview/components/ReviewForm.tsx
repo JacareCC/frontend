@@ -76,9 +76,6 @@ useEffect(() => {
     return (
         <div className="w-[100vw] flex justify-center">
             <form className="w-[100vw] flex flex-col" onSubmit={handleSubmit(onSubmitHandler)}>
-                <br/>
-                <br/>
-                <br/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">General Points</h2>
                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />

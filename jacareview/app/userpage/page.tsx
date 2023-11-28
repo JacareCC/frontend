@@ -5,7 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import RestaurantsSeen from "@/components/RestaurantsSeen";
-
+import '../globals.css'
+import Navbar from "@/components/Navbar";
 export default function UserPage(){
 
     initFirebase();
@@ -15,9 +16,9 @@ export default function UserPage(){
 
 
     return(
-        <>
-        <div>Welcome, {user?.displayName}</div>
-        <RestaurantsSeen/>
-        </>
+        <div className="">
+            <Navbar/> 
+            <RestaurantsSeen/>
+        </div>
     )
 }

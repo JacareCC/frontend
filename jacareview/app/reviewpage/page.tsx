@@ -44,10 +44,10 @@ export default function ReviewPage() {
     });
 
     return (
-        <div className="min-h-screen overflow-auto">
-            <Navbar/> 
+        <>
+            <Navbar /> 
             <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
-        </div>
+        </>
     )
 
 }

@@ -6,6 +6,8 @@ import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import ResultList from "@/components/ResultList";
 import SignOut from "@/components/header_components/SignOut";
+import '../globals.css'
+import Navbar from "@/components/Navbar";
 
 
 export default function SearchPage() {
@@ -179,6 +181,8 @@ async function handleSubmitWithLocation(){
 }
 
     return(
+        <div>
+            <Navbar />
         <>{!user ?<div>Loading...</div> : <>
         { !resultsFetched ?
         <>
@@ -266,5 +270,6 @@ async function handleSubmitWithLocation(){
       : <ResultList results={results}/>} </>}
       <SignOut/>
         </>
+        </div>
     )
 }
