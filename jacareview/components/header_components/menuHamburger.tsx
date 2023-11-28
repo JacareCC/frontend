@@ -6,7 +6,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import LogoutConfirm from './LogoutConfirm';
 
 const solutions = [
-  { name: 'User',  href: '/userpage', icon: UserCircleIcon },
+  { name: 'Profile',  href: '/userpage', icon: UserCircleIcon },
   { name: 'Search',  href: '/searchpage', icon: MagnifyingGlassIcon },
   { name: 'Logout', href: '#', icon: ArrowLeftOnRectangleIcon },
 ];
