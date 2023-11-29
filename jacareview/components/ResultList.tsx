@@ -3,7 +3,6 @@ import { useEffect, useState} from "react"
 import { getPreciseDistance } from "geolib";
 
 export default function ResultList({results}:{results:any}){
-    console.log(results.result)
     const[resultArray, setResultArray] = useState<any>(null);
     const[propFetched, setPropFetched] =useState<boolean>(false);
     const [singleClicked, setSingleClicked] =useState<boolean>(false);
@@ -26,7 +25,6 @@ export default function ResultList({results}:{results:any}){
         if (resultArray){
             setPropFetched(true);
         }
-        console.log(resultArray);
     }, [resultArray]);
 
     //handler
