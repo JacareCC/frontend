@@ -5,17 +5,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
-// import { setuid } from "process";
+import Navbar from "@/components/Navbar";
+import { useRouter } from "next/navigation";
 
 export default function RestaurantsSeen(){
-    const [historyData, SetHistoryData] = useState<any>(null);
+    const [historyData, setHistoryData] = useState<any>(null);
+    const [historyDataFiltered, setHistoryDataFiltered] = useState<any>(null);
     const [uid, setUid] = useState<string|null |undefined> (null);
     const [restaurantId, setRestaurantId] = useState<string|null>(null);
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
-    // const router = useRouter();
+    const router = useRouter();
 
     useEffect(() => {
         if(user){
@@ -28,8 +30,15 @@ export default function RestaurantsSeen(){
     }, [uid])
 
     useEffect(() => {
+        if(historyData){
+            filterToUniqueRestaurants(historyData, "restaurant_id_id");
+        }
         console.log(historyData);
     }, [historyData]);
+
+    useEffect(() => {
+        console.log(historyDataFiltered);
+    }, [historyDataFiltered]);
 
     //helper 
     async function getHistoryData(){
@@ -41,7 +50,7 @@ export default function RestaurantsSeen(){
             }
           })
               .then(response => {return response.json()})
-              .then(data => {SetHistoryData(data.success) });
+              .then(data => {setHistoryData(data.success) });
         }
 
     async function saveRestaurant(event:any){
@@ -69,22 +78,38 @@ export default function RestaurantsSeen(){
               })
                   .then(response => {return response.json()})
             }
+
+        function filterToUniqueRestaurants (myArr:any, key:string){
+            let filteredHistory =  myArr.filter((obj:any, pos:any, arr:any) => {
+                    return arr.map((mapObj:any) => mapObj[key]).indexOf(obj[key]) === pos;
+                });
+            
+            setHistoryDataFiltered(filteredHistory);
+        }
     
+        function toProfilePage(){
+            router.push("/restaurantsvisited")
+        }
 
     return (
         <>
+        <Navbar/>
         { !historyData ?
     <div>Loading ...</div>:
+    <div>{historyData.length === 0 ? <div>No Restaurants Visited</div>:
             <div>
-                {historyData.map((element:any, index:number) => {
-                return <div>
+                {historyDataFiltered.map((element:any, index:number) => {
+                return <div key={`b${index}`}>
+                <div key={`c${index}`}>Restaurant: {element.name} </div>
                 <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format('MM/DD/YYYY')}</div>
                 <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`}>Review</Link>
                 {!element.saved ? <button onClick={saveRestaurant} a-key={element.restaurant_id_id}>Save</button>:<button onClick={undoSaveRestaurant} a-key={element.restaurant_id_id}>Unsave</button>}
                 </div>
             })}
+            </div>}
             </div>
         }
+    <button onClick={toProfilePage}>Back to Profile</button>
     </>
     )
 }
