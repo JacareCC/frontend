@@ -8,16 +8,16 @@ interface FormTextInputProps {
   placeholder: string | undefined
 }
 
-const InputText: React.FC<FormTextInputProps> = ({ register, name, title, placeholder }) => {
+const InputTextRequired: React.FC<FormTextInputProps> = ({ register, name, title, placeholder }) => {
     return (
         <div className="flex flex-col w-[100vw] px-8 py-2">
             <p className="ml-1 mt-1">{title}:</p>
             <label></label>
             <div className="flex align-center border-solid border border-gray-300 rounded-md">
-              <textarea className='w-[80vw] m-1 px-2' placeholder={placeholder} {...register(name as never)} />
+              <textarea required className='w-[80vw] m-1 px-2' placeholder={placeholder} {...register(name as never)} />
             </div>
         </div>
     );
 };
 
-export default InputText;
+export default InputTextRequired;
