@@ -66,22 +66,24 @@ useEffect(()=>{
                 setLocation({ latitude, longitude });
             });
         }
+        if(price < 1 || isNaN(distanceToTravel) || isNaN(amountOfOptions)){
+            setLocation(null);
+        }
     }
-    if(cuisineType.length === 0){
-        setSearchAvailable(false);
+    else {
+        setLocation(null)
     }
+    console.log(searchObject);
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
 useEffect(()=>{
     if(location && cuisineType.length > 0){
         setSearchAvailable(true);
     }
-}, [location]);
-
-// useEffect (() => {
-//     console.log(searchAvailable);
-//     console.log(searchObject);
-// },[searchAvailable])
+    else {
+        setSearchAvailable(false);
+    }
+}, [location, cuisineType]);
 
 useEffect(() =>{
     if(results){
@@ -190,6 +192,7 @@ async function handleSubmitWithLocation(){
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Distance:</label>
             <select className="" onChange={handleDistanceToTravel}>
+                <option></option>
                 <option>5km</option>
                 <option>10km</option>
                 <option>15km</option>
@@ -200,6 +203,7 @@ async function handleSubmitWithLocation(){
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
         <label className="">Price:</label>
             <select onChange={handlePrice}>
+                <option></option>
                 <option>$</option>
                 <option>$$</option>
                 <option>$$$</option>
@@ -209,6 +213,7 @@ async function handleSubmitWithLocation(){
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Open Now?</label>
             <select  onChange={handleOpen} >
+            <option></option>
                 <option>Yes</option>
                 <option>No</option>
             </select>
@@ -216,6 +221,7 @@ async function handleSubmitWithLocation(){
         <div className=" px-8 flex justify-between p-3 w-100">
             <label className="">How Many Results:</label>
             <select onChange={handleAmountOfOptions} >
+            <option></option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -227,6 +233,7 @@ async function handleSubmitWithLocation(){
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Cuisine:</label>
             <select onChangeCapture={handleCuisineAdd}>
+            <option></option>
                     <option>Any</option>
                     <option>American</option>
                     <option>Brazilian</option>
@@ -251,6 +258,7 @@ async function handleSubmitWithLocation(){
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Shop type:</label>
             <select onChange={handleCuisineAdd}>
+            <option></option>
                 <option>Bakery</option>
                 <option>Bar</option>
                 <option>Breakfast</option>
@@ -269,6 +277,7 @@ async function handleSubmitWithLocation(){
         <div className= "px-8 flex justify-between p-3 w-100">
         <label className="">Dietary Options:</label>
             <select onChange={handleCuisineAdd}>
+            <option></option>
                 <option>Vegetarian</option>
                 <option>Vegan</option>
                 <option>Seafood</option>
@@ -281,7 +290,7 @@ async function handleSubmitWithLocation(){
         }</ol>)}
         { searchAvailable ?
         <div className="w-100">
-            <button className="w-100 mx-8 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600" onClick={handleSubmitWithLocation}>Search</button> 
+        <button onClick={handleSubmitWithLocation} className="mx-10 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 w-80 hover:bg-emerald-600">Search</button>
         </div>
             : 
         <div className="w-100">
