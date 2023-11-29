@@ -49,28 +49,31 @@ export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisi
         restaurant_id: idForFetch,
         uid: user?.uid,
     }
-    
+   
+  function doughtnutData(dataPercentage:number){
     const data = {
         labels: [],
         datasets: [
           {
-            data: [300, 50, 100, 40, 200],
+            data: [dataPercentage],
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
           },
         ],
-      };
+      }
+      return data;
+    }
 
-    const options = {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-          position: 'right',
-        },
-        
-      };
+ const options = {
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        position: 'right',
+      },
+    };
 
-    const doughnutLabel = {
+function doughnutLabel(text:string){
+    const doughnutLabelText = {
         id: "doughtnutLabel",
         beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
             const {ctx, data} = chart;
@@ -82,12 +85,12 @@ export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisi
             ctx.fillStyle = '#FF6384';
             ctx.textAlign = "center"
             ctx.textBaseline = "middle"
-            ctx.fillText("text", xCoor, yCoor);
-            
+            ctx.fillText(text, xCoor, yCoor);   
         }
-
-    
     }
+    return doughnutLabelText;
+  }
+  
 
     async function fetchRestaurantData (){
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurant/${idForFetch}`, {
@@ -129,13 +132,11 @@ async function postHistory() {
         }
         <div>
          <Doughnut
-       data={data}
+       data={doughtnutData(1)}
        options={options}
-       plugins={[doughnutLabel]}
        />
         </div>
         <button onClick={goBack}>Back</button>
-        <SignOut/>
         </>
     )
 }

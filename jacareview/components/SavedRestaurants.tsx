@@ -35,7 +35,7 @@ export default function SavedRestaurants(){
     }, [savedData])
 
     useEffect(()=>{
-        if(restaurantId){
+        if(restaurantId && historyId){
             undoSaveRestaurant();
             setRefreshCount(1);
         }

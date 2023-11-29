@@ -268,7 +268,6 @@ async function handleSubmitWithLocation(){
         <button onClick={handleSubmitWithLocation}>Search</button> : <button>Search</button>}
         </>
       : <ResultList results={results}/>} </>}
-      <SignOut/>
         </>
         </div>
     )

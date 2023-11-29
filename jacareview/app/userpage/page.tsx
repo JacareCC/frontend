@@ -21,11 +21,16 @@ export default function UserPage(){
         router.push("/savedrestaurants");
     }
 
+    function toClaimPage(){
+        router.push("/claimpage");
+    }
+
     return(
         <div className="">
             <Navbar/> 
             <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
             <div onClick={toSavedRestaurants}>Saved Restaurants</div>
+            <div onClick={toClaimPage}>Claim a Restaurant</div>
             <></>
         </div>
     )

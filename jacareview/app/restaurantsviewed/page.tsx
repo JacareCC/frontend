@@ -15,6 +15,7 @@ export default function RestaurantsSeen(){
     const [uid, setUid] = useState<string|null |undefined> (null);
     const [restaurantId, setRestaurantId] = useState<string|null>(null);
     const [historyId, setHistoryId] = useState<number | null> (null);
+    const [triggerRefresh, setTriggerRefresh] = useState<boolean>(false)
 
     initFirebase();
     const auth = getAuth(); 
@@ -41,11 +42,17 @@ export default function RestaurantsSeen(){
     }, [historyData]);
 
     useEffect(() => {
-        if(restaurantId){
-            saveRestaurant();
-            window.location.reload()
+        if(restaurantId && historyId){
+            changeSaveRestaurant();
+            setTriggerRefresh(true);
         }
     }, [restaurantId]);
+
+    useEffect(() => {
+        if(triggerRefresh){
+           window.location.reload();
+        }
+    }, [triggerRefresh]);
 
     //helper 
     async function getHistoryData(){
@@ -68,7 +75,7 @@ export default function RestaurantsSeen(){
 
     }
 
-    async function saveRestaurant(){
+    async function changeSaveRestaurant(){
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add/`, {
             method: 'PATCH',
             headers: {
@@ -79,16 +86,6 @@ export default function RestaurantsSeen(){
               .then(response => {return response.json()})
         }
     
-        async function undoSaveRestaurant(event:any){
-            const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/remove/`, {
-                method: 'PATCH',
-                headers: {
-                  "Content-Type": "application/json" , 
-                },
-                body: JSON.stringify({uid: uid, restaurantId: restaurantId})
-              })
-                  .then(response => {return response.json()})
-            }
 
         function filterToUniqueRestaurants (myArr:any, key:string){
             let filteredHistory =  myArr.filter((obj:any, pos:any, arr:any) => {
