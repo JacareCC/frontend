@@ -67,7 +67,6 @@ useEffect(()=>{
             });
         }
     }
-    console.log(searchObject);
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
 useEffect(()=>{
@@ -77,7 +76,6 @@ useEffect(()=>{
     else {
         setSearchAvailable(false);
     }
-    console.log(searchObject);
 }, [location, cuisineType]);
 
 useEffect(() =>{
