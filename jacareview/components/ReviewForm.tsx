@@ -71,14 +71,12 @@ useEffect(() => {
     setValue('verified', false);
 }, [userUid, restaurantPlaceId])
 
+const placeholderString: string = "Please leave your opinion"
 //handler
 
     return (
         <div className="w-[100vw] flex justify-center">
             <form className="w-[100vw] flex flex-col" onSubmit={handleSubmit(onSubmitHandler)}>
-                <br/>
-                <br/>
-                <br/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">General Points</h2>
                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />
@@ -86,29 +84,29 @@ useEffect(() => {
                 <FormFivePoints register={register} name='atmosphere' title='Atmosphere' />
                 <FormFivePoints register={register} name='food_quality' title='Food Quality' />
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">Accessibility Points</h2>
-                <TextInput register={register} name='parking' title='Parking lot' />
-                <TextInput register={register} name='public_transit_access'title="Public transit access" />
-                <TextInput register={register} name='findability' title='Findability' />
-                <TextInput register={register} name='disability_access' title ='Disability Access' />
+                <TextInput register={register} name='parking' title='Parking lot' placeholder={placeholderString}/>
+                <TextInput register={register} name='public_transit_access'title="Public transit access" placeholder={placeholderString}/>
+                <TextInput register={register} name='findability' title='Findability' placeholder={placeholderString}/>
+                <TextInput register={register} name='disability_access' title ='Disability Access' placeholder={placeholderString}/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">Food quality Points</h2>
-                <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' />
-                <TextInput register={register} name='amount_of_food' title="Portion size" />
-                <TextInput register={register} name='presentation' title='Presentation' />
-                <TextInput register={register} name='drink_menu' title="Drink Menu" />
+                <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder={placeholderString}/>
+                <TextInput register={register} name='amount_of_food' title="Portion size" placeholder={placeholderString}/>
+                <TextInput register={register} name='presentation' title='Presentation' placeholder={placeholderString}/>
+                <TextInput register={register} name='drink_menu' title="Drink Menu" placeholder={placeholderString}/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">Customer service Points</h2>
-                <TextInput register={register} name='staff_knowledge' title="Staff knowledge" />
-                <TextInput register={register} name='courtesy' title="Courtesy" />
-                <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" />
-                <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" />
-                <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' />
-                <TextInput register={register} name='dietary_description' title="Dietary Description" />
+                <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder={placeholderString}/>
+                <TextInput register={register} name='courtesy' title="Courtesy" placeholder={placeholderString}/>
+                <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" placeholder={placeholderString}/>
+                <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" placeholder={placeholderString}/>
+                <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' placeholder={placeholderString}/>
+                <TextInput register={register} name='dietary_description' title="Dietary Description" placeholder={placeholderString}/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">Atmosphere Points</h2>
-                <TextInput register={register} name='interior_design' title='Interior Design' />
-                <TextInput register={register} name='exterior_design' title='Exterior Design' />
-                <TextInput register={register} name='cleanliness' title='Cleanliness' />
-                <TextInput register={register} name='comfort' title="Comfort" />
+                <TextInput register={register} name='interior_design' title='Interior Design' placeholder={placeholderString}/>
+                <TextInput register={register} name='exterior_design' title='Exterior Design' placeholder={placeholderString}/>
+                <TextInput register={register} name='cleanliness' title='Cleanliness' placeholder={placeholderString}/>
+                <TextInput register={register} name='comfort' title="Comfort" placeholder={placeholderString}/>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">Value for price Points</h2>
-                <TextInput register={register} name='competitive_price'title="Competitive price" />
+                <TextInput register={register} name='competitive_price'title="Competitive price" placeholder={placeholderString}/>
                 <button className=" mx-8 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600" type="submit">Submit</button>
             </form>
         </div>

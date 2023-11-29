@@ -5,22 +5,30 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import SignOut from "./header_components/SignOut";
+import GoogleMap from "./GoogleMap";
 
-export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSingleClicked: any, idForFetch:string}){
+export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited}:
+  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
-    const [dataForChart, setDataForChart] = useState<any> (null)
+    const [dataForChart, setDataForChart] = useState<any> (null);
+    const [placeId, setPlaceId] = useState<string | null>(null)
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
+      if(pageVisited){
         fetchRestaurantData();
         postHistory();
-    }, []);
+      }
+    }, [pageVisited]);
 
     useEffect(()=>{
       if(singleRestaurantData){
+        
       console.log(singleRestaurantData)
       }
     },[singleRestaurantData]);
@@ -29,6 +37,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
     //helper
     function goBack(){
         setSingleClicked((prev:boolean) => !prev);
+        setPageVisited((prev:boolean) => !prev);
     }
 
     interface postObject {
@@ -40,28 +49,31 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
         restaurant_id: idForFetch,
         uid: user?.uid,
     }
-    
+   
+  function doughtnutData(dataPercentage:number){
     const data = {
         labels: [],
         datasets: [
           {
-            data: [300, 50, 100, 40, 200],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
+            data: [dataPercentage],
+            backgroundColor: ['#FF6384'],
+            hoverBackgroundColor: ['#FF6384'],
           },
         ],
-      };
+      }
+      return data;
+    }
 
-    const options = {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-          position: 'right',
-        },
-        
-      };
+ const options = {
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        position: 'right',
+      },
+    };
 
-    const doughnutLabel = {
+function doughnutLabel(text:string){
+    const doughnutLabelText = {
         id: "doughtnutLabel",
         beforeDataSetsDraw(chart:any, args:any, pluginOptions:any){
             const {ctx, data} = chart;
@@ -73,12 +85,12 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
             ctx.fillStyle = '#FF6384';
             ctx.textAlign = "center"
             ctx.textBaseline = "middle"
-            ctx.fillText("text", xCoor, yCoor);
-            
+            ctx.fillText(text, xCoor, yCoor);   
         }
-
-    
     }
+    return doughnutLabelText;
+  }
+  
 
     async function fetchRestaurantData (){
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}restaurant/${idForFetch}`, {
@@ -88,7 +100,7 @@ export default function SingleRestaurant({setSingleClicked, idForFetch}:{setSing
             }
           })
               .then(response => {return response.json()})
-              .then(data => {setSingleRestaurantData(data) })
+              .then(data => {setSingleRestaurantData(data.success); setPlaceId(data.success.place_id) })
 }
 
 async function postHistory() {
@@ -111,18 +123,15 @@ async function postHistory() {
        options={options}
        plugins={[doughnutLabel]}
        /> */}
+       <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-4xl font-bold mb-6">{singleRestaurantData.name}</h1>
+      <GoogleMap apiKey={apiKey} placeId={placeId} />
+        </div>
         </div>)
         
         }
-        <div>
-         <Doughnut
-       data={data}
-       options={options}
-       plugins={[doughnutLabel]}
-       />
-        </div>
+        
         <button onClick={goBack}>Back</button>
-        <SignOut/>
         </>
     )
 }

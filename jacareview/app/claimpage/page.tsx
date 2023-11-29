@@ -8,29 +8,16 @@ import '../globals.css'
 import ReviewForm from "@/components/ReviewForm";
 import Navbar from "@/components/Navbar";
 // import { getDisplayName } from "next/dist/shared/lib/utils";
+import ClaimForm from "@/components/ClaimForm";
 
-export default function ReviewPage() {
+
+export default function ClaimPage() {
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
     const [userUid, setUserUid] = useState<String | null> (null)
-    const [restaurantPlaceId, setRestarantPlaceId] = useState<string | null>(null)
-    const restaurantName = 'aaa' //need to pass the restaurant's name
-    const params = useSearchParams()
-    const restaurant = params.get("restaurant");
     const router = useRouter();
-    
-  
-
-    useEffect(()=>{
-        setRestarantPlaceId(restaurant);
-    },[])
-    
-    useEffect(()=>{
-        console.log(restaurantPlaceId);
-    },[restaurantPlaceId])
-    
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -46,7 +33,7 @@ export default function ReviewPage() {
     return (
         <>
             <Navbar /> 
-            <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
+            <ClaimForm userUid={String(userUid)}  />
         </>
     )
 
