@@ -66,11 +66,7 @@ useEffect(()=>{
                 setLocation({ latitude, longitude });
             });
         }
-        if(price < 1 || isNaN(distanceToTravel) || isNaN(amountOfOptions)){
-            setLocation(null);
-        }
     }
-    console.log(searchObject);
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
 useEffect(()=>{
