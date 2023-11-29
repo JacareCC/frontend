@@ -67,6 +67,7 @@ useEffect(()=>{
             });
         }
     }
+    console.log(searchObject);
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
 useEffect(()=>{
