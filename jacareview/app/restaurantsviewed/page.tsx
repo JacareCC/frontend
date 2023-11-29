@@ -14,6 +14,7 @@ export default function RestaurantsSeen(){
     const [historyDataFiltered, setHistoryDataFiltered] = useState<any>(null);
     const [uid, setUid] = useState<string|null |undefined> (null);
     const [restaurantId, setRestaurantId] = useState<string|null>(null);
+    const [historyId, setHistoryId] = useState<number | null> (null);
 
     initFirebase();
     const auth = getAuth(); 
@@ -27,19 +28,24 @@ export default function RestaurantsSeen(){
     }, [user]);
 
     useEffect(()=>{
+        if(uid){
         getHistoryData();
+        }
     }, [uid])
 
     useEffect(() => {
         if(historyData){
             filterToUniqueRestaurants(historyData, "restaurant_id_id");
         }
-        console.log(historyData);
+        console.log(historyData)
     }, [historyData]);
 
     useEffect(() => {
-        console.log(historyDataFiltered);
-    }, [historyDataFiltered]);
+        if(restaurantId){
+            saveRestaurant();
+            window.location.reload()
+        }
+    }, [restaurantId]);
 
     //helper 
     async function getHistoryData(){
@@ -54,22 +60,26 @@ export default function RestaurantsSeen(){
               .then(data => {setHistoryData(data.success) });
         }
 
-    async function saveRestaurant(event:any){
-        const restaurantIdString:string = event.target.getAttribute("a-key");
+    function getRestaurantID(event:any){
+            const restaurantIdString:string = event.target.getAttribute("a-key");
+            const historyIdNumber:number = event.target.getAttribute("b-key");
             setRestaurantId(restaurantIdString);
-            const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add/`, {
-                method: 'PATCH',
-                headers: {
-                  "Content-Type": "application/json" , 
-                },
-                body: JSON.stringify({uid: uid, restaurantId: restaurantId})
-              })
-                  .then(response => {return response.json()})
+            setHistoryId(historyIdNumber);
+
+    }
+
+    async function saveRestaurant(){
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add/`, {
+            method: 'PATCH',
+            headers: {
+              "Content-Type": "application/json" , 
+            },
+            body: JSON.stringify({uid: uid, restaurantId: restaurantId, id:historyId})
+          })
+              .then(response => {return response.json()})
         }
     
         async function undoSaveRestaurant(event:any){
-            const restaurantIdString:string = event.target.getAttribute("a-key");
-            setRestaurantId(restaurantIdString);
             const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/remove/`, {
                 method: 'PATCH',
                 headers: {
@@ -99,14 +109,15 @@ export default function RestaurantsSeen(){
     <div>Loading ...</div>:
     <div>{historyData.length === 0 ? <div>No Restaurants Visited</div>:
             <div>
-                {historyDataFiltered.map((element:any, index:number) => {
+                {historyDataFiltered && (historyDataFiltered.map((element:any, index:number) => {
                 return <div key={`b${index}`}>
                 <div key={`c${index}`}>Restaurant: {element.name} </div>
                 <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format('MM/DD/YYYY')}</div>
                 <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`}>Review</Link>
-                {!element.saved ? <button onClick={saveRestaurant} a-key={element.restaurant_id_id}>Save</button>:<button onClick={undoSaveRestaurant} a-key={element.restaurant_id_id}>Unsave</button>}
+                {!element.saved ? <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id}>Save</button>:
+                <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id}>Unsave</button>}
                 </div>
-            })}
+            }))}
             </div>}
             </div>
         }
