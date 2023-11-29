@@ -76,6 +76,7 @@ useEffect(()=>{
     else {
         setSearchAvailable(false);
     }
+
 }, [location, cuisineType]);
 
 useEffect(() =>{
@@ -96,7 +97,7 @@ function handleCuisineAdd(event:any) {
         if(cuisineTypeAdded === "Ice Cream"){
             cuisineToSend = "ice_cream_shop"
         }
-        if(cuisineTypeAdded === "All"){
+        if(cuisineTypeAdded === "Any"){
             cuisineToSend = "restaurant"
         }
         if(cuisineTypeAdded === "Fast Food"){
