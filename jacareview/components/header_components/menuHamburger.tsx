@@ -1,6 +1,12 @@
 import { Fragment, useState } from 'react';
 import { Popover, Transition, Dialog } from '@headlessui/react';
-import { Bars3Icon, UserCircleIcon, MagnifyingGlassIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/20/solid';
+import { Bars3Icon, 
+    UserCircleIcon, 
+    MagnifyingGlassIcon, 
+    ArrowLeftOnRectangleIcon,
+    BriefcaseIcon,
+    BookmarkIcon,
+    CursorArrowRaysIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import { getAuth, signOut } from 'firebase/auth';
 import LogoutConfirm from './LogoutConfirm';
@@ -8,6 +14,9 @@ import LogoutConfirm from './LogoutConfirm';
 const solutions = [
   { name: 'Profile',  href: '/userpage', icon: UserCircleIcon },
   { name: 'Search',  href: '/searchpage', icon: MagnifyingGlassIcon },
+  { name: 'My Business',  href: '/mybusiness', icon: BriefcaseIcon },
+  { name: 'Saved Restaurants',  href: '/savedrestaurants', icon: BookmarkIcon },
+  { name: 'Viewed Restaraunts',  href: '/restaurantsviewed', icon: CursorArrowRaysIcon },
   { name: 'Logout', href: '#', icon: ArrowLeftOnRectangleIcon },
 ];
 

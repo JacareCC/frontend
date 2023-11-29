@@ -186,89 +186,110 @@ async function handleSubmitWithLocation(){
         <>{!user ?<div>Loading...</div> : <>
         { !resultsFetched ?
         <>
-        <div>Welcome {user?.displayName}</div>
-        <select onChange={handleDistanceToTravel}>
-            <option value="">Choose Travel Distance</option>
-            <option>5km</option>
-            <option>10km</option>
-            <option>15km</option>
-            <option>20km</option>
-            <option>30km</option>
-            <option>40km</option>
-            <option>50km</option>
-        </select>
-        <select onChangeCapture={handleCuisineAdd}>
-            <option value="">Choose Cuisine(s)</option>
-                <option>Any</option>
-                <option>American</option>
-                <option>Brazilian</option>
-                <option>Chinese</option>
-                <option>French</option>
-                <option>Greek</option>
-                <option>Indian</option>
-                <option>Indonesian</option>
-                <option>Italian</option>
-                <option>Japanese</option>
-                <option>Korean</option>
-                <option>Lebanese</option>
-                <option>Mediterranean</option>
-                <option>Mexican</option>
-                <option>Middle Eastern</option>
-                <option>Spanish</option>
-                <option>Thai</option>
-                <option>Turkish</option>
-                <option>Vietnamese</option>
-                </select>
-        <select onChange={handleCuisineAdd}>
-            <option value="">Choose Shop Type(Optional)</option>
-            <option>Bakery</option>
-            <option>Bar</option>
-            <option>Breakfast</option>
-            <option>Brunch</option>
-            <option>Cafe</option>
-            <option>Fast Food</option>
-            <option>Hamburger</option>
-            <option>Ice Cream</option>
-            <option>Pizza</option>
-            <option>Ramen</option>
-            <option>Sandwich Shop</option>
-            <option>Steak House</option>
-            <option>Sushi</option>
-        </select>
-        <select onChange={handleCuisineAdd}>
-            <option value="">Dietary Options(Optional)</option>
-            <option>Vegetarian</option>
-            <option>Vegan</option>
-            <option>Seafood</option>
-        </select>
-        <select onChange={handlePrice}>
-            <option value="">Choose Max Price</option>
-            <option>$</option>
-            <option>$$</option>
-            <option>$$$</option>
-            <option>$$$$</option>
-        </select>
-        <select  onChange={handleAmountOfOptions} >
-            <option value="">How Many Results?</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <select  onChange={handleOpen} >
-            <option value="">Open Now?</option>
-            <option>Yes</option>
-            <option>No</option>
-        </select>
-        {cuisineTypeList.length > 0 && (<ol><ul>Click To Remove</ul>{ cuisineTypeList.map((element, index )=> <ul onClick={handleCuisineRemoval}
+        <h2 className="font-semibold p-2 shadow-md bg-green-50">Choose your preferencies</h2>
+        <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
+            <label className="">Distance:</label>
+            <select className="" onChange={handleDistanceToTravel}>
+                <option>5km</option>
+                <option>10km</option>
+                <option>15km</option>
+                <option>20km</option>
+                <option>30km</option>
+            </select>
+        </div>
+        <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
+        <label className="">Price:</label>
+            <select onChange={handlePrice}>
+                <option>$</option>
+                <option>$$</option>
+                <option>$$$</option>
+                <option>$$$$</option>
+            </select>
+        </div>
+        <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
+            <label className="">Open Now?</label>
+            <select  onChange={handleOpen} >
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+        <div className=" px-8 flex justify-between p-3 w-100">
+            <label className="">How Many Results:</label>
+            <select onChange={handleAmountOfOptions} >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <h2 className="font-semibold p-2 shadow-md bg-green-50">Choose at least one of the following options</h2>
+        <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
+            <label className="">Cuisine:</label>
+            <select onChangeCapture={handleCuisineAdd}>
+                    <option>Any</option>
+                    <option>American</option>
+                    <option>Brazilian</option>
+                    <option>Chinese</option>
+                    <option>French</option>
+                    <option>Greek</option>
+                    <option>Indian</option>
+                    <option>Indonesian</option>
+                    <option>Italian</option>
+                    <option>Japanese</option>
+                    <option>Korean</option>
+                    <option>Lebanese</option>
+                    <option>Mediterranean</option>
+                    <option>Mexican</option>
+                    <option>Middle Eastern</option>
+                    <option>Spanish</option>
+                    <option>Thai</option>
+                    <option>Turkish</option>
+                    <option>Vietnamese</option>
+            </select>
+        </div>
+        <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
+            <label className="">Shop type:</label>
+            <select onChange={handleCuisineAdd}>
+                <option>Bakery</option>
+                <option>Bar</option>
+                <option>Breakfast</option>
+                <option>Brunch</option>
+                <option>Cafe</option>
+                <option>Fast Food</option>
+                <option>Hamburger</option>
+                <option>Ice Cream</option>
+                <option>Pizza</option>
+                <option>Ramen</option>
+                <option>Sandwich Shop</option>
+                <option>Steak House</option>
+                <option>Sushi</option>
+            </select>
+        </div>
+        <div className= "px-8 flex justify-between p-3 w-100">
+        <label className="">Dietary Options:</label>
+            <select onChange={handleCuisineAdd}>
+                <option>Vegetarian</option>
+                <option>Vegan</option>
+                <option>Seafood</option>
+            </select>
+        </div>
+        {cuisineTypeList.length > 0 && (<ol className="" >
+            <ul className="font-semibold p-2 shadow-md bg-green-50">Click on the item to remove</ul>{ cuisineTypeList.map((element, index )=> 
+            <ul className="flex p-1 border-b" onClick={handleCuisineRemoval}
         key={index} a-key={index}>{element}</ul>)
         }</ol>)}
         { searchAvailable ?
-        <button onClick={handleSubmitWithLocation}>Search</button> : <button>Search</button>}
+        <div className="w-100">
+            <button className="w-100 mx-8 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600" onClick={handleSubmitWithLocation}>Search</button> 
+        </div>
+            : 
+        <div className="w-100">
+            <button className="mx-10 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 w-80 hover:bg-emerald-600">Search</button>
+        </div>
+            }
         </>
       : <ResultList results={results}/>} </>}
-      <SignOut/>
         </>
         </div>
     )
