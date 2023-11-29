@@ -56,8 +56,8 @@ export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisi
         datasets: [
           {
             data: [dataPercentage],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733'],
+            backgroundColor: ['#FF6384'],
+            hoverBackgroundColor: ['#FF6384'],
           },
         ],
       }
@@ -130,12 +130,7 @@ async function postHistory() {
         </div>)
         
         }
-        <div>
-         <Doughnut
-       data={doughtnutData(1)}
-       options={options}
-       />
-        </div>
+        
         <button onClick={goBack}>Back</button>
         </>
     )
