@@ -99,14 +99,14 @@ export default function RestaurantsSeen(){
     <div>Loading ...</div>:
     <div>{historyData.length === 0 ? <div>No Restaurants Visited</div>:
             <div>
-                {historyDataFiltered > 0 && (historyDataFiltered.map((element:any, index:number) => {
+                {historyDataFiltered.map((element:any, index:number) => {
                 return <div key={`b${index}`}>
                 <div key={`c${index}`}>Restaurant: {element.name} </div>
                 <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format('MM/DD/YYYY')}</div>
                 <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`}>Review</Link>
                 {!element.saved ? <button onClick={saveRestaurant} a-key={element.restaurant_id_id}>Save</button>:<button onClick={undoSaveRestaurant} a-key={element.restaurant_id_id}>Unsave</button>}
                 </div>
-            }))}
+            })}
             </div>}
             </div>
         }
