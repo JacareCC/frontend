@@ -70,9 +70,6 @@ useEffect(()=>{
             setLocation(null);
         }
     }
-    else {
-        setLocation(null)
-    }
     console.log(searchObject);
 },[ cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
 
