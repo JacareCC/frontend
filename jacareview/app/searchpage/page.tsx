@@ -76,6 +76,7 @@ useEffect(()=>{
     else {
         setSearchAvailable(false);
     }
+    console.log(searchObject);
 }, [location, cuisineType]);
 
 useEffect(() =>{
@@ -89,7 +90,6 @@ useEffect(() =>{
 function handleCuisineAdd(event:any) {
     let cuisineTypeAdded:string = event.target.value;
     let cuisineToSend: string = ""
-    console.log(cuisineTypeAdded);
     if(!cuisineTypeList.includes(event.target.value)){
         setCuisineTypeList((oldArray => [...oldArray, event.target.value]))
     }
@@ -125,7 +125,6 @@ function handleCuisineRemoval (event:any){
      let indexNumber: number = parseInt(indexString)
      const newCuisineTypeList: string[] = [...cuisineTypeList];
      newCuisineTypeList.splice(indexNumber, 1);
-     console.log(newCuisineTypeList)
      setCuisineTypeList(newCuisineTypeList);
     const newCuisineTypeArray: string[] = [...cuisineType];
     newCuisineTypeArray.splice(indexNumber, 1) 
