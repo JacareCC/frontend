@@ -52,7 +52,7 @@ export default function ResultList({results}:{results:any}){
         resultArray.map((element:any, index:number) => {
             return <div key={`b${index}`} onClick={setView} >
             <div  a-key={element.id} key={index}>{element.displayName.text}</div>
-            <div a-key={element.id} key ={`a${index}`}>About: {getDistanceInApproxKm(element?.location, location)} km</div>
+            <div a-key={element.id} key ={`a${index}`}>Distance: {element.location ? getDistanceInApproxKm(element.location, location): "unknown"} km</div>
             </div>
         }) :
         
