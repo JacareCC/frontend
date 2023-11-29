@@ -4,7 +4,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
-import RestaurantsSeen from "@/components/RestaurantsSeen";
 import '../globals.css'
 import Navbar from "@/components/Navbar";
 export default function UserPage(){
@@ -14,11 +13,25 @@ export default function UserPage(){
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
 
+    function toRestaurantsSeen(){
+        router.push("/restaurantsviewed");
+    }
+
+    function toSavedRestaurants(){
+        router.push("/savedrestaurants");
+    }
+
+    function toClaimPage(){
+        router.push("/claimpage");
+    }
 
     return(
         <div className="">
             <Navbar/> 
-            <RestaurantsSeen/>
+            <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
+            <div onClick={toSavedRestaurants}>Saved Restaurants</div>
+            <div onClick={toClaimPage}>Claim a Restaurant</div>
+            <></>
         </div>
     )
 }
