@@ -73,10 +73,6 @@ useEffect(()=>{
     if(location && cuisineType.length > 0){
         setSearchAvailable(true);
     }
-    else {
-        setSearchAvailable(false);
-    }
-
 }, [location, cuisineType]);
 
 useEffect(() =>{
