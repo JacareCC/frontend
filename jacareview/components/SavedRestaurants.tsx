@@ -42,7 +42,7 @@ export default function SavedRestaurants(){
     },[restaurantId]);
 
     useEffect(()=>{
-        if(refreshCount){
+        if(refreshCount === 200){
         window.location.reload();
         }
     },[refreshCount]);
@@ -75,7 +75,7 @@ async function getSavedRestaurants(){
             },
             body: JSON.stringify({uid: uid, restaurantId: restaurantId, id:historyId})
           })
-              .then(response => {return response.json()})
+              .then(response => {setRefreshCount(response.status); return response.json()})
         }
     
 

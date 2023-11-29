@@ -15,7 +15,7 @@ export default function RestaurantsSeen(){
     const [uid, setUid] = useState<string|null |undefined> (null);
     const [restaurantId, setRestaurantId] = useState<string|null>(null);
     const [historyId, setHistoryId] = useState<number | null> (null);
-    const [triggerRefresh, setTriggerRefresh] = useState<boolean>(false)
+    const [triggerRefresh, setTriggerRefresh] = useState<number | null>(null)
 
     initFirebase();
     const auth = getAuth(); 
@@ -38,18 +38,17 @@ export default function RestaurantsSeen(){
         if(historyData){
             filterToUniqueRestaurants(historyData, "restaurant_id_id");
         }
-        console.log(historyData)
+    
     }, [historyData]);
 
     useEffect(() => {
         if(restaurantId && historyId){
             changeSaveRestaurant();
-            setTriggerRefresh(true);
         }
     }, [restaurantId]);
 
     useEffect(() => {
-        if(triggerRefresh){
+        if(triggerRefresh === 200){
            window.location.reload();
         }
     }, [triggerRefresh]);
@@ -64,7 +63,7 @@ export default function RestaurantsSeen(){
             }
           })
               .then(response => {return response.json()})
-              .then(data => {setHistoryData(data.success) });
+              .then(data => {setHistoryData(data.success); setTriggerRefresh(data.status) });
         }
 
     function getRestaurantID(event:any){
@@ -83,7 +82,8 @@ export default function RestaurantsSeen(){
             },
             body: JSON.stringify({uid: uid, restaurantId: restaurantId, id:historyId})
           })
-              .then(response => {return response.json()})
+              .then(response => { setTriggerRefresh(response.status); return response.json()})
+              
         }
     
 
