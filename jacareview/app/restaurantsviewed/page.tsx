@@ -7,6 +7,7 @@ import moment from "moment";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
+import "../globals.css"
 
 export default function RestaurantsSeen(){
     const [historyData, setHistoryData] = useState<any>(null);
@@ -88,28 +89,28 @@ export default function RestaurantsSeen(){
         }
     
         function toProfilePage(){
-            router.push("/restaurantsvisited")
+            router.push("/userpage")
         }
 
     return (
-        <>
+        <div>
         <Navbar/>
         { !historyData ?
     <div>Loading ...</div>:
     <div>{historyData.length === 0 ? <div>No Restaurants Visited</div>:
             <div>
-                {historyDataFiltered.map((element:any, index:number) => {
+                {historyDataFiltered > 0 && (historyDataFiltered.map((element:any, index:number) => {
                 return <div key={`b${index}`}>
                 <div key={`c${index}`}>Restaurant: {element.name} </div>
                 <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format('MM/DD/YYYY')}</div>
                 <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`}>Review</Link>
                 {!element.saved ? <button onClick={saveRestaurant} a-key={element.restaurant_id_id}>Save</button>:<button onClick={undoSaveRestaurant} a-key={element.restaurant_id_id}>Unsave</button>}
                 </div>
-            })}
+            }))}
             </div>}
             </div>
         }
     <button onClick={toProfilePage}>Back to Profile</button>
-    </>
+    </div>
     )
 }

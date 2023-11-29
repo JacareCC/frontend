@@ -28,7 +28,7 @@ const ClaimForm: React.FC<ClaimFormProps> = ({ userUid }) => {
 
 
     const onSubmitHandler = async (data: ClaimData) => {
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/business/claim`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/claim`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

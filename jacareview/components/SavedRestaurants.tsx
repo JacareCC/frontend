@@ -4,6 +4,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
+import Navbar from "./Navbar";
+
 
 export default function SavedRestaurants(){
     const [savedData, setSavedData] = useState<any>(null);
@@ -79,6 +81,7 @@ async function getSavedRestaurants(){
 
     return (
     <div>
+        <Navbar/>
         {savedData === "No saved restaurants" && (
             <div>No saved restaurants</div>
         )}
