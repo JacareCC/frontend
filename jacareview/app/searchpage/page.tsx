@@ -73,10 +73,6 @@ useEffect(()=>{
     if(location && cuisineType.length > 0){
         setSearchAvailable(true);
     }
-    else {
-        setSearchAvailable(false);
-    }
-
 }, [location, cuisineType]);
 
 useEffect(() =>{
@@ -183,7 +179,7 @@ async function handleSubmitWithLocation(){
         <h2 className="font-semibold p-2 shadow-md bg-green-50">Choose your preferencies</h2>
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Distance:</label>
-            <select className="" onChange={handleDistanceToTravel}>
+            <select className="" onClick={handleDistanceToTravel} onChange={handleDistanceToTravel}>
                 <option></option>
                 <option>5km</option>
                 <option>10km</option>
@@ -194,7 +190,7 @@ async function handleSubmitWithLocation(){
         </div>
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
         <label className="">Price:</label>
-            <select onChange={handlePrice}>
+            <select onClick={handlePrice} onChange={handlePrice}>
                 <option></option>
                 <option>$</option>
                 <option>$$</option>
@@ -204,7 +200,7 @@ async function handleSubmitWithLocation(){
         </div>
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Open Now?</label>
-            <select  onChange={handleOpen} >
+            <select onClick={handleOpen} onChange={handleOpen} >
             <option></option>
                 <option>Yes</option>
                 <option>No</option>
@@ -212,7 +208,7 @@ async function handleSubmitWithLocation(){
         </div>
         <div className=" px-8 flex justify-between p-3 w-100">
             <label className="">How Many Results:</label>
-            <select onChange={handleAmountOfOptions} >
+            <select onClick={handleAmountOfOptions} onChange={handleAmountOfOptions} >
             <option></option>
                 <option>1</option>
                 <option>2</option>
@@ -224,7 +220,7 @@ async function handleSubmitWithLocation(){
         <h2 className="font-semibold p-2 shadow-md bg-green-50">Choose at least one of the following options</h2>
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Cuisine:</label>
-            <select onChangeCapture={handleCuisineAdd}>
+            <select onClick={handleCuisineAdd} onChange={handleCuisineAdd}>
             <option></option>
                     <option>Any</option>
                     <option>American</option>
@@ -249,7 +245,7 @@ async function handleSubmitWithLocation(){
         </div>
         <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
             <label className="">Shop type:</label>
-            <select onChange={handleCuisineAdd}>
+            <select onClick={handleCuisineAdd} onChange={handleCuisineAdd}>
             <option></option>
                 <option>Bakery</option>
                 <option>Bar</option>
@@ -268,7 +264,7 @@ async function handleSubmitWithLocation(){
         </div>
         <div className= "px-8 flex justify-between p-3 w-100">
         <label className="">Dietary Options:</label>
-            <select onChange={handleCuisineAdd}>
+            <select onClick={handleCuisineAdd} onChange={handleCuisineAdd}>
             <option></option>
                 <option>Vegetarian</option>
                 <option>Vegan</option>
