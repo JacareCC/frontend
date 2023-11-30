@@ -13,6 +13,7 @@ import Image from "next/image";
 import googleIcon from '../public/google.png'
 import { Check } from 'lucide-react'
 
+
 export default function Home() {
   const [uid, setUid] = useState<string | null | undefined>(null);
   const [statusCode, setStatusCode] = useState<number | null> (null)

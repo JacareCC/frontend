@@ -15,17 +15,20 @@ export default function ResultList({
   const [singleClicked, setSingleClicked] = useState<boolean>(false);
   const [idForFetch, setIdForFetch] = useState<string>("");
   const [pageVisited, setPageVisited] = useState<boolean>(false);
+  const [resultArrayLength, setResultArrayLength] = useState<number | null>(null);
+  
 
   useEffect(() => {
     setResultArray(results.result);
+    setResultArrayLength(results.result.length);
   }, []);
 
   useEffect(() => {
     if (resultArray) {
       setPropFetched(true);
     }
-    console.log(resultArray);
   }, [resultArray]);
+  
 
   //handler
 
@@ -42,40 +45,47 @@ export default function ResultList({
     point1: GeolibInputCoordinates,
     point2: GeolibInputCoordinates
   ) {
-    console.log("point 2: ", point2);
     const metersDistance = getPreciseDistance(point1, point2);
+
+    if (metersDistance >= 1000){
     let kmDistance = metersDistance / 1000;
-    let kmDistanceInString = kmDistance.toFixed(2);
+    let kmDistanceInString = kmDistance.toFixed(2) + " km";
     return kmDistanceInString;
   }
+  else{
+    return `${metersDistance} m`
+  }
+}
 
   return (
     <>
-      {propFetched && !singleClicked && resultArray.length > 0 ? (
-        resultArray.map((element: any, index: number) => {
-          return (
-            <div key={`b${index}`} onClick={setView}>
-              <div a-key={element.id} key={index}>
-                {element.displayName.text}
-              </div>
-              <div a-key={element.id} key={`a${index}`}>
-                Distance:{" "}
-                {element.location
-                  ? getDistanceInApproxKm(element.location, location)
-                  : "unknown"}{" "}
-                km
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <SingleRestaurant
-          pageVisited={pageVisited}
-          setPageVisited={setPageVisited}
-          setSingleClicked={setSingleClicked}
-          idForFetch={idForFetch}
-        />
-      )}
+      {propFetched && !singleClicked ? (
+    resultArray.length > 1 ? (
+    resultArray.map((element: any, index: number) => (
+      <div key={`b${index}`} onClick={setView}>
+        <div a-key={element.id} key={index}>
+          {element.displayName.text}
+        </div>
+        <div a-key={element.id} key={`a${index}`}>
+          Distance:{" "}
+          {element.location
+            ? getDistanceInApproxKm(element.location, location)
+            : "unknown"}{" "}
+          km
+        </div>
+      </div>
+    ))
+  ) : (
+    <SingleRestaurant
+      pageVisited={pageVisited}
+      setPageVisited={setPageVisited}
+      setSingleClicked={setSingleClicked}
+      idForFetch={`${resultArray[0]?.id}`}
+      resultArrayLength= {resultArrayLength}
+    />
+  )
+) : null}
+
     </>
   );
 }

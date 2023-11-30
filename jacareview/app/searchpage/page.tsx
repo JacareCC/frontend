@@ -5,22 +5,24 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import ResultList from "@/components/ResultList";
-import SignOut from "@/components/header_components/SignOut";
+import ColorChangingButton from "@/components/ColorChangingButton";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
+import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
+import LoadingAnimation from "@/components/loading/Loading";
 
 export default function SearchPage() {
   const [location, setLocation] = useState<any>(null);
-  const [cuisineType, setCuisineType] = useState<string[]>([]);
-  const [cuisineTypeList, setCuisineTypeList] = useState<string[]>([]);
-  const [price, setPrice] = useState<number | null>(null);
-  const [openNow, setOpenNow] = useState<boolean | null>(null);
-  const [amountOfOptions, setAmountOfOptions] = useState<number | null>(null);
-  const [distanceToTravel, setDistanceToTravel] = useState<number | null>(null);
+  const [cuisineType, setCuisineType] = useState<string[]>(["restaurant"]);
+  const [price, setPrice] = useState<number | null>(2);
+  const [openNow, setOpenNow] = useState<boolean | null>(true);
+  const [amountOfOptions, setAmountOfOptions] = useState<number | null>(3);
+  const [distanceToTravel, setDistanceToTravel] = useState<number | null>(500);
   const [resultsFetched, setResultsFetched] = useState<boolean>(false);
-  const [searchAvailable, setSearchAvailable] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
   const [results, setResults] = useState<any>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
+  const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
 
   initFirebase();
   const auth = getAuth();
@@ -29,8 +31,6 @@ export default function SearchPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
     } else {
       router.push("/");
@@ -56,13 +56,13 @@ export default function SearchPage() {
   };
 
   useEffect(() => {
-    if (
-      cuisineType.length > 0 &&
-      price &&
-      openNow !== null &&
-      amountOfOptions &&
-      distanceToTravel
-    ) {
+    // if (
+    //   cuisineType.length > 0 &&
+    //   price &&
+    //   openNow !== null &&
+    //   amountOfOptions &&
+    //   distanceToTravel
+    // ) {
       if ("geolocation" in navigator) {
         // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
         navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -70,16 +70,24 @@ export default function SearchPage() {
           setLocation({ latitude, longitude });
         });
       }
-    }
-  }, [cuisineType, price, openNow, amountOfOptions, distanceToTravel]);
+    // }
+  }, []);
+  
 
-  useEffect(() => {
-    if (location && cuisineType.length > 0) {
-      setSearchAvailable(true);
-    } else {
-      setSearchAvailable(false);
+//   cuisineType, price, openNow, amountOfOptions, distanceToTravel
+//   useEffect(() => {
+//     // if (location && cuisineType.length > 0) {
+//     //   setSearchAvailable(true);
+//     // } else {
+//     //   setSearchAvailable(false);
+//     // }
+//   }, [location, cuisineType]);
+
+useEffect(() => {
+    if (results) {
+      setResultsFetched(true);
     }
-  }, [location, cuisineType]);
+  }, [location]);
 
   useEffect(() => {
     if (results) {
@@ -87,14 +95,37 @@ export default function SearchPage() {
     }
   }, [results]);
 
-  //handlers for Change
+  useEffect(() => {
+    console.log(cuisineType)
+    console.log(count)
+    console.log(includeOthers)
+  }, [cuisineType, count]);
+
+
+
+//   //handlers for Change
+  
+
   function handleCuisineAdd(event: any) {
-    let cuisineTypeAdded: string = event.target.value;
+    let cuisineTypeAdded: string = event.target.innerText;
     let cuisineToSend: string = "";
-    if (!cuisineTypeList.includes(event.target.value)) {
-      setCuisineTypeList((oldArray) => [...oldArray, event.target.value]);
+    // if (!cuisineTypeList.includes(event.target.value)) {
+    //   setCuisineTypeList((oldArray) => [...oldArray, event.target.value]);
+    // }
+    
+    if (cuisineTypeAdded === 'Vegan' || cuisineTypeAdded === "Vegetarian"){
+        if(!cuisineType.includes(cuisineTypeAdded)){
+        setCuisineType(["vegan_restaurant"])
+        }
+        if(cuisineTypeAdded === 'Vegetarian' && cuisineType.includes("vegan_restaurant")){
+            setCuisineType((oldArray) => [...oldArray, "vegetarian_restaurant"]);
+        }
+        else{
+        setCuisineType(["vegetarian_restaurant"]);
+        }
     }
 
+    if(includeOthers){
     if (cuisineTypeAdded === "Ice Cream") {
       cuisineToSend = "ice_cream_shop";
     }
@@ -122,60 +153,70 @@ export default function SearchPage() {
 
     if (!cuisineType.includes(cuisineToSend))
       setCuisineType((oldArray) => [...oldArray, cuisineToSend]);
+}
   }
 
-  function handleCuisineRemoval(event: any) {
-    let indexString: string = event.target.getAttribute("a-key");
-    let indexNumber: number = parseInt(indexString);
-    const newCuisineTypeList: string[] = [...cuisineTypeList];
-    newCuisineTypeList.splice(indexNumber, 1);
-    setCuisineTypeList(newCuisineTypeList);
-    const newCuisineTypeArray: string[] = [...cuisineType];
-    newCuisineTypeArray.splice(indexNumber, 1);
-    setCuisineType(newCuisineTypeArray);
-  }
+//   function handleCuisineRemoval(event: any) {
+//     let indexString: string = event.target.getAttribute("a-key");
+//     let indexNumber: number = parseInt(indexString);
+//     const newCuisineTypeList: string[] = [...cuisineTypeList];
+//     newCuisineTypeList.splice(indexNumber, 1);
+//     setCuisineTypeList(newCuisineTypeList);
+//     const newCuisineTypeArray: string[] = [...cuisineType];
+//     newCuisineTypeArray.splice(indexNumber, 1);
+//     setCuisineType(newCuisineTypeArray);
+//   }
 
-  function handleDistanceToTravel(event: any) {
-    let stringDistance = event.target.value;
-    let splitStringDistance = stringDistance.split("k")[0];
-    let parsedStringDistanceToKM = parseInt(splitStringDistance) * 1000;
-    setDistanceToTravel(parsedStringDistanceToKM);
-  }
+//   function handleDistanceToTravel(event: any) {
+//     let stringDistance = event.target.innerText;
+//     let splitStringDistance = stringDistance.split("k")[0];
+//     let parsedStringDistanceToKM = parseInt(splitStringDistance) * 1000;
+//     setDistanceToTravel(parsedStringDistanceToKM);
+//   }
 
-  function handlePrice(event: any) {
-    let priceString = event.target.value;
-    let priceNumber = priceString.length;
-    setPrice(priceNumber);
-  }
+//   function handlePrice(event: any) {
+//     let priceString = event.target.value;
+//     let priceNumber = priceString.length;
+//     setPrice(priceNumber);
+//   }
 
-  function handleOpen(event: any) {
-    if (event.target.value === "Yes") {
-      setOpenNow(true);
-    } else if (event.target.value === "No") {
-      setOpenNow(false);
-    }
-  }
+//   function handleOpen(event: any) {
+//     if (event.target.value === "Yes") {
+//       setOpenNow(true);
+//     } else if (event.target.value === "No") {
+//       setOpenNow(false);
+//     }
+//   }
 
-  function handleAmountOfOptions(event: any) {
-    const numberOfResults = parseInt(event.target.value);
-    setAmountOfOptions(numberOfResults);
-  }
+//   function handleAmountOfOptions(event: any) {
+//     const numberOfResults = parseInt(event.target.value);
+//     setAmountOfOptions(numberOfResults);
+//   }
+async function fetchRestaurants() {
+    
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}search/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchObject),
+      })
+        .then((response) => {
+          setStatusCode(response.status);
+          return response.json();
+        })
+        .then((data) => {
+          setResults(data);
+        });
+}
 
   async function handleSubmitWithLocation() {
-    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}search/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchObject),
-    })
-      .then((response) => {
-        setStatusCode(response.status);
-        return response.json();
-      })
-      .then((data) => {
-        setResults(data);
-      });
+    fetchRestaurants();
+  }
+
+  async function handleSubmitWithLocationOne() {
+    searchObject.amountOfOptions = 1;
+    fetchRestaurants();
   }
 
   return (
@@ -183,13 +224,40 @@ export default function SearchPage() {
       <Navbar />
       <>
         {!user ? (
-          <div>Loading...</div>
+          <LoadingAnimation/>
         ) : (
           <>
             {!resultsFetched ? (
               <>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">
-                  Choose your preferencies
+               <div className="min-h-screen bg-white font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
+                 {/* Section 1 */}
+                    <div className="flex items-center justify-center mb-8">
+                    <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
+                    <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
+                    </div>
+
+                {/* Section 2 */}
+                 <div className="flex flex-col items-center justify-center mb-8">
+                   <h1 className="text-4xl font-bold mb-6">Dietary Restrictions</h1>
+                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Include Other Cuisines"/>
+                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegan" />
+                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegetarian" />
+                 </div>
+
+                 {/* Section 3 */}
+                 <div className="flex flex-col items-center justify-center">
+                   <h1 className="text-4xl font-bold mb-6">Distance</h1>
+                   {/* <ColorChangingButton text="5 km" />
+                   <ColorChangingButton text="10 km" />
+                   <ColorChangingButton text="15 km" />
+                   <ColorChangingButton text="20 km" />
+                   <ColorChangingButton text="30 km" /> */}
+                 </div>
+             </div>
+    
+
+                {/* <h2 className="font-semibold p-2 shadow-md bg-green-50">
+                  Choose your preferences
                 </h2>
                 <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
                   <label className="">Distance:</label>
@@ -236,7 +304,7 @@ export default function SearchPage() {
                 </h2>
                 <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
                   <label className="">Cuisine:</label>
-                  <select onChangeCapture={handleCuisineAdd}>
+                  <select onChange={handleCuisineAdd}>
                     <option></option>
                     <option>Any</option>
                     <option>American</option>
@@ -319,7 +387,7 @@ export default function SearchPage() {
                       Search
                     </button>
                   </div>
-                )}
+                )} */}
               </>
             ) : (
               <ResultList results={results} location={location} />
