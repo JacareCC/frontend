@@ -9,7 +9,6 @@ const FunSearchButton: React.FC<FunSearchButtonProps> = ({fetchData, text}) => {
   const [isClicked, setClicked] = useState(false);
 
   const handleClick = () => {
-    setClicked(!isClicked);
     fetchData();
   };
 

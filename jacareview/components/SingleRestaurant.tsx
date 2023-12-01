@@ -5,9 +5,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import GoogleMap from "./GoogleMap";
+import PriceLevelComponent from "./priceLevel/PriceLevel";
 
-export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited, resultArrayLength}:
-  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any, resultArrayLength: number | null}){
+export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited, resultArrayLength, priceLevel}:
+  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any, resultArrayLength: number | null, priceLevel:any}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
     const [dataForChart, setDataForChart] = useState<any> (null);
     const [placeId, setPlaceId] = useState<string | null>(null)
@@ -129,6 +130,7 @@ async function postHistory() {
       <h1 className="text-4xl font-bold mb-6">{singleRestaurantData.name}</h1>
       <GoogleMap apiKey={apiKey} placeId={placeId} />
         </div>
+        <PriceLevelComponent priceLevel={priceLevel}/>
         </div>)
         
         }

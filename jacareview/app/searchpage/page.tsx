@@ -20,9 +20,11 @@ export default function SearchPage() {
   const [distanceToTravel, setDistanceToTravel] = useState<number | null>(500);
   const [resultsFetched, setResultsFetched] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [resetCount, setResetCount] = useState<number>(0);
   const [results, setResults] = useState<any>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
+  const [searchClicked, setSearchClicked] = useState<boolean>(false)
 
   initFirebase();
   const auth = getAuth();
@@ -95,66 +97,62 @@ useEffect(() => {
     }
   }, [results]);
 
-  useEffect(() => {
-    console.log(cuisineType)
-    console.log(count)
-    console.log(includeOthers)
-  }, [cuisineType, count]);
+  
 
 
 
 //   //handlers for Change
   
 
-  function handleCuisineAdd(event: any) {
-    let cuisineTypeAdded: string = event.target.innerText;
-    let cuisineToSend: string = "";
+//   function handleCuisineAdd(event: any) {
+//     let cuisineTypeAdded: string = event.target.innerText;
+//     let cuisineToSend: string = "";
     // if (!cuisineTypeList.includes(event.target.value)) {
     //   setCuisineTypeList((oldArray) => [...oldArray, event.target.value]);
     // }
     
-    if (cuisineTypeAdded === 'Vegan' || cuisineTypeAdded === "Vegetarian"){
-        if(!cuisineType.includes(cuisineTypeAdded)){
-        setCuisineType(["vegan_restaurant"])
-        }
-        if(cuisineTypeAdded === 'Vegetarian' && cuisineType.includes("vegan_restaurant")){
-            setCuisineType((oldArray) => [...oldArray, "vegetarian_restaurant"]);
-        }
-        else{
-        setCuisineType(["vegetarian_restaurant"]);
-        }
-    }
+//     if (cuisineTypeAdded === 'Vegan' || cuisineTypeAdded === "Vegetarian"){
+//         if(!cuisineType.includes(cuisineTypeAdded)){
+//         setCuisineType(["vegan_restaurant"])
+//         }
+//         if(cuisineTypeAdded === 'Vegetarian' && cuisineType.includes("vegan_restaurant")){
+//             setCuisineType((oldArray) => [...oldArray, "vegetarian_restaurant"]);
+//         }
+//         else{
+//         setCuisineType(["vegetarian_restaurant"]);
+//         }
+//     }
 
-    if(includeOthers){
-    if (cuisineTypeAdded === "Ice Cream") {
-      cuisineToSend = "ice_cream_shop";
-    }
-    if (cuisineTypeAdded === "Any") {
-      cuisineToSend = "restaurant";
-    }
-    if (cuisineTypeAdded === "Fast Food") {
-      cuisineToSend = "fast_food_restaurant";
-    }
-    if (cuisineTypeAdded === "Sandwich Shop") {
-      cuisineToSend = "sandwich_shop";
-    }
-    if (cuisineTypeAdded === "Steak House") {
-      cuisineToSend = "steak_house";
-    }
-    if (
-      cuisineTypeAdded === "Bar" ||
-      event.target.value === "Cafe" ||
-      event.target.value === "Bakery"
-    ) {
-      cuisineToSend = cuisineTypeAdded.toLowerCase();
-    } else if (cuisineToSend === "") {
-      cuisineToSend = cuisineTypeAdded.toLowerCase() + "_restaurant";
-    }
+//     if(includeOthers){
+//     if (cuisineTypeAdded === "Ice Cream") {
+//       cuisineToSend = "ice_cream_shop";
+//     }
+//     if (cuisineTypeAdded === "Any") {
+//       cuisineToSend = "restaurant";
+//     }
+//     if (cuisineTypeAdded === "Fast Food") {
+//       cuisineToSend = "fast_food_restaurant";
+//     }
+//     if (cuisineTypeAdded === "Sandwich Shop") {
+//       cuisineToSend = "sandwich_shop";
+//     }
+//     if (cuisineTypeAdded === "Steak House") {
+//       cuisineToSend = "steak_house";
+//     }
+//     if (
+//       cuisineTypeAdded === "Bar" ||
+//       event.target.value === "Cafe" ||
+//       event.target.value === "Bakery"
+//     ) {
+//       cuisineToSend = cuisineTypeAdded.toLowerCase();
+//     } else if (cuisineToSend === "") {
+//       cuisineToSend = cuisineTypeAdded.toLowerCase() + "_restaurant";
+//     }
 
-    if (!cuisineType.includes(cuisineToSend))
-      setCuisineType((oldArray) => [...oldArray, cuisineToSend]);
-}
-  }
+//     if (!cuisineType.includes(cuisineToSend))
+//       setCuisineType((oldArray) => [...oldArray, cuisineToSend]);
+// }
+//   }
 
 //   function handleCuisineRemoval(event: any) {
 //     let indexString: string = event.target.getAttribute("a-key");
@@ -205,196 +203,79 @@ async function fetchRestaurants() {
           setStatusCode(response.status);
           return response.json();
         })
-        .then((data) => {
+        .then((data) => { console.log(data);
           setResults(data);
         });
 }
 
   async function handleSubmitWithLocation() {
     fetchRestaurants();
+    setSearchClicked((prev:boolean) => !prev);
   }
 
   async function handleSubmitWithLocationOne() {
     searchObject.amountOfOptions = 1;
     fetchRestaurants();
+    setSearchClicked((prev:boolean) => !prev);
   }
 
+  
   return (
     <div>
-      <Navbar />
-      <>
+      <Navbar /> {/* Sticky Navbar */}
+      <div className="mt-16"> {/* Container div for content, adjusted for NavBar height */}
         {!user ? (
-          <LoadingAnimation/>
+          // Loading Animation when user is not available
+          <LoadingAnimation />
         ) : (
           <>
-            {!resultsFetched ? (
+            {!resultsFetched && !searchClicked ? (
+              // Your existing sections
               <>
-               <div className="min-h-screen bg-white font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
-                 {/* Section 1 */}
-                    <div className="flex items-center justify-center mb-8">
+                <div className="min-h-screen bg-white font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
+                  {/* Section 1 */}
+                  <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
                     <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
-                    </div>
-
-                {/* Section 2 */}
-                 <div className="flex flex-col items-center justify-center mb-8">
-                   <h1 className="text-4xl font-bold mb-6">Dietary Restrictions</h1>
-                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Include Other Cuisines"/>
-                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegan" />
-                   <ColorChangingButton setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegetarian" />
-                 </div>
-
-                 {/* Section 3 */}
-                 <div className="flex flex-col items-center justify-center">
-                   <h1 className="text-4xl font-bold mb-6">Distance</h1>
-                   {/* <ColorChangingButton text="5 km" />
-                   <ColorChangingButton text="10 km" />
-                   <ColorChangingButton text="15 km" />
-                   <ColorChangingButton text="20 km" />
-                   <ColorChangingButton text="30 km" /> */}
-                 </div>
-             </div>
-    
-
-                {/* <h2 className="font-semibold p-2 shadow-md bg-green-50">
-                  Choose your preferences
-                </h2>
-                <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
-                  <label className="">Distance:</label>
-                  <select className="" onChange={handleDistanceToTravel}>
-                    <option></option>
-                    <option>5km</option>
-                    <option>10km</option>
-                    <option>15km</option>
-                    <option>20km</option>
-                    <option>30km</option>
-                  </select>
-                </div>
-                <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
-                  <label className="">Price:</label>
-                  <select onChange={handlePrice}>
-                    <option></option>
-                    <option>$</option>
-                    <option>$$</option>
-                    <option>$$$</option>
-                    <option>$$$$</option>
-                  </select>
-                </div>
-                <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
-                  <label className="">Open Now?</label>
-                  <select onChange={handleOpen}>
-                    <option></option>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
-                </div>
-                <div className=" px-8 flex justify-between p-3 w-100">
-                  <label className="">How Many Results:</label>
-                  <select onChange={handleAmountOfOptions}>
-                    <option></option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">
-                  Choose at least one of the following options
-                </h2>
-                <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
-                  <label className="">Cuisine:</label>
-                  <select onChange={handleCuisineAdd}>
-                    <option></option>
-                    <option>Any</option>
-                    <option>American</option>
-                    <option>Brazilian</option>
-                    <option>Chinese</option>
-                    <option>French</option>
-                    <option>Greek</option>
-                    <option>Indian</option>
-                    <option>Indonesian</option>
-                    <option>Italian</option>
-                    <option>Japanese</option>
-                    <option>Korean</option>
-                    <option>Lebanese</option>
-                    <option>Mediterranean</option>
-                    <option>Mexican</option>
-                    <option>Middle Eastern</option>
-                    <option>Spanish</option>
-                    <option>Thai</option>
-                    <option>Turkish</option>
-                    <option>Vietnamese</option>
-                  </select>
-                </div>
-                <div className="border-solid border-b border-gray-200 px-8 flex justify-between p-3 w-100">
-                  <label className="">Shop type:</label>
-                  <select onChange={handleCuisineAdd}>
-                    <option></option>
-                    <option>Bakery</option>
-                    <option>Bar</option>
-                    <option>Breakfast</option>
-                    <option>Brunch</option>
-                    <option>Cafe</option>
-                    <option>Fast Food</option>
-                    <option>Hamburger</option>
-                    <option>Ice Cream</option>
-                    <option>Pizza</option>
-                    <option>Ramen</option>
-                    <option>Sandwich Shop</option>
-                    <option>Steak House</option>
-                    <option>Sushi</option>
-                  </select>
-                </div>
-                <div className="px-8 flex justify-between p-3 w-100">
-                  <label className="">Dietary Options:</label>
-                  <select onChange={handleCuisineAdd}>
-                    <option></option>
-                    <option>Vegetarian</option>
-                    <option>Vegan</option>
-                    <option>Seafood</option>
-                  </select>
-                </div>
-                {cuisineTypeList.length > 0 && (
-                  <ol className="">
-                    <ul className="font-semibold p-2 shadow-md bg-green-50">
-                      Click on the item to remove
-                    </ul>
-                    {cuisineTypeList.map((element, index) => (
-                      <ul
-                        className="flex p-1 border-b"
-                        onClick={handleCuisineRemoval}
-                        key={index}
-                        a-key={index}
-                      >
-                        {element}
-                      </ul>
-                    ))}
-                  </ol>
-                )}
-                {searchAvailable ? (
-                  <div className="w-100">
-                    <button
-                      onClick={handleSubmitWithLocation}
-                      className="mx-10 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 w-80 hover:bg-emerald-600"
-                    >
-                      Search
-                    </button>
                   </div>
-                ) : (
-                  <div className="w-100">
-                    <button className="mx-10 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 w-80 hover:bg-emerald-600">
-                      Search
-                    </button>
+
+                  {/* Section 2 */}
+                  <div className="flex flex-col items-center justify-center mb-8">
+                    <h1 className="text-4xl font-bold mb-6">Dietary Restrictions</h1>
+                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Include Other Cuisines" />
+                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegan" />
+                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegetarian" />
                   </div>
-                )} */}
+
+                  {/* Section 3 */}
+                  <div className="flex flex-col items-center justify-center">
+                    <h1 className="text-4xl font-bold mb-6">Distance</h1>
+                    {/* Add your distance buttons here */}
+                  </div>
+                </div>
               </>
             ) : (
-              <ResultList results={results} location={location} />
-            )}{" "}
+              // Render results or loading animation based on conditions
+              <>
+                {resultsFetched ? (
+                  <ResultList results={results} location={location} />
+                ) : (
+                  <div className="flex items-center justify-center h-screen">
+                    <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
+                      <img
+                        src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
+                        alt="Alligator eating a star"
+                        className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
+                      />
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </>
         )}
-      </>
+      </div>
     </div>
   );
-}
+};
+

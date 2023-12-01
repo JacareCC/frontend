@@ -2,6 +2,10 @@ import SingleRestaurant from "./SingleRestaurant";
 import { useEffect, useState } from "react";
 import { getPreciseDistance } from "geolib";
 import { GeolibInputCoordinates } from "geolib/es/types";
+import PriceLevelComponent from "./priceLevel/PriceLevel";
+import jacoin from "../public/jacoin.jpg"
+
+
 
 export default function ResultList({
   results,
@@ -21,6 +25,7 @@ export default function ResultList({
   useEffect(() => {
     setResultArray(results.result);
     setResultArrayLength(results.result.length);
+
   }, []);
 
   useEffect(() => {
@@ -62,18 +67,43 @@ export default function ResultList({
       {propFetched && !singleClicked ? (
     resultArray.length > 1 ? (
     resultArray.map((element: any, index: number) => (
-      <div key={`b${index}`} onClick={setView}>
-        <div a-key={element.id} key={index}>
-          {element.displayName.text}
-        </div>
-        <div a-key={element.id} key={`a${index}`}>
-          Distance:{" "}
-          {element.location
-            ? getDistanceInApproxKm(element.location, location)
-            : "unknown"}{" "}
-          km
-        </div>
+      <div
+      key={`b${index}`}
+      onClick={setView}
+      className="bg-white p-4 mb-4 rounded-lg shadow-md"
+    >
+      <div
+        a-key={element.id}
+        key={index}
+        className="text-emerald-500 font-yaro text-lg font-bold"
+      >
+        {element.displayName.text}
       </div>
+      <div
+        a-key={element.id}
+        key={`a${index}`}
+        className="text-gray-600 font-yaro"
+      >
+        Distance:{" "}
+        {element.location
+          ? getDistanceInApproxKm(element.location, location)
+          : "unknown"}{" "}
+      </div>
+      <div
+        a-key={element.id}
+        key={`a${index}`}
+        className="text-gray-600 font-yaro"
+      >{element.priceLevel ? <PriceLevelComponent priceLevel={element.priceLevel}/>:
+       <div>
+        Unknown <img src={jacoin.src}
+        alt="Unkown Price"/>
+        </div>
+        }
+        
+      </div>
+      
+      
+    </div>
     ))
   ) : (
     <SingleRestaurant
@@ -81,6 +111,7 @@ export default function ResultList({
       setPageVisited={setPageVisited}
       setSingleClicked={setSingleClicked}
       idForFetch={`${resultArray[0]?.id}`}
+      priceLevel={resultArray[0]?.priceLevel}
       resultArrayLength= {resultArrayLength}
     />
   )

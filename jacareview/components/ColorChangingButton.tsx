@@ -6,8 +6,9 @@ interface ColorChangingProps {
   cuisineType: string[];
   includeOthers: boolean |null;
   count: number;
-  setCount: any
-  setIncludeOthers: any
+  setCount: any;
+  setIncludeOthers: any;
+  resetCount:any;
 }
 
 
@@ -18,7 +19,8 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
   includeOthers,
   count,
   setCount,
-  setIncludeOthers
+  setIncludeOthers,
+  resetCount,
 }) => {
   const [isButtonActive, setButtonActive] = useState<boolean>(false);
 
@@ -27,6 +29,10 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
       handleInclusionChange();
     }
   }, [isButtonActive, count]);
+
+  useEffect(()=>{
+    setButtonActive(false);
+  },[resetCount])
 
   const getCuisineTypeToAdd = () => {
     if (text.toLowerCase() === 'vegan') {
