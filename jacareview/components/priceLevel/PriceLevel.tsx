@@ -18,7 +18,6 @@ const PriceLevelComponent: React.FC<PriceLevelProps> = ({
             let multiplier = priceMultiplier(priceLevel)
             if(typeof multiplier === "number"){
             let newText = priceLevelText(multiplier)
-            console.log(multiplier)
             setText(newText)
             }
         }

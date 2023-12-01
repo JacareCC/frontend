@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getPreciseDistance } from "geolib";
 import { GeolibInputCoordinates } from "geolib/es/types";
 import PriceLevelComponent from "./priceLevel/PriceLevel";
-import jacoin from "../public/jacoin.jpg"
+// import jacoin from "../public/jacoin.jpg"
 
 
 
@@ -62,61 +62,61 @@ export default function ResultList({
   }
 }
 
-  return (
-    <>
-      {propFetched && !singleClicked ? (
-    resultArray.length > 1 ? (
-    resultArray.map((element: any, index: number) => (
-      <div
-      key={`b${index}`}
-      onClick={setView}
-      className="bg-white p-4 mb-4 rounded-lg shadow-md"
-    >
-      <div
-        a-key={element.id}
-        key={index}
-        className="text-emerald-500 font-yaro text-lg font-bold"
-      >
-        {element.displayName.text}
-      </div>
-      <div
-        a-key={element.id}
-        key={`a${index}`}
-        className="text-gray-600 font-yaro"
-      >
-        Distance:{" "}
-        {element.location
-          ? getDistanceInApproxKm(element.location, location)
-          : "unknown"}{" "}
-      </div>
-      <div
-        a-key={element.id}
-        key={`a${index}`}
-        className="text-gray-600 font-yaro"
-      >{element.priceLevel ? <PriceLevelComponent priceLevel={element.priceLevel}/>:
-       <div>
-        Unknown <img src={jacoin.src}
-        alt="Unkown Price"/>
+return (
+  <>
+    {propFetched && !singleClicked ? (
+      resultArray.length > 1 ? (
+        <div className="mt-24"> 
+          {resultArray.map((element: any, index: number) => (
+            <div
+              key={`b${index}`}
+              a-key={element.id}
+              onClick={setView}
+              className="bg-white p-4 mb-4 rounded-lg shadow-md relative"
+            >
+              <div
+                a-key={element.id}
+                key={index}
+                className="text-emerald-500 font-yaro text-lg font-bold"
+              >
+                {element.displayName.text}
+              </div>
+              <div
+                a-key={element.id}
+                key={`a${index}`}
+                className="text-gray-600 font-yaro"
+              >
+                Distance:{" "}
+                {element.location
+                  ? getDistanceInApproxKm(element.location, location)
+                  : "unknown"}{" "}
+              </div>
+              <div
+                a-key={element.id}
+                key={`c${index}`}
+                className="text-gray-600 font-yaro absolute top-1/2 right-0 transform -translate-y-1/2 mr-8"
+              >
+                {element.priceLevel ? (
+                  <PriceLevelComponent priceLevel={element.priceLevel} />
+                ) : (
+                  <div>Price Unknown</div>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-        }
-        
-      </div>
-      
-      
-    </div>
-    ))
-  ) : (
-    <SingleRestaurant
-      pageVisited={pageVisited}
-      setPageVisited={setPageVisited}
-      setSingleClicked={setSingleClicked}
-      idForFetch={`${resultArray[0]?.id}`}
-      priceLevel={resultArray[0]?.priceLevel}
-      resultArrayLength= {resultArrayLength}
-    />
-  )
-) : null}
+      ) : (
+        <SingleRestaurant
+          pageVisited={pageVisited}
+          setPageVisited={setPageVisited}
+          setSingleClicked={setSingleClicked}
+          idForFetch={`${resultArray[0]?.id}`}
+          priceLevel={resultArray[0]?.priceLevel}
+          resultArrayLength={resultArrayLength}
+        />
+      )
+    ) : null}
+  </>
+);
 
-    </>
-  );
-}
+      }

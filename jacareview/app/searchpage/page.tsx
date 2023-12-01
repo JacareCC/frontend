@@ -58,6 +58,11 @@ export default function SearchPage() {
   };
 
   useEffect(() => {
+    // Scroll to the top of the page on component mount (refresh)
+    window.scrollTo(0, 0);
+  }, []);
+  
+  useEffect(() => {
     // if (
     //   cuisineType.length > 0 &&
     //   price &&
