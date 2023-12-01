@@ -2,8 +2,8 @@
 
 import { initFirebase } from "@/firebase/firebaseapp"
 import { getAuth, signInWithPopup, GoogleAuthProvider, getIdToken} from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CookieConsent from "@/components/Cookies";
 import TermsAndConditions from "@/components/TermsAndConditions";
