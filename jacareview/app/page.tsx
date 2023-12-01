@@ -2,8 +2,8 @@
 
 import { initFirebase } from "@/firebase/firebaseapp"
 import { getAuth, signInWithPopup, GoogleAuthProvider, getIdToken} from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CookieConsent from "@/components/Cookies";
 import TermsAndConditions from "@/components/TermsAndConditions";
@@ -19,6 +19,7 @@ import jacaDate from '../public/jaca-date.png'
 import jacaBusiness from '../public/jaca-business.png'
 import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
+
 
 
 export default function Home() {

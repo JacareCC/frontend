@@ -4,11 +4,11 @@ import { Doughnut, Chart } from "react-chartjs-2";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
-import SignOut from "./header_components/SignOut";
 import GoogleMap from "./GoogleMap";
+import PriceLevelComponent from "./priceLevel/PriceLevel";
 
-export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited}:
-  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any}){
+export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisited, setPageVisited, resultArrayLength, priceLevel}:
+  {setSingleClicked: any, idForFetch:string, pageVisited:boolean, setPageVisited: any, resultArrayLength: number | null, priceLevel:any}){
     const [singleRestaurantData, setSingleRestaurantData] = useState<any>(null);
     const [dataForChart, setDataForChart] = useState<any> (null);
     const [placeId, setPlaceId] = useState<string | null>(null)
@@ -18,6 +18,10 @@ export default function SingleRestaurant({setSingleClicked, idForFetch, pageVisi
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
+
+    useEffect(() => {
+      setPageVisited(true);
+    }, [])
 
     useEffect(() => {
       if(pageVisited){
@@ -117,7 +121,6 @@ async function postHistory() {
         <>
         { singleRestaurantData &&(
         <div>
-        <div>PlaceHolder</div>
        {/* <Doughnut
        data={data}
        options={options}
@@ -127,11 +130,14 @@ async function postHistory() {
       <h1 className="text-4xl font-bold mb-6">{singleRestaurantData.name}</h1>
       <GoogleMap apiKey={apiKey} placeId={placeId} />
         </div>
+        <PriceLevelComponent priceLevel={priceLevel}/>
         </div>)
         
         }
-        
+        { resultArrayLength && resultArrayLength > 1 && (
         <button onClick={goBack}>Back</button>
+        )
+        }
         </>
     )
 }
