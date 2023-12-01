@@ -10,6 +10,7 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
+import VerifyToken from "../globalfunctions/TokenVerification";
 
 export default function SearchPage() {
   const [location, setLocation] = useState<any>(null);
@@ -33,7 +34,7 @@ export default function SearchPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
+      VerifyToken(user);
     } else {
       router.push("/");
     }
@@ -229,7 +230,7 @@ async function fetchRestaurants() {
     <div>
       <Navbar /> {/* Sticky Navbar */}
       <div className="mt-16"> {/* Container div for content, adjusted for NavBar height */}
-        {!user ? (
+        {!statusCode ? (
           // Loading Animation when user is not available
           <LoadingAnimation />
         ) : (
