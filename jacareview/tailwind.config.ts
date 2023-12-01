@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         jgreen: 'var(--jgreen)',
         jyellow: 'var(--jyellow)',
+        jgreend: 'var(--jgreend)',
       },
       fontFamily: {
         yaro: ['yaro'],
