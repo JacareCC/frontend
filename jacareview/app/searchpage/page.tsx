@@ -24,6 +24,7 @@ export default function SearchPage() {
   const [resetCount, setResetCount] = useState<number>(0);
   const [results, setResults] = useState<any>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
+  const [statusCodeOK, setStatusCodeOk] = useState<boolean>(false);
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
   const [searchClicked, setSearchClicked] = useState<boolean>(false)
 
@@ -34,11 +35,20 @@ export default function SearchPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      VerifyToken(user);
+      VerifyToken(user.uid,setStatusCode);
     } else {
       router.push("/");
     }
   });
+
+  useEffect(()=>{
+    if(statusCode && statusCode !== 200){
+      router.push("/")
+    }
+    else if(statusCode=== 200){
+      setStatusCodeOk(true);
+    }
+  },[statusCode])
 
   interface searchDataObject {
     cuisineOptions: string[] | null;
@@ -230,7 +240,7 @@ async function fetchRestaurants() {
     <div>
       <Navbar /> {/* Sticky Navbar */}
       <div className="mt-16"> {/* Container div for content, adjusted for NavBar height */}
-        {!statusCode ? (
+        {!statusCodeOK ? (
           // Loading Animation when user is not available
           <LoadingAnimation />
         ) : (

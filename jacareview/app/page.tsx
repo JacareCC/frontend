@@ -19,7 +19,7 @@ import jacaDate from '../public/jaca-date.png'
 import jacaBusiness from '../public/jaca-business.png'
 import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
-
+import VerifyUser from "./globalfunctions/TokenVerification";
 
 
 export default function Home() {
@@ -47,7 +47,7 @@ export default function Home() {
 
   useEffect(()=>{
     if(uid && user){
-    checkForUser();
+    VerifyUser(user.uid, setStatusCode);
     }
   }, [uid])
 
@@ -66,8 +66,11 @@ export default function Home() {
 
 
   useEffect(() =>{
-    if(loginTry){
-    checkForUser()
+    if(loginTry){{
+    let newCode = VerifyUser(user?.uid, setStatusCode)
+    console.log(newCode);
+    // setStatusCode(newCode);
+    }
   }
   
   }, [loginTry])
@@ -109,16 +112,7 @@ export default function Home() {
     setToggleAgreement((prev:boolean) => !prev)
   }
 
-  function checkForUser(){
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `${uid}`, 
-      }
-    })
-        .then(response =>  response.status)
-        .then(status => setStatusCode(status));
-  }
+  
 
   async function handleRegister(){
     const result = await signInWithPopup(auth, provider);
