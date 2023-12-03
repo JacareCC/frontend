@@ -1,7 +1,7 @@
 "use client"
 
 import { initFirebase } from "@/firebase/firebaseapp"
-import { getAuth, signInWithPopup, GoogleAuthProvider, getIdToken} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -101,11 +101,30 @@ export default function Home() {
     setShowConsent(false);
   }
 
-  async function signIn () {
-    const result = await signInWithPopup(auth, provider);
-    setUid(result.user.uid);
-    setLoginTry((prev:boolean) => !prev);
+  // async function signIn () {
+  //   const result = await signInWithPopup(auth, provider);
+  //   setUid(result.user.uid);
+  //   setLoginTry((prev:boolean) => !prev);
+  // }
+
+  const signIn = async () => {
+    try {
+      // Open Google Sign-In popup
+      const result = await signInWithPopup(auth, provider);
+      
+      // Handle successful sign-in
+      setUid(result.user.uid);
+      setLoginTry((prev:boolean) => !prev);
+      console.log('Signed in successfully:', result.user);
+    } catch (error: any) {
+      if (error.code === 'auth/cancelled-popup-request') {
+        console.log('Popup request cancelled');
+      } else {
+        console.error('Error during sign-in:', error);
+      }
+    }
   }
+  
 
   //handler
   function handleToggleToTerms(){
