@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CookieConsent from "@/components/Cookies";
 import TermsAndConditions from "@/components/TermsAndConditions";
-import './page.css'
 import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
@@ -171,7 +170,7 @@ export default function Home() {
                       </div>
                       <div className="mx-auto">
                         <div><h2 className="font-yaro text-jgreen text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" >Simple and Fast Search</h2></div>
-                        <div><p className="text-zinc-700 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">Explore a variety of culinary options nearby. Finding the perfect restaurant is now easier than ever.</p>
+                        <div><p className="text-zinc-700  pl-2 pt-2 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">Explore a variety of culinary options nearby. Finding the perfect restaurant is now easier than ever.</p>
                       </div>
                       </div>
                     </div>
@@ -180,7 +179,7 @@ export default function Home() {
                     <div className="flex p-2 gap-4">
                       <div className="">
                         <div><h2 className="font-yaro text-jgreen" >Anonymous Reviews</h2></div>
-                        <div><p className="text-zinc-700">Your opinions matter, and we want you to feel free to express them without any concerns.</p>
+                        <div><p className="text-zinc-700 pl-2 pt-2">Your opinions matter, and we want you to feel free to express them without any concerns.</p>
                       </div>
                       </div>
                       <div className="">
@@ -196,7 +195,7 @@ export default function Home() {
                       </div>
                       <div className="">
                         <div><h2 className="font-yaro text-jgreen" >Incredible Rewards</h2></div>
-                        <div><p className="text-zinc-700">Earn exclusive rewards for reviewing. The more you share, the more benefits you receive.</p>
+                        <div><p className="text-zinc-700  pl-2 pt-2">Earn exclusive rewards for reviewing. The more you share, the more benefits you receive.</p>
                       </div>
                     </div>
                       </div>
@@ -205,7 +204,7 @@ export default function Home() {
                       <div className="flex p-2 gap-4">
                         <div className="">
                           <div><h2 className="font-yaro text-jgreen" >For your business</h2></div>
-                          <div><p className="text-zinc-700">Enhance Your Online Presence. Receive Genuine Feedback. Reward Your Customers.</p>
+                          <div><p className="text-zinc-700  pl-2 pt-2">Enhance Your Online Presence. Receive Genuine Feedback. Reward Your Customers.</p>
                         </div>
                         </div>
                         <div className="">
@@ -242,7 +241,7 @@ export default function Home() {
                   </div></>
             )}
             {showConsent && (
-              <div className="cookie-consent-container absolute inset-0 flex items-center justify-center">
+              <div className="absolute z-2 inset-0 flex items-center justify-center">
                 <CookieConsent onAccept={handlerCookiesAccept} />
               </div>
             )}
