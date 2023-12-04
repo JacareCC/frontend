@@ -67,7 +67,7 @@ export default function Home() {
 
   useEffect(() =>{
     if(loginTry){{
-    let newCode = VerifyUser(user?.uid, setStatusCode)
+    VerifyUser(user?.uid, setStatusCode)
     }
   }
   
@@ -80,7 +80,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json" , 
       },
-      body : JSON.stringify({uid: uid})
+      body : JSON.stringify({uid: uid, email: user?.email})
     })
         .then(response => response.status )
         .then(status => setStatusCode(status));   

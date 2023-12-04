@@ -11,13 +11,14 @@ import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
 import VerifyToken from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
+import PriceButton from "@/components/buttons/PriceButton";
 
 
 
 export default function SearchPage() {
   const [location, setLocation] = useState<any>(null);
   const [cuisineType, setCuisineType] = useState<string[]>(["restaurant"]);
-  const [price, setPrice] = useState<number | null>(2);
+  const [price, setPrice] = useState<number>(2);
   const [openNow, setOpenNow] = useState<boolean | null>(true);
   const [amountOfOptions, setAmountOfOptions] = useState<number | null>(3);
   const [distanceToTravel, setDistanceToTravel] = useState<number | null>(500);
@@ -68,12 +69,18 @@ export default function SearchPage() {
     amountOfOptions: amountOfOptions,
     distanceToTravel: distanceToTravel,
     location: location,
+
   };
 
   useEffect(() => {
     // Scroll to the top of the page on component mount (refresh)
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    searchObject.price = price;
+    console.log(searchObject);
+  }, [price, cuisineType]);
 
   useEffect(() => {
       searchObject.cuisineOptions = ["restaurant"];
@@ -202,6 +209,7 @@ async function fetchRestaurants() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `${user?.uid}`
         },
         body: JSON.stringify(searchObject),
       })
@@ -215,13 +223,23 @@ async function fetchRestaurants() {
 }
 
   async function handleSubmitWithLocation() {
+    if(location){
     fetchRestaurants();
+    }
+    if(!location){
+      throw new Error();
+    }
     setSearchClicked((prev:boolean) => !prev);
   }
 
   async function handleSubmitWithLocationOne() {
     searchObject.amountOfOptions = 1;
-    fetchRestaurants();
+    if(location){
+      fetchRestaurants();
+      }
+      if(!location){
+        throw new Error();
+      }
     setSearchClicked((prev:boolean) => !prev);
   }
 
@@ -245,10 +263,23 @@ async function fetchRestaurants() {
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
                     <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
                   </div>
-  
-                  {/* Section 2 */}
+
+                   {/* Section 2 */}
+                   <div className="flex flex-col items-center justify-center">
+                    <h1 className="text-4xl font-bold text-jgreen mb-6">Max Price</h1>
+                    <div className="flex flex-row">
+                    <PriceButton setPrice={setPrice}  price={price} text={"$"}/>
+                    <PriceButton setPrice={setPrice}  price={price} text={"$$"}/>
+                    <PriceButton setPrice={setPrice}  price={price} text={"$$$"}/>
+                    <PriceButton setPrice={setPrice}  price={price} text={"$$$$"}/>
+                    </div>
+                  </div>
                   <div className="flex flex-col items-center justify-center mb-8">
-                    <h1 className="text-4xl font-bold mb-6">Dietary Restrictions</h1>
+  
+                  {/* Section 3 */}
+                  <div className="flex flex-col items-center justify-center mb-8">
+                    <h1 className="text-4xl font-bold mb-6 text-jgreen">Dietary Restrictions</h1>
+                    <div className="flex flex-row">
                     <ColorChangingButton text={"Vegan"}
                         setCuisineType={setCuisineType}
                         cuisineType={cuisineType}
@@ -265,14 +296,10 @@ async function fetchRestaurants() {
                         setCount={setCount}
                         setIncludeOthers={setIncludeOthers}
                         resetCount={resetCount}/>
+                        </div>
                   </div>
   
-                  {/* Section 3 */}
-                  <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold mb-6">Max Price</h1>
-                    
-                  </div>
-                  <div className="flex flex-col items-center justify-center mb-8">
+                 
                   {/* <ResetButton setResetCount={setResetCount} /> */}
                   </div>
                 </div>
