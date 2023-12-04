@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import GoogleMap from './GoogleMap';
 
 
-export default function Slideshow({ slides, location }: { slides: any; location: any }) {
+export default function Slideshow({ slides, location, user }: { slides: any; location: any, user:any }) {
     const [resultArray, setResultArray] = useState<any>(null);
     const [autoplay, setAutoplay] = useState(true);
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -66,12 +66,13 @@ export default function Slideshow({ slides, location }: { slides: any; location:
               >
                 <div className="text-emerald-500 font-yaro text-lg font-bold mb-2">
                   {slide.displayName.text}
-                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} />}
+                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} mylocation={location} user={user} />}
                 </div>
                 <div className="text-gray-600 font-yaro mb-2">
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
                 </div>
+                <a href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`}>Click to go to Google Maps</a>
                 <div className="text-gray-600 font-yaro">
                   {slide.priceLevel ? (
                     <PriceLevelComponent priceLevel={slide.priceLevel} />
