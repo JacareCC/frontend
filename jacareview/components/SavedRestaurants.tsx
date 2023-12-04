@@ -81,7 +81,6 @@ async function getSavedRestaurants(){
 
     return (
     <div>
-        <Navbar/>
         {savedData === "No saved restaurants" && (
             <div>No saved restaurants</div>
         )}
