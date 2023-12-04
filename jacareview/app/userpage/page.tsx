@@ -86,6 +86,9 @@ export default function UserPage(){
             <div>
                 <RestViewed />
             </div>
+            <div>
+                <button className="bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">Claim a Restaurant</button>
+            </div>
         </div>
     )
 }

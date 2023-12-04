@@ -103,31 +103,33 @@ export default function RestViewed() {
     router.push("/userpage");
   }
   return (
-    <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-indigo-100 via-30% to-gray-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+    <div className="flex flex-col align-center items-center">
+    <h1 className="font-yaro pt-2 text-l font-semibold" >Viewed Restaurants</h1>
+    <div className="shadow-2xl mx-6 my-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-indigo-100 via-30% to-gray-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
-        <div>Loading ...</div>
-      ) : (
-        <div>
-          {historyData.length === 0 ? (
-            <div>No Restaurants Visited</div>
+          <div>Loading ...</div>
           ) : (
-            <div className="card max-h-[400px] overflow-y-auto flex flex-col items-center">
-                <h1 className="font-yaro pt-2" >Viewed Restaurants</h1>
+              <div>
+          {historyData.length === 0 ? (
+              <div>No Restaurants Visited</div>
+              ) : (
+                  <div className="card max-h-[400px] overflow-y-auto px-4 py-2">
+                
               {historyDataFiltered &&
                 historyDataFiltered.slice(0, 4).map((element: any, index: number) => (
-                    <div className="flex flex-col border-b mb-2 p-2" >
-                        <div key={`b${index}`} className="restaurant-card ">
-                        <div key={`c${index}`} className="font-bold">Restaurant: {element.name || 'no name'} </div>
-                    <div key={`a${index}`}>Date Visited: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
-                    <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="text-blue-500 hover:underline cursor-pointer">
+                    <div className="flex flex-col border-b mb-2 p-2">
+                        <div key={`b${index}`} className="restaurant-card">
+                        <div key={`c${index}`} className="">{element.name || 'no name'} </div>
+                    <div key={`a${index}`}>Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
+                    <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                       Review
                     </Link>
                     {!element.saved ? (
-                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="bg-blue-500 text-white px-4 py-2 mt-2">
+                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-blue-500 text-white px-4 py-2 mt-2">
                         Save
                       </button>
                     ) : (
-                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="bg-red-500 text-white px-4 py-2 mt-2">
+                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-indigo-300 text-white px-4 py-2 mt-2">
                         Unsave
                       </button>
                     )}
@@ -139,5 +141,6 @@ export default function RestViewed() {
         </div>
       )}
     </div>
+      </div>
   );
 }
