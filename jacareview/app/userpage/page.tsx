@@ -17,6 +17,7 @@ import { emit } from "process";
 import RestViewed from "@/components/userPage/RestViewed";
 
 
+
 export default function UserPage(){
 
     initFirebase();
@@ -24,27 +25,48 @@ export default function UserPage(){
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
 
-    function toRestaurantsSeen(){
-        router.push("/restaurantsviewed");
-    }
-
-    function toSavedRestaurants(){
-        router.push("/savedrestaurants");
-    }
-
-    function toClaimPage(){
-        router.push("/claimpage");
-    }
     interface NavbarUserProps {
         logoSrc: string | null | undefined;
         userPhotoSrc: string | null | undefined;
         userName: string | null | undefined
-      }
+    }
+
       
-        const[ userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
-        const [userName, setUserName] = useState<string | undefined>(undefined);
+        const[userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
+        const[userName, setUserName] = useState<string | undefined>(undefined);
         const[email, setEmail] = useState<string | undefined>(undefined);
         const[birthday, setBirthday] = useState<string | undefined>(undefined);
+        const[uid, setUid] = useState<string|null |undefined> (null);
+        const[points, setPoints] = useState<string |null|undefined>(null);
+
+        useEffect(() => {
+            if(user){
+            setUid(user?.uid)
+            }
+        }, [user]);
+    
+        useEffect(()=>{
+            if(uid){
+            getUserData();
+            }
+        }, [uid])
+
+        async function getUserData(){
+            const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile/`, {
+                method: 'GET',
+                headers: {
+                  "Content-Type": "application/json" , 
+                  "Authorization" : `${uid}`
+                }
+              })
+                  .then(response => {return response.json()})
+                  .then(data => {
+                    setEmail(data.success.user.email);
+                    setBirthday(data.success.user.birthday);
+                    if(data.success.user.username !== null) setUserName(data.success.user.username);
+                    setPoints(data.success.points);
+                })
+            }
 
         useEffect (() => {
           if(user) {
@@ -54,9 +76,10 @@ export default function UserPage(){
             setUserName(user?.displayName)
           }
         }, [user]);
+    
     return(
         <div className="">
-            <NavbarUser userName={userName} userLevel={'Baby'} userPhotoSrc={userPhoto}/>
+            <NavbarUser userName={userName} userLevel={points} userPhotoSrc={userPhoto}/>
             <div className="flex flex-col justify-center items-center">
                 <InfoUser email={email} birthday={birthday} name={userName} />   
             </div>
