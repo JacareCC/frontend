@@ -130,9 +130,11 @@ export default function Home() {
       const result = await signInWithPopup(auth, provider);
       
       // Handle successful sign-in
+      if(user){
       setUid(result.user.uid);
-      setLoginTry((prev:boolean) => !prev);
-      console.log('Signed in successfully:', result.user);
+      setRegistrationReady((prev:boolean) => !prev);
+      
+      }
     } catch (error: any) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('Popup request cancelled');
