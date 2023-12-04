@@ -19,7 +19,7 @@ const Navbar = () => {
   initFirebase();
   const auth = getAuth(); 
   const [user, loading] = useAuthState(auth);
-  
+
   useEffect (() => {
     if(user) {
       if(user.photoURL)
