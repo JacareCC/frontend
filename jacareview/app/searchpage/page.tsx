@@ -11,6 +11,9 @@ import Navbar from "@/components/Navbar";
 import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
 import VerifyToken from "../globalfunctions/TokenVerification";
+import Slideshow from "@/components/SlideShow";
+import ResetButton from "@/components/resetButton/ResetButton";
+
 
 export default function SearchPage() {
   const [location, setLocation] = useState<any>(null);
@@ -72,15 +75,16 @@ export default function SearchPage() {
     // Scroll to the top of the page on component mount (refresh)
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+      searchObject.cuisineOptions = ["restaurant"];
+      searchObject.price = 2;
+      searchObject.openNow = true;
+      searchObject.amountOfOptions = 3;
+      searchObject.distanceToTravel = 500;
+  }, [resetCount]);
   
   useEffect(() => {
-    // if (
-    //   cuisineType.length > 0 &&
-    //   price &&
-    //   openNow !== null &&
-    //   amountOfOptions &&
-    //   distanceToTravel
-    // ) {
       if ("geolocation" in navigator) {
         // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
         navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -91,16 +95,6 @@ export default function SearchPage() {
     // }
   }, []);
   
-
-//   cuisineType, price, openNow, amountOfOptions, distanceToTravel
-//   useEffect(() => {
-//     // if (location && cuisineType.length > 0) {
-//     //   setSearchAvailable(true);
-//     // } else {
-//     //   setSearchAvailable(false);
-//     // }
-//   }, [location, cuisineType]);
-
 useEffect(() => {
     if (results) {
       setResultsFetched(true);
@@ -112,9 +106,6 @@ useEffect(() => {
       setResultsFetched(true);
     }
   }, [results]);
-
-  
-
 
 
 //   //handlers for Change
@@ -237,9 +228,10 @@ async function fetchRestaurants() {
 
   
   return (
-    <div>
+    <div style={{ overflow: 'hidden' }} className="flex flex-col h-screen">
       <Navbar /> {/* Sticky Navbar */}
-      <div className="mt-16"> {/* Container div for content, adjusted for NavBar height */}
+      <div className="mt-16 overflow-hidden flex-grow">
+        {/* Container div for content, adjusted for NavBar height */}
         {!statusCodeOK ? (
           // Loading Animation when user is not available
           <LoadingAnimation />
@@ -254,44 +246,59 @@ async function fetchRestaurants() {
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
                     <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
                   </div>
-
+  
                   {/* Section 2 */}
                   <div className="flex flex-col items-center justify-center mb-8">
                     <h1 className="text-4xl font-bold mb-6">Dietary Restrictions</h1>
-                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Include Other Cuisines" />
-                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegan" />
-                    <ColorChangingButton resetCount={resetCount} setCount={setCount} count={count} setCuisineType={setCuisineType} cuisineType={cuisineType} setIncludeOthers={setIncludeOthers} includeOthers={includeOthers} text="Vegetarian" />
+                    <ColorChangingButton text={"Vegan"}
+                        setCuisineType={setCuisineType}
+                        cuisineType={cuisineType}
+                        includeOthers={includeOthers}
+                        count={count}
+                        setCount={setCount}
+                        setIncludeOthers={setIncludeOthers}
+                        resetCount={resetCount}/>
+                    <ColorChangingButton text={"Vegetarian"}
+                        setCuisineType={setCuisineType}
+                        cuisineType={cuisineType}
+                        includeOthers={includeOthers}
+                        count={count}
+                        setCount={setCount}
+                        setIncludeOthers={setIncludeOthers}
+                        resetCount={resetCount}/>
                   </div>
-
+  
                   {/* Section 3 */}
                   <div className="flex flex-col items-center justify-center">
                     <h1 className="text-4xl font-bold mb-6">Distance</h1>
-                    {/* Add your distance buttons here */}
+                    {/* Your distance buttons */}
+                  </div>
+                  <div className="flex flex-col items-center justify-center mb-8">
+                  <ResetButton setResetCount={setResetCount} />
                   </div>
                 </div>
               </>
             ) : (
               // Render results or loading animation based on conditions
-              <>
-                {resultsFetched ? (
-                  <ResultList results={results} location={location} />
-                ) : (
-                  <div className="flex items-center justify-center h-screen">
-                    <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
-                      <img
-                        src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
-                        alt="Alligator eating a star"
-                        className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
-                      />
-                    </div>
-                  </div>
-                )}
-              </>
+              <div className="flex items-center justify-center h-screen">
+                <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
+                  <img
+                    src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
+                    alt="Alligator eating a star"
+                    className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
+                  />
+                </div>
+              </div>
             )}
           </>
         )}
       </div>
+      {resultsFetched && (
+        <div className="flex-grow">
+          {/* Wrap the Slideshow component in a div that takes up the remaining space */}
+          <Slideshow slides={results} location={location} />
+        </div>
+      )}
     </div>
   );
-};
-
+      }  

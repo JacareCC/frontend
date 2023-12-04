@@ -68,8 +68,6 @@ export default function Home() {
   useEffect(() =>{
     if(loginTry){{
     let newCode = VerifyUser(user?.uid, setStatusCode)
-    console.log(newCode);
-    // setStatusCode(newCode);
     }
   }
   
@@ -101,11 +99,6 @@ export default function Home() {
     setShowConsent(false);
   }
 
-  // async function signIn () {
-  //   const result = await signInWithPopup(auth, provider);
-  //   setUid(result.user.uid);
-  //   setLoginTry((prev:boolean) => !prev);
-  // }
 
   const signIn = async () => {
     try {
