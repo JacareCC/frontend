@@ -12,6 +12,7 @@ import LoadingAnimation from "@/components/loading/Loading";
 import VerifyToken from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
+import gatorSearching from "./gator-searching.png"
 
 
 
@@ -257,7 +258,7 @@ async function fetchRestaurants() {
             {!resultsFetched && !searchClicked ? (
               // Your existing sections
               <>
-                <div className="min-h-screen bg-white font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
+                <div className="min-h-screen bg-alligator-search font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
                   {/* Section 1 */}
                   <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
