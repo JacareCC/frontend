@@ -49,7 +49,7 @@ export default function SavedRestaurants(){
 
    
 async function getSavedRestaurants(){
-    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/`, {
+    const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/all`, {
         method: 'GET',
         headers: {
           "Content-Type": "application/json" , 
@@ -89,7 +89,9 @@ async function getSavedRestaurants(){
             savedData.map((element:any, index:number) => {
             return <div key={`a${index}`}>
                 <div key={index}>{element.name}</div>
+                {
                 <button key={`b${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id}>Unsave</button>
+            }
             </div>
         }))
         }

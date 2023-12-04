@@ -14,6 +14,7 @@ import InfoUser from "@/components/userPage/InfoUser";
 import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 import SavedRestaurants from "@/components/SavedRestaurants";
 import { emit } from "process";
+import RestViewed from "@/components/userPage/RestViewed";
 
 
 export default function UserPage(){
@@ -60,7 +61,7 @@ export default function UserPage(){
                 <InfoUser email={email} birthday={birthday} name={userName} />   
             </div>
             <div>
-
+                <RestViewed />
             </div>
         </div>
     )

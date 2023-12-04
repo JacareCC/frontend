@@ -55,7 +55,7 @@ export default function RestaurantsSeen(){
 
     //helper 
     async function getHistoryData(){
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/history`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile/`, {
             method: 'GET',
             headers: {
               "Content-Type": "application/json" , 
@@ -63,7 +63,7 @@ export default function RestaurantsSeen(){
             }
           })
               .then(response => {return response.json()})
-              .then(data => {setHistoryData(data.success); setTriggerRefresh(data.status) });
+              .then(data => {console.log(data.success.history); setHistoryData(data.success.history); setTriggerRefresh(data.status) });
         }
 
     function getRestaurantID(event:any){
@@ -88,11 +88,14 @@ export default function RestaurantsSeen(){
     
 
         function filterToUniqueRestaurants (myArr:any, key:string){
+            if(Array.isArray(historyData)){
             let filteredHistory =  myArr.filter((obj:any, pos:any, arr:any) => {
                     return arr.map((mapObj:any) => mapObj[key]).indexOf(obj[key]) === pos;
                 });
             
             setHistoryDataFiltered(filteredHistory);
+            }
+
         }
     
         function toProfilePage(){

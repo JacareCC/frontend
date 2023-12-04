@@ -84,7 +84,9 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
       if (!Array.isArray(oldArray)) {
         oldArray = [];
       }
-      return oldArray.filter((cuisine) => cuisine !== cuisineTypeToRemove);
+       let newArray= oldArray.filter((cuisine) => cuisine !== cuisineTypeToRemove);
+       newArray.length === 0 ? newArray = ["restaurant"] : newArray = newArray;
+       return newArray;
     });
   }
 
@@ -93,8 +95,10 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
       if (!Array.isArray(oldArray)) {
         oldArray = [];
       }
-      // Keep only 'vegan_restaurant' and 'vegetarian_restaurant' in the array
-      return oldArray.filter((cuisine) => cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant");
+      // return oldArray.filter((cuisine) => cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant");
+      let newArray= oldArray.filter((cuisine) => cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant");
+       newArray.length === 0 ? newArray = ["restaurant"] : newArray = newArray;
+       return newArray;
     });
   }
 
@@ -102,7 +106,7 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
     <button
       onClick={handleButtonClick}
       className={`${
-        isButtonActive ? 'bg-green-500' : 'bg-gray-300'
+        isButtonActive ? 'bg-jgreen' : 'bg-gray-300'
       } text-white p-2 m-1 rounded`}
     >
       {text}
