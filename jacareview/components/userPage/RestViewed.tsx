@@ -117,19 +117,19 @@ export default function RestViewed() {
                 
               {historyDataFiltered &&
                 historyDataFiltered.slice(0, 4).map((element: any, index: number) => (
-                    <div className="flex flex-col border-b mb-2 p-2">
+                    <div key={`z${index}`} className="flex flex-col border-b mb-2 p-2">
                         <div key={`b${index}`} className="restaurant-card">
                         <div key={`c${index}`} className="">{element.name || 'no name'} </div>
                     <div key={`a${index}`}>Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
-                    <Link href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                    <Link key={`d${index}`} href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                       Review
                     </Link>
                     {!element.saved ? (
-                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-blue-500 text-white px-4 py-2 mt-2">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-blue-500 text-white px-4 py-2 mt-2">
                         Save
                       </button>
                     ) : (
-                        <button onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-indigo-300 text-white px-4 py-2 mt-2">
+                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-indigo-300 text-white px-4 py-2 mt-2">
                         Unsave
                       </button>
                     )}
