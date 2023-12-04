@@ -7,8 +7,15 @@ import { useRouter } from "next/navigation";
 import '../globals.css'
 import Navbar from "@/components/Navbar";
 import Card from "@/components/CardButton";
-
 import jacaDate from 'public/jaca-date.png'
+import NavbarUser from "@/components/NavBarUser";
+import { useEffect, useState } from "react";
+import InfoUser from "@/components/userPage/InfoUser";
+import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
+import SavedRestaurants from "@/components/SavedRestaurants";
+import { emit } from "process";
+
+
 export default function UserPage(){
 
     initFirebase();
@@ -27,22 +34,34 @@ export default function UserPage(){
     function toClaimPage(){
         router.push("/claimpage");
     }
+    interface NavbarUserProps {
+        logoSrc: string | null | undefined;
+        userPhotoSrc: string | null | undefined;
+        userName: string | null | undefined
+      }
+      
+        const[ userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
+        const [userName, setUserName] = useState<string | undefined>(undefined);
+        const[email, setEmail] = useState<string | undefined>(undefined);
+        const[birthday, setBirthday] = useState<string | undefined>(undefined);
 
+        useEffect (() => {
+          if(user) {
+            if(user.photoURL)
+            setUserPhoto(user?.photoURL)
+            if(user.displayName)
+            setUserName(user?.displayName)
+          }
+        }, [user]);
     return(
         <div className="">
-            <p>hello</p>
-            <Navbar/> 
-            <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
-            <div onClick={toSavedRestaurants}>Saved Restaurants</div>
-            <div onClick={toClaimPage}>Claim a Restaurant</div>
-            <div className="flex flex-col items-center sm:flex-row gap-4 md:shadow-lg m-2 my-4 rounded p-1" >
-
-            <Card title='Visited Restaurants'
-                description='ldddsasdaisjdaioala'
-                imageSrc={jacaDate}
-                />
+            <NavbarUser userName={userName} userLevel={'Baby'} userPhotoSrc={userPhoto}/>
+            <div className="flex flex-col justify-center items-center">
+                <InfoUser email={email} birthday={birthday} name={userName} />   
             </div>
-            <></>
+            <div>
+
+            </div>
         </div>
     )
 }
