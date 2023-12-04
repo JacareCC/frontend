@@ -248,7 +248,8 @@ async function fetchRestaurants() {
   return (
     <div style={{ overflow: 'hidden' }} className="flex flex-col h-screen">
       <Navbar /> {/* Sticky Navbar */}
-      <div className="mt-16 overflow-hidden flex-grow">
+      <div className="mt-16 overflow-hidden flex flex-col">
+        
         {/* Container div for content, adjusted for NavBar height */}
         {!statusCodeOK ? (
           // Loading Animation when user is not available
@@ -258,7 +259,10 @@ async function fetchRestaurants() {
             {!resultsFetched && !searchClicked ? (
               // Your existing sections
               <>
-                <div className="min-h-screen bg-alligator-search font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
+              <div>
+                <img src="./gator-searching.png"/>
+              </div>
+                <div className="min-h-screen bg-white font-yaro text-emerald-500 p-4 sm:p-8 lg:p-16">
                   {/* Section 1 */}
                   <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
