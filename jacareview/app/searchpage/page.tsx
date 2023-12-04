@@ -248,6 +248,7 @@ async function fetchRestaurants() {
   return (
     <div className="flex flex-col h-screen">
       <Navbar /> {/* Sticky Navbar */}
+      {!resultsFetched && (
       <div className="mt-16 flex flex-col md:flex-row flex-grow justify-around align-center">
         
         {/* Container div for content, adjusted for NavBar height */}
@@ -307,20 +308,24 @@ async function fetchRestaurants() {
                 </div>
               </>
             ) : (
+              
               // Render results or loading animation based on conditions
               <div className="flex items-center justify-center h-screen">
+                { !resultsFetched && (
                 <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                   <img
                     src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
                     alt="Alligator eating a star"
                     className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
                   />
-                </div>
+                </div>)
+                }
               </div>
             )}
           </>
         )}
       </div>
+      )}
       {resultsFetched && (
         <div className="flex-grow">
           {/* Wrap the Slideshow component in a div that takes up the remaining space */}
