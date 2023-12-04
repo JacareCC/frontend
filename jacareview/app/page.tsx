@@ -1,7 +1,7 @@
 "use client"
 
 import { initFirebase } from "@/firebase/firebaseapp"
-import { getAuth, signInWithPopup, GoogleAuthProvider, getIdToken} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,14 +11,15 @@ import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
 import logoHome from '../public/logo-home.png'
-import jacarePhone from '../public/IMG_8629.png'
+// import jacarePhone from '../public/IMG_8629.png'
 import jacareReview from '../public/jaca-review.png'
 import jacareEat from '../public/jaca-eat.png'
 import jacaDate from '../public/jaca-date.png'
 import jacaBusiness from '../public/jaca-business.png'
 import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
-
+import VerifyUser from "./globalfunctions/TokenVerification";
+import LoadingAnimation from "@/components/loading/Loading";
 
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
 
   useEffect(()=>{
     if(uid && user){
-    checkForUser();
+    VerifyUser(user.uid, setStatusCode);
     }
   }, [uid])
 
@@ -65,8 +66,9 @@ export default function Home() {
 
 
   useEffect(() =>{
-    if(loginTry){
-    checkForUser()
+    if(loginTry){{
+    let newCode = VerifyUser(user?.uid, setStatusCode)
+    }
   }
   
   }, [loginTry])
@@ -97,33 +99,50 @@ export default function Home() {
     setShowConsent(false);
   }
 
-  async function signIn () {
-    const result = await signInWithPopup(auth, provider);
-    setUid(result.user.uid);
-    setLoginTry((prev:boolean) => !prev);
+
+  const signIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      
+      // Handle successful sign-in
+      setUid(result.user.uid);
+      setLoginTry((prev:boolean) => !prev);
+      console.log('Signed in successfully:', result.user);
+    } catch (error: any) {
+      if (error.code === 'auth/cancelled-popup-request') {
+        console.log('Popup request cancelled');
+      } else {
+        console.error('Error during sign-in:', error);
+      }
+    }
   }
+  
 
   //handler
   function handleToggleToTerms(){
     setToggleAgreement((prev:boolean) => !prev)
   }
 
-  function checkForUser(){
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}login/`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `${uid}`, 
-      }
-    })
-        .then(response =>  response.status)
-        .then(status => setStatusCode(status));
-  }
+  
 
   async function handleRegister(){
-    const result = await signInWithPopup(auth, provider);
-    setUid(result.user.uid)
-    setRegistrationReady((prev:boolean)=> !prev)
+    try {
+      const result = await signInWithPopup(auth, provider);
+      
+      // Handle successful sign-in
+      setUid(result.user.uid);
+      setLoginTry((prev:boolean) => !prev);
+      console.log('Signed in successfully:', result.user);
+    } catch (error: any) {
+      if (error.code === 'auth/cancelled-popup-request') {
+        console.log('Popup request cancelled');
+      } else {
+        console.error('Error during sign-in:', error);
+      }
+    }
   }
+
+  statusCode !== 200 && statusCode !== 201
 
   return (
     <>
@@ -132,18 +151,18 @@ export default function Home() {
         <>
           <NavbarHome />
         <main className="container mx-auto lg:px-8 max-w-screen-lg ">
-            {loading ? (
-              null
+            {!statusCode && user? (
+              <LoadingAnimation/>
             ) : (
               <>  
                 <div className="flex flex-col items-center sm:flex-row gap-4 md:shadow-lg m-2 my-4 rounded p-1">
                   <div className="flex items-center basis-1/2">
-                    <Image className="" src={logoHome} alt="logo" width={500} height={500} />
+                    <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
                   <div className="flex flex-col items-center basis-1/2 py-10   max-w-full">
                     <button className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center" onClick={signIn}>
                       <div className="flex items-center px-10">
-                        <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                        <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
                         <span className="ml-2  whitespace-nowrap">Sign In!</span>
                       </div>
                     </button>
@@ -170,14 +189,14 @@ export default function Home() {
                       </div>
                       </div>
                       <div className="">
-                        <Image className="rounded-lg" src={jacareReview} alt="logo" width={400} height={400} />
+                        <Image priority={true} className="rounded-lg" src={jacareReview} alt="logo" width={400} height={400} />
                       </div>
                     </div>
                     </div>
                     <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-sky-100 via-30% to-emerald-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
                     <div className="flex p-2 gap-4">
                       <div className="">
-                        <Image className="rounded-lg" src={jacaDate} alt="logo" width={400} height={400} />
+                        <Image priority={true} className="rounded-lg" src={jacaDate} alt="logo" width={400} height={400} />
                       </div>
                       <div className="">
                         <div><h2 className="font-yaro text-jgreen" >Incredible Rewards</h2></div>
@@ -194,7 +213,7 @@ export default function Home() {
                         </div>
                         </div>
                         <div className="">
-                          <Image className="rounded-lg" src={jacaBusiness} alt="logo" width={400} height={400} />
+                          <Image priority={true} className="rounded-lg" src={jacaBusiness} alt="logo" width={400} height={400} />
                         </div>
                       </div>
                     </div>
@@ -203,14 +222,14 @@ export default function Home() {
                     {termsAgreed ? (
                       <button className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center" onClick={handleRegister}>
                         <div className="flex items-center">
-                          <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                          <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
                           <span className="ml-2">Sign Up!</span>
                         </div>
                       </button>
                     ) : (
                       <button className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center">
                         <div className="flex items-center">
-                          <Image src={googleIcon} alt="Google Icon" width={20} height={20} />
+                          <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
                           <span className="ml-2 text-base sm:text-lg lg:text-xl">Sign Up!</span>
                         </div>
                       </button>
@@ -233,7 +252,7 @@ export default function Home() {
             )}
           </main></>
       ) : (
-        <div>Loading...</div>
+        <LoadingAnimation/>
       )}
       
     </>

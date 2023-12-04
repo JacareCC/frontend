@@ -8,7 +8,7 @@ interface ColorChangingProps {
   count: number;
   setCount: any;
   setIncludeOthers: any;
-  resetCount:any;
+  resetCount:number;
 }
 
 
