@@ -6,6 +6,9 @@ import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import '../globals.css'
 import Navbar from "@/components/Navbar";
+import Card from "@/components/CardButton";
+
+import jacaDate from 'public/jaca-date.png'
 export default function UserPage(){
 
     initFirebase();
@@ -27,10 +30,18 @@ export default function UserPage(){
 
     return(
         <div className="">
+            <p>hello</p>
             <Navbar/> 
             <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
             <div onClick={toSavedRestaurants}>Saved Restaurants</div>
             <div onClick={toClaimPage}>Claim a Restaurant</div>
+            <div className="flex flex-col items-center sm:flex-row gap-4 md:shadow-lg m-2 my-4 rounded p-1" >
+
+            <Card title='Visited Restaurants'
+                description='ldddsasdaisjdaioala'
+                imageSrc={jacaDate}
+                />
+            </div>
             <></>
         </div>
     )
