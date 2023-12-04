@@ -55,7 +55,6 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
     setEditedEmail(email || '');
     setEditedName(name || '');
     setEditedBirthday(birthday);
-    console.log(email, name, birthday)
   }, [email, name, birthday]);
 
   return (

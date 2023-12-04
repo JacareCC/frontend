@@ -9,7 +9,7 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
-import VerifyToken from "../globalfunctions/TokenVerification";
+import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import gatorSearching from "./gator-searching.png"
@@ -39,7 +39,7 @@ export default function SearchPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      VerifyToken(user.uid,setStatusCode);
+      VerifyUser(user.uid, setStatusCode);
     } else {
       router.push("/");
     }

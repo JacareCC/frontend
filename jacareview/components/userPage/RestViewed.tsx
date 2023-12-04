@@ -113,7 +113,7 @@ export default function RestViewed() {
           {historyData.length === 0 ? (
               <div>No Restaurants Visited</div>
               ) : (
-                  <div className="card max-h-[400px] overflow-y-auto px-4 py-2">
+                  <div className="card max-h-[400px] overflow-y-scroll scrollbar-thin scrollbar-thumb-jgreen scrollbar-track-jyellow p-4 px-4 py-2">
                 
               {historyDataFiltered &&
                 historyDataFiltered.slice(0, 4).map((element: any, index: number) => (
