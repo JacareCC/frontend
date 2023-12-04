@@ -28,9 +28,9 @@ export default function UserPage(){
     return(
         <div className="">
             <Navbar/> 
-            <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
+            {/* <div onClick={toRestaurantsSeen}>Visited Restaurants</div>
             <div onClick={toSavedRestaurants}>Saved Restaurants</div>
-            <div onClick={toClaimPage}>Claim a Restaurant</div>
+            <div onClick={toClaimPage}>Claim a Restaurant</div> */}
             <></>
         </div>
     )

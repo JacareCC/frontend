@@ -4,15 +4,14 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
-import ResultList from "@/components/ResultList";
-import ColorChangingButton from "@/components/ColorChangingButton";
+import ColorChangingButton from "@/components/buttons/ColorChangingButton";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
 import VerifyToken from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
-import ResetButton from "@/components/resetButton/ResetButton";
+
 
 
 export default function SearchPage() {
@@ -270,11 +269,11 @@ async function fetchRestaurants() {
   
                   {/* Section 3 */}
                   <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold mb-6">Distance</h1>
-                    {/* Your distance buttons */}
+                    <h1 className="text-4xl font-bold mb-6">Max Price</h1>
+                    
                   </div>
                   <div className="flex flex-col items-center justify-center mb-8">
-                  <ResetButton setResetCount={setResetCount} />
+                  {/* <ResetButton setResetCount={setResetCount} /> */}
                   </div>
                 </div>
               </>

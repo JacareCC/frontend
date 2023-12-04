@@ -19,7 +19,8 @@ export default function Slideshow({ slides, location }: { slides: any; location:
     }, [slides]);
   
     const settings = {
-      dots: true,
+        accessibility:true,
+      dots: false,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -29,12 +30,13 @@ export default function Slideshow({ slides, location }: { slides: any; location:
       swipeToSlide: true,
       focusOnSelect: false,
       autoplay: autoplay,
-      autoplaySpeed: 7000, // Set autoplay speed to 3 seconds
+      autoplaySpeed: 7000,
+      arrows:true,
       afterChange: (index: number) => {
-        // Your logic here after slide change (if needed)
+        
       },
       onClick: () => {
-        // Toggle autoplay on click without changing the current slide
+        
         setAutoplay((prev: boolean) => !prev);
       },
     };
@@ -60,11 +62,11 @@ export default function Slideshow({ slides, location }: { slides: any; location:
             resultArray.map((slide: any, index: number) => (
               <div
                 key={index}
-                className="bg-white p-4 mb-4 rounded-lg shadow-md w-full md:w-4/5 lg:w-3/5 mx-auto overflow-hidden h-screen flex flex-col justify-center items-center text-center"
+                className="bg-white p-4 mb-4 rounded-lg shadow-md w-screen md:w-4/5 lg:w-3/5 mx-auto overflow-hidden h-screen flex flex-col justify-center items-center text-center"
               >
                 <div className="text-emerald-500 font-yaro text-lg font-bold mb-2">
                   {slide.displayName.text}
-                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.placeId} />}
+                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} />}
                 </div>
                 <div className="text-gray-600 font-yaro mb-2">
                   Distance:{' '}
