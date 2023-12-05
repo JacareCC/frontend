@@ -102,16 +102,17 @@ export default function SearchPage() {
     // }
   }, []);
   
-useEffect(() => {
-    if (results) {
-      setResultsFetched(true);
-    }
-  }, [location]);
+// useEffect(() => {
+//     if (results) {
+//       setResultsFetched(true);
+//     }
+//   }, [location]);
 
   useEffect(() => {
     if (results) {
       setResultsFetched(true);
     }
+    console.log(results)
   }, [results]);
 
 
