@@ -2,6 +2,7 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import React, { useState, useEffect } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import FormatDateForDjango from "../../app/globalfunctions/FormatDateForDjango"
 
 interface InfosUserProps {
   email?: string;
@@ -103,8 +104,8 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
             <div className='flex justify-between items-center w-full'>
               <DatePicker
                 selected={editedBirthday ? new Date(editedBirthday) : null}
-                onChange={(date) => setEditedBirthday(date)}
-                {...register && register('birthday')} // Adiciona o campo ao formulário se register for fornecido
+                onChange={(date:any) => setEditedBirthday(FormatDateForDjango(date))}           
+                // {...register && register('birthday')} // Adiciona o campo ao formulário se register for fornecido
               />
               <button className='bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={() => handleSaveClick('birthday')}>Save</button>
             </div>

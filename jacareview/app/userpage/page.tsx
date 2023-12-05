@@ -15,15 +15,25 @@ import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 import SavedRestaurants from "@/components/SavedRestaurants";
 import { emit } from "process";
 import RestViewed from "@/components/userPage/RestViewed";
+import VerifyUser from "../globalfunctions/TokenVerification";
 
 
 
 export default function UserPage(){
+    const[statusCode, setStatusCode] = useState<number|null>(null);
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          VerifyUser(user.uid, setStatusCode);
+        } else {
+          router.push("/");
+        }
+      });
 
     interface NavbarUserProps {
         logoSrc: string | null | undefined;
