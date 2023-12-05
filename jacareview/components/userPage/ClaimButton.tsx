@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PopupFormClaim from './PopupFormClaim';
+import PopupFormClaim from '../formComponents/PopupFormClaim';
 
 interface ClaimButtonProps {
     user_uid: string | null | undefined;
