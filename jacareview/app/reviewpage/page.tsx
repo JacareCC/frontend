@@ -46,7 +46,9 @@ export default function ReviewPage() {
     return (
         <>
             <Navbar /> 
-            <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
+            <div className="max-w-screen-md mx-auto" >
+                <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
+            </div>
         </>
     )
 
