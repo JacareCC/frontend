@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface OnlyOneOkButtonProps {
     backgroundColor: 'jgreen' | 'jyellow' | 'jgreend' | 'bronze' | 'silver' | 'gold';
@@ -17,15 +17,18 @@ interface OnlyOneOkButtonProps {
       jgreen: 'jgreen'
     }
 
-    function handleButtonClick() {
-        setButtonActive((prev: boolean) => !prev);
-        setState(text);
-        if(textToCheck !== text){
+    useEffect(() =>{
+      if(textToCheck === text)
+        setButtonActive(true);
+        else{
           setButtonActive(false);
         }
-      }
+    },[textToCheck])
 
-      console.log('Background Color:', `bg-${backgroundColor}`);
+    function handleButtonClick() {
+      setState(text)
+      
+    }
 
   return (
     <button
