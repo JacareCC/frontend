@@ -48,8 +48,11 @@ interface ReviewData {
 const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, restaurantName }) => {
 
     const { register, handleSubmit, setValue } = useForm<ReviewData>();
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 5;
 
     const  onSubmitHandler = async (data: ReviewData) => {
+        console.log(data)
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}review/new/`, {
             method: 'POST',
             headers: {
@@ -62,55 +65,202 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
         console.log(data);
     }
 
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+      };
+    
+      const handlePrevPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+      };
 
-useEffect(() => {
-    setValue('restaurant_place_id', restaurantPlaceId);
-    setValue('user_uid', userUid);
-    setValue('date_made', new Date().toISOString());
-    setValue('hidden', false);
-    setValue('verified', false);
-}, [userUid, restaurantPlaceId])
-
-const placeholderString: string = "Please leave your opinion"
-//handler
+    useEffect(() => {
+        setValue('restaurant_place_id', restaurantPlaceId);
+        setValue('user_uid', userUid);
+        setValue('date_made', new Date().toISOString());
+        setValue('hidden', false);
+        setValue('verified', false);
+    }, [userUid, restaurantPlaceId])
+console.log(restaurantPlaceId)
 
     return (
-        <div className="w-[100vw] mt-20 flex justify-center">
-            <form className="w-[100vw] flex flex-col" onSubmit={handleSubmit(onSubmitHandler)}>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">General Points</h2>
-                <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
+        <div className="flex flex-col justify-center items-center">
+          <form className="flex flex-col w-full items-center" onSubmit={handleSubmit(onSubmitHandler)}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 1 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white">General Points</h2>
+              <div className="rounded">
+                <FormFivePoints register={register} name='accessibility' title='Accessibility' />
                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />
                 <FormFivePoints register={register} name='customer_service' title='Customer Service' />
                 <FormFivePoints register={register} name='atmosphere' title='Atmosphere' />
                 <FormFivePoints register={register} name='food_quality' title='Food Quality' />
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">Accessibility Points</h2>
-                <TextInput register={register} name='parking' title='Parking lot' placeholder={placeholderString}/>
-                <TextInput register={register} name='public_transit_access'title="Public transit access" placeholder={placeholderString}/>
-                <TextInput register={register} name='findability' title='Findability' placeholder={placeholderString}/>
-                <TextInput register={register} name='disability_access' title ='Disability Access' placeholder={placeholderString}/>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">Food quality Points</h2>
-                <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder={placeholderString}/>
-                <TextInput register={register} name='amount_of_food' title="Portion size" placeholder={placeholderString}/>
-                <TextInput register={register} name='presentation' title='Presentation' placeholder={placeholderString}/>
-                <TextInput register={register} name='drink_menu' title="Drink Menu" placeholder={placeholderString}/>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">Customer service Points</h2>
-                <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder={placeholderString}/>
-                <TextInput register={register} name='courtesy' title="Courtesy" placeholder={placeholderString}/>
-                <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" placeholder={placeholderString}/>
-                <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" placeholder={placeholderString}/>
-                <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' placeholder={placeholderString}/>
-                <TextInput register={register} name='dietary_description' title="Dietary Description" placeholder={placeholderString}/>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">Atmosphere Points</h2>
-                <TextInput register={register} name='interior_design' title='Interior Design' placeholder={placeholderString}/>
-                <TextInput register={register} name='exterior_design' title='Exterior Design' placeholder={placeholderString}/>
-                <TextInput register={register} name='cleanliness' title='Cleanliness' placeholder={placeholderString}/>
-                <TextInput register={register} name='comfort' title="Comfort" placeholder={placeholderString}/>
-                <h2 className="font-semibold p-2 shadow-md bg-green-50">Value for price Points</h2>
-                <TextInput register={register} name='competitive_price'title="Competitive price" placeholder={placeholderString}/>
-                <button className=" mx-8 mb-4 mt-4 bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600" type="submit">Submit</button>
-            </form>
+              </div>
+            </div>
+      
+            {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
+            {/* Exemplo da segunda página */}
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 2 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white ">Accessibility Points</h2>
+              <div className="py-2">
+                <TextInput register={register} name='parking' title='Parking lot' placeholder='Convenient parking with dedicated spaces for patrons.' />
+                <TextInput register={register} name='public_transit_access' title="Public transit access" placeholder='Easily accessible via public transportation (e.g., bus, subway).' />
+                <TextInput register={register} name='findability' title='Findability' placeholder='Clearly marked entrance and easy to locate within the area.' />
+                <TextInput register={register} name='disability_access' title='Disability Access' placeholder="Wheelchair ramps, elevators, and other accessible features available." />
+              </div>
+            </div>
+      
+            {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
+            {/* Exemplo da terceira página */}
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 3 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white">Food quality Points</h2>
+              <div className="py-2">
+                <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder="Fresh, locally sourced ingredients used in all dishes." />
+                <TextInput register={register} name='amount_of_food' title="Portion size" placeholder='Generous portion sizes that satisfy customers.' />
+                <TextInput register={register} name='presentation' title='Presentation' placeholder='Artfully presented dishes that are visually appealing.' />
+                <TextInput register={register} name='drink_menu' title="Drink Menu" placeholder='Extensive drink menu with a variety of options.' />
+              </div>
+            </div>
+      
+            {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
+            {/* Exemplo da quarta página */}
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 4 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white">Customer service Points</h2>
+              <div className="py-2">
+                <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder='Well-informed staff with knowledge about the menu and dietary options.' />
+                <TextInput register={register} name='courtesy' title="Courtesy" placeholder='Friendly and courteous staff providing excellent customer service.' />
+                <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" placeholder='Efficient service with minimal wait times for seating.' />
+                <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" placeholder='Prompt preparation and delivery of meals.' />
+                <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' placeholder='Welcoming to international visitors with English-speaking staff.' />
+                <TextInput register={register} name='dietary_description' title="Dietary Description" placeholder='Clear and detailed dietary information for each menu item.' />
+              </div>
+            </div>
+      
+            {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
+            {/* Exemplo da quinta página */}
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 5 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white">Atmosphere Points</h2>
+              <div className="py-2">
+                <TextInput register={register} name='interior_design' title='Interior Design' placeholder='Cozy and inviting interior with stylish decor.' />
+                <TextInput register={register} name='exterior_design' title='Exterior Design' placeholder='Eye-catching exterior design that stands out.' />
+                <TextInput register={register} name='cleanliness' title='Cleanliness' placeholder='Impeccably clean and well-maintained facilities.' />
+                <TextInput register={register} name='comfort' title="Comfort" placeholder='Comfortable seating and a relaxed dining atmosphere.' />
+              </div>
+            </div>
+            
+            {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
+            {/* Exemplo da sexta página (última) */}
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 6 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2 bg-white">Value for price Points</h2>
+              <div className="py-2">
+                <TextInput register={register} name='competitive_price' title="Competitive price" placeholder='Reasonable prices with good value for the quality of food and service.' />
+              </div>
+            </div>
+      
+            {/* Botões de navegação */}
+            <div className={`flex justify-between gap-2 w-11/12 mx-6 my-4 ${currentPage !== totalPages ? 'mb-16' : ''}`}>
+              <button
+                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage === 1 ? 'hidden' : ''}`}
+                type="button"
+                onClick={handlePrevPage}
+              >
+                Previous
+              </button>
+              <button
+                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage === totalPages ? 'hidden' : ''}`}
+                type="button"
+                onClick={handleNextPage}
+              >
+                Next
+              </button>
+              <button
+                className={`w-full mt-2 bg-emerald-500 text-indigo-100 p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage !== totalPages ? 'hidden' : ''}`}
+                type="submit"
+              >
+                Save
+              </button>
+              
+            </div>
+            <div className="flex justify-between w-11/12 mx-6 ">
+                <p className="text-lg">
+                    Page {currentPage} of {totalPages}
+                </p>
+                <p className="text-lg">
+                    Progress: {((currentPage - 1) / (totalPages - 1)) * 100}%
+                </p>
+                </div>
+          </form>
         </div>
-    )
+      );
+      
+
+//     return (
+//         <div className="flex flex-col justify-center items-center">
+//             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit(onSubmitHandler)}>
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white">General Points</h2>
+//                 <div className="rounded">
+//                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
+//                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />
+//                 <FormFivePoints register={register} name='customer_service' title='Customer Service' />
+//                 <FormFivePoints register={register} name='atmosphere' title='Atmosphere' />
+//                 <FormFivePoints register={register} name='food_quality' title='Food Quality' />
+//                 </div>
+//                 </div>
+//                 <div className=" max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white ">Accessibility Points</h2>
+//                 <div className="py-2">
+
+//                 <TextInput register={register} name='parking' title='Parking lot' placeholder='Convenient parking with dedicated spaces for patrons.'/>
+//                 <TextInput register={register} name='public_transit_access'title="Public transit access" placeholder='Easily accessible via public transportation (e.g., bus, subway).'/>
+//                 <TextInput register={register} name='findability' title='Findability' placeholder='Clearly marked entrance and easy to locate within the area.'/>
+//                 <TextInput register={register} name='disability_access' title ='Disability Access' placeholder="Wheelchair ramps, elevators, and other accessible features available."/>
+//                 </div>
+//                 </div>
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white">Food quality Points</h2>
+//                 <div className="py-2">
+
+//                 <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder="Fresh, locally sourced ingredients used in all dishes."/>
+//                 <TextInput register={register} name='amount_of_food' title="Portion size" placeholder='Generous portion sizes that satisfy customers.'/>
+//                 <TextInput register={register} name='presentation' title='Presentation' placeholder='Artfully presented dishes that are visually appealing.'/>
+//                 <TextInput register={register} name='drink_menu' title="Drink Menu" placeholder='Extensive drink menu with a variety of options.'/>
+//                 </div>
+//                 </div>
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white">Customer service Points</h2>
+//                 <div className="py-2">
+
+//                 <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder='Well-informed staff with knowledge about the menu and dietary options.'/>
+//                 <TextInput register={register} name='courtesy' title="Courtesy" placeholder='Friendly and courteous staff providing excellent customer service.'/>
+//                 <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" placeholder='Efficient service with minimal wait times for seating.'/>
+//                 <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" placeholder='Prompt preparation and delivery of meals.'/>
+//                 <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' placeholder='Welcoming to international visitors with English-speaking staff.'/>
+//                 <TextInput register={register} name='dietary_description' title="Dietary Description" placeholder='Clear and detailed dietary information for each menu item.'/>
+//                 </div>
+//                 </div>
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white">Atmosphere Points</h2>
+//                 <div className="py-2">
+
+//                 <TextInput register={register} name='interior_design' title='Interior Design' placeholder='Cozy and inviting interior with stylish decor.'/>
+//                 <TextInput register={register} name='exterior_design' title='Exterior Design' placeholder='Eye-catching exterior design that stands out.'/>
+//                 <TextInput register={register} name='cleanliness' title='Cleanliness' placeholder='Impeccably clean and well-maintained facilities.'/>
+//                 <TextInput register={register} name='comfort' title="Comfort" placeholder='Comfortable seating and a relaxed dining atmosphere.'/>
+//                 </div>
+//                 </div>
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+
+//                 <h2 className="flex justify-center font-semibold p-2 bg-white">Value for price Points</h2>
+//                 <div className="py-2">
+
+//                 <TextInput register={register} name='competitive_price'title="Competitive price" placeholder='Reasonable prices with good value for the quality of food and service.'/>
+//                 </div>
+//                 </div>
+//                 <button className="py-2 shadow-lg shadow-xl text-lg flex justify-center items-center w-11/12 mx-6 my-4 rounded bg-green-500 text-white p-2" type="submit">Submit</button>
+//             </form>
+//         </div>
+//     )
 }
 
 export default ReviewForm;

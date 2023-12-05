@@ -14,7 +14,6 @@ interface NavbarUserProps {
 }
 
 const NavBarUser: React.FC<NavbarUserProps> = ({ userName, userLevel, userPhotoSrc }) => {
-  // Check if userLevel is "No points found" and display 0 instead
   const displayUserLevel = userLevel === 'No points found' ? '0' : userLevel;
 
   return (
@@ -26,7 +25,6 @@ const NavBarUser: React.FC<NavbarUserProps> = ({ userName, userLevel, userPhotoS
         <img src={userPhotoSrc} alt='User' className='w-30 h-30 rounded-full mb-2' />
         <div className='flex flex-col items-center my-2 gap-1'>
           <h2 className='font-yaro text-white text-sm'>{userName}</h2>
-          {/* Use displayUserLevel instead of userLevel */}
           <h3 className='text-white text-xs'>{'JACOIN: ' + displayUserLevel}</h3>
         </div>
       </div>

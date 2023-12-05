@@ -29,7 +29,7 @@ const Navbar = () => {
 
 
   return (
-    <div className=''>
+    <div className='mb-20'>
       <div className="fixed top-0 left-0 right-0 flex items-center align-center p-4 bg-jgreen text-white z-50">
         <div className="basis-5/6">
           <Image src={logo} alt="Logo" className="w-12 h-12" />
