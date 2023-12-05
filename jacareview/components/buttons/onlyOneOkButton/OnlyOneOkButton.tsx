@@ -4,10 +4,10 @@ interface OnlyOneOkButtonProps {
     backgroundColor: 'jgreen' | 'jyellow' | 'jgreend' | 'bronze' | 'silver' | 'gold';
     text: string;
     setState?: any;
-    highlightedTier?: string;
+    textToCheck?: string |null;
   }
   
-  const OnlyOneOkButton: React.FC<OnlyOneOkButtonProps> = ({ backgroundColor, text, setState, highlightedTier }) => {
+  const OnlyOneOkButton: React.FC<OnlyOneOkButtonProps> = ({ backgroundColor, text, setState, textToCheck }) => {
     const [isButtonActive, setButtonActive] = useState<boolean>(false);
 
     const colorVariants:any = {
@@ -19,7 +19,8 @@ interface OnlyOneOkButtonProps {
 
     function handleButtonClick() {
         setButtonActive((prev: boolean) => !prev);
-        if(highlightedTier !== text){
+        setState(text);
+        if(textToCheck !== text){
           setButtonActive(false);
         }
       }

@@ -6,6 +6,8 @@ import OnlyOneOkButton from "@/components/buttons/onlyOneOkButton/OnlyOneOkButto
 
 const BusinessPage: React.FC = () => {
   const [businessList, setBusiness] = useState<any[]>([])
+  const [tierText, setTierText] = useState<null | string>(null)
+  const [businessText, setBusinessText] = useState<null | string>(null)
 
   return (
     <div>
@@ -18,7 +20,7 @@ const BusinessPage: React.FC = () => {
             <>
             {businessList.map((element:any, index:number) => {
               <div key={index}>
-            <OnlyOneOkButton backgroundColor={"jgreen"} text={element.name}/>
+            <OnlyOneOkButton backgroundColor={"jgreen"} text={element.name} textToCheck={businessText} setState={setBusinessText}/>
             </div>
             }
             )
@@ -29,9 +31,9 @@ const BusinessPage: React.FC = () => {
 
         
         <div>
-          <OnlyOneOkButton backgroundColor={"bronze"} text="Bronze" />
-          <OnlyOneOkButton backgroundColor={"silver"} text="Silver" />
-          <OnlyOneOkButton backgroundColor={"gold"} text="Gold" />
+          <OnlyOneOkButton backgroundColor={"bronze"} text="Bronze" textToCheck={tierText} setState={setTierText}/>
+          <OnlyOneOkButton backgroundColor={"silver"} text="Silver" textToCheck={tierText} setState={setTierText}/>
+          <OnlyOneOkButton backgroundColor={"gold"} text="Gold" textToCheck={tierText} setState={setTierText}/>
         </div>
       </div>
     </div>
