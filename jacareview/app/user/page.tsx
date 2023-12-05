@@ -87,7 +87,7 @@ export default function UserPage(){
             <div className="max-w-screen-md mx-auto">
 
                 <div className="">
-                    <InfoUser email={email} birthday={birthday} name={userName} />   
+                    <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid}/>   
                 </div>
                 <div>
                     <RestViewed />
