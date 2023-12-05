@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+// import gator from "./public/gator-searching.png"
 
 const config: Config = {
   content: [
@@ -11,6 +12,7 @@ const config: Config = {
       colors: {
         jgreen: 'var(--jgreen)',
         jyellow: 'var(--jyellow)',
+        jgreend: 'var(--jgreend)',
       },
       fontFamily: {
         yaro: ['yaro'],
@@ -19,6 +21,7 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'alligator-search': "url('../public/gator-searching.png')"
       },
     },
   },

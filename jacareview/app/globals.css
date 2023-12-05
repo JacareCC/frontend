@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @font-face {
   font-family: 'yaro';
@@ -10,4 +10,10 @@
 :root {
   --jgreen: #388175;
   --jyellow: #F6BD41;
+  --jgreend: #24584E;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
