@@ -53,7 +53,7 @@ export default function Home() {
 
   useEffect(() => {
     if(statusCode === 200 || statusCode === 201){
-      router.push("/searchpage");
+      router.push("/search");
     }
     if(statusCode === 401){
       setLoginTry((prev:boolean) => !prev);

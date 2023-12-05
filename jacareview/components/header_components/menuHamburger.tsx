@@ -12,11 +12,11 @@ import { getAuth, signOut } from 'firebase/auth';
 import LogoutConfirm from './LogoutConfirm';
 
 const solutions = [
-  { name: 'Profile',  href: '/userpage', icon: UserCircleIcon },
-  { name: 'Search',  href: '/searchpage', icon: MagnifyingGlassIcon },
-  { name: 'My Business',  href: '/mybusiness', icon: BriefcaseIcon },
-  { name: 'Saved Restaurants',  href: '/savedrestaurants', icon: BookmarkIcon },
-  { name: 'Viewed Restaraunts',  href: '/restaurantsviewed', icon: CursorArrowRaysIcon },
+  { name: 'Profile',  href: '/user', icon: UserCircleIcon },
+  { name: 'Search',  href: '/search', icon: MagnifyingGlassIcon },
+  { name: 'My Business',  href: '/user/business', icon: BriefcaseIcon },
+  { name: 'Saved Restaurants',  href: '/restaurants/saved', icon: BookmarkIcon },
+//   { name: 'Viewed Restaraunts',  href: '/restaurantsviewed', icon: CursorArrowRaysIcon },
   { name: 'Logout', href: '#', icon: ArrowLeftOnRectangleIcon },
 ];
 
