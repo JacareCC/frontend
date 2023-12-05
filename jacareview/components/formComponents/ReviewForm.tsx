@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import '../app/globals.css';
+import '../../app/globals.css'
 import FormFivePoints from "./FormFivePoints";
 import { Accessibility } from "lucide-react";
 import BinaryChoice from "./FormBinaryChoice";

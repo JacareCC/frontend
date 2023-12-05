@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter, useSearchParams } from "next/navigation";
 import '../globals.css'
-import ReviewForm from "@/components/ReviewForm";
+import ReviewForm from "@/components/formComponents/ReviewForm";
 import Navbar from "@/components/Navbar";
 // import { getDisplayName } from "next/dist/shared/lib/utils";
 
