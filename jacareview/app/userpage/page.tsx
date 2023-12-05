@@ -80,7 +80,7 @@ export default function UserPage(){
             setUserName(user?.displayName)
           }
         }, [user]);
-    console.log(uid)
+
     return(
         <div>
             <NavbarUser userName={userName} userLevel={points} userPhotoSrc={userPhoto}/>
