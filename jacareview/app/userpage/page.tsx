@@ -5,18 +5,12 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import '../globals.css'
-import Navbar from "@/components/Navbar";
-import Card from "@/components/CardButton";
-import jacaDate from 'public/jaca-date.png'
 import NavbarUser from "@/components/NavBarUser";
 import { useEffect, useState } from "react";
 import InfoUser from "@/components/userPage/InfoUser";
-import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
-import SavedRestaurants from "@/components/SavedRestaurants";
-import { emit } from "process";
 import RestViewed from "@/components/userPage/RestViewed";
 import VerifyUser from "../globalfunctions/TokenVerification";
-
+import ClaimButton from "@/components/userPage/ClaimButton";
 
 
 export default function UserPage(){
@@ -86,18 +80,21 @@ export default function UserPage(){
             setUserName(user?.displayName)
           }
         }, [user]);
-    
+    console.log(uid)
     return(
-        <div className="">
+        <div>
             <NavbarUser userName={userName} userLevel={points} userPhotoSrc={userPhoto}/>
-            <div className="flex flex-col justify-center items-center">
-                <InfoUser email={email} birthday={birthday} name={userName} />   
-            </div>
-            <div>
-                <RestViewed />
-            </div>
-            <div>
-                <button className="w-4/5 m-4 rounded bg-blue-500 text-white px-4 py-2 mt-2">Claim a Restaurant</button>
+            <div className="max-w-screen-md mx-auto">
+
+                <div className="">
+                    <InfoUser email={email} birthday={birthday} name={userName} />   
+                </div>
+                <div>
+                    <RestViewed />
+                </div>
+                <div className="px-4">
+                    <ClaimButton user_uid={uid} />
+                </div>
             </div>
         </div>
     )

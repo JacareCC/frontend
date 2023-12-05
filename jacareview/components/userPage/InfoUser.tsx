@@ -58,9 +58,9 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
   }, [email, name, birthday]);
 
   return (
-    <div className="flex flex-col w-[100vw] gap-4 px-8 py-2 font-yaro">
-      <div>
-        <div className="flex flex-col align-center border-solid border-b border-gray-300">
+    <div className="flex flex-col gap-4 px-8 py-2 font-yaro">
+      <div className=''>
+        <div className="flex flex-col align-center border-solid border-b border-gray-300 mb-2">
           <label className='text-sm'>Email</label>
           {isEditingEmail ? (
             <div className='flex justify-between items-center w-full'>
@@ -68,18 +68,18 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
                 type='text'
                 value={editedEmail}
                 onChange={(e) => setEditedEmail(e.target.value)}
-                {...register && register('email')} // Adiciona o campo ao formulário se register for fornecido
+                {...register && register('email')} 
               />
               <button className='bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={() => handleSaveClick('email')}>Save</button>
             </div>
           ) : (
-            <div className='flex justify-between items-center w-full'>
+            <div className='mb-2 flex justify-between items-center w-full'>
               <p className='text-lg'>{editedEmail || "jacare@jacareview.com"}</p>
               <button className='bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={() => handleEditClick('email')}>Edit</button>
             </div>
           )}
         </div>
-        <div className="flex flex-col align-center border-solid border-b border-gray-300">
+        <div className="mb-2 flex flex-col align-center border-solid border-b border-gray-300">
           <label className='text-sm'>Name</label>
           {isEditingName ? (
             <div className='flex justify-between items-center w-full'>
@@ -87,7 +87,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
                 type='text'
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
-                {...register && register('name')} // Adiciona o campo ao formulário se register for fornecido
+                {...register && register('name')} 
               />
               <button className='bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={() => handleSaveClick('name')}>Save</button>
             </div>
@@ -104,7 +104,9 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
             <div className='flex justify-between items-center w-full'>
               <DatePicker
                 selected={editedBirthday ? new Date(editedBirthday) : null}
-                onChange={(date:any) => setEditedBirthday(FormatDateForDjango(date))}           
+                onChange={(date:any) => setEditedBirthday(FormatDateForDjango(date))}
+                showYearDropdown
+                scrollableYearDropdown           
                 // {...register && register('birthday')} // Adiciona o campo ao formulário se register for fornecido
               />
               <button className='bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={() => handleSaveClick('birthday')}>Save</button>
