@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import StarButton from './buttons/starbutton/StarButton';
+import StarButton from '../buttons/starbutton/StarButton';
 
 interface FormFivePointsProps {
   register: UseFormRegister<any>;

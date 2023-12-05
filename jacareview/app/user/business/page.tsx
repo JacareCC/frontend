@@ -1,13 +1,53 @@
 "use client"
 import { useState, useEffect } from "react"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { initFirebase } from "@/firebase/firebaseapp";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import "../../../app/globals.css"
 import OnlyOneOkButton from "@/components/buttons/onlyOneOkButton/OnlyOneOkButton";
+import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
+import VerifyUser from "@/app/globalfunctions/TokenVerification";
 
 const BusinessPage: React.FC = () => {
-  const [businessList, setBusiness] = useState<any[]>([])
-  const [tierText, setTierText] = useState<null | string>(null)
-  const [businessText, setBusinessText] = useState<null | string>(null)
+  const [businessList, setBusinessList] = useState<any>(null);
+  const [tierText, setTierText] = useState<null | string>(null);
+  const [businessText, setBusinessText] = useState<null | string>(null);
+  const [statusCode, setStatusCode] = useState<number | null>(null);
+
+  initFirebase();
+  const auth = getAuth();
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      VerifyUser(user.uid, setStatusCode);
+    } else {
+      router.push("/");
+    }
+  });
+
+  useEffect(()=>{
+    if(statusCode && statusCode !== 200){
+      router.push("/")
+    }
+  },[statusCode])
+
+  useEffect(() => {
+    if(user){
+      FetchBusinesses(user.uid, setBusinessList)
+    }
+  },[user])
+
+  useEffect(() => {
+    if(businessList){
+      
+    }
+    console.log(businessList)
+  },[businessList])
+
 
   return (
     <div>
@@ -16,7 +56,7 @@ const BusinessPage: React.FC = () => {
       <div className="mt-16 p-4">
       <h1 className="text-3xl font-bold mb-4">Business(es)</h1>
         <div>
-          {businessList.length > 0 &&(
+          {businessList && businessList.length > 0 &&(
             <>
             {businessList.map((element:any, index:number) => {
               <div key={index}>
