@@ -13,6 +13,9 @@ const config: Config = {
         jgreen: 'var(--jgreen)',
         jyellow: 'var(--jyellow)',
         jgreend: 'var(--jgreend)',
+        bronze: '#cd7f32',
+        silver: '#c0c0c0',
+        gold: '#ffd700',
       },
       fontFamily: {
         yaro: ['yaro'],

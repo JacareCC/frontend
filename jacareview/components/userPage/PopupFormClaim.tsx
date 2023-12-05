@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FieldError } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 interface PopupFormClaimProps {
@@ -40,44 +40,44 @@ const PopupFormClaim: React.FC<PopupFormClaimProps> = ({ user_uid, onClose }) =>
 
           <div className="mb-1">
             <label className="block text-sm">First Name</label>
-            <input type="text" {...register('first_name', { required: 'This field is required' })} className="border w-full" />
-            {errors.first_name && <span className="text-xs text-red-500">{errors.first_name.message}</span>}
+            <input type="text" {...register('first_name', { required: {value:true, message: 'This field is required'}})} className="border w-full" />
+            {errors.first_name && <span className="text-xs text-red-500">{(errors.first_name as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Last Name</label>
-            <input type="text" {...register('last_name', { required: 'This field is required' })} className="border w-full" />
-            {errors.last_name && <span className="text-xs text-red-500">{errors.last_name.message}</span>}
+            <input type="text" {...register('last_name', { required: {value: true, message: 'This field is required'} })} className="border w-full" />
+            {errors.last_name && <span className="text-xs text-red-500">{(errors.last_name as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Business Name</label>
-            <input type="text" {...register('business_name', { required: 'This field is required' })} className="border w-full" />
-            {errors.business_name && <span className="text-xs text-red-500">{errors.business_name.message}</span>}
+            <input type="text" {...register('business_name', { required: {value: true, message: 'This field is required'} })} className="border w-full" />
+            {errors.business_name && <span className="text-xs text-red-500">{(errors.business_name as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Email</label>
-            <input type="email" {...register('email', { required: 'This field is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email address' } })} className="border w-full" />
-            {errors.email && <span className="text-xs text-red-500">{errors.email.message}</span>}
+            <input type="email" {...register('email', { required: {value: true, message: 'This field is required'}, pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email address' } })} className="border w-full" />
+            {errors.email && <span className="text-xs text-red-500">{(errors.email as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Contact Person</label>
-            <input type="text" {...register('contact_person', { required: 'This field is required' })} className="border w-full" />
-            {errors.contact_person && <span className="text-xs text-red-500">{errors.contact_person.message}</span>}
+            <input type="text" {...register('contact_person', { required: {value: true, message: 'This field is required'} })} className="border w-full" />
+            {errors.contact_person && <span className="text-xs text-red-500">{(errors.contact_person as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Address</label>
-            <input type="text" {...register('address', { required: 'This field is required' })} className="border w-full" />
-            {errors.address && <span className="text-xs text-red-500">{errors.address.message}</span>}
+            <input type="text" {...register('address', { required: {value: true, message: 'This field is required'} })} className="border w-full" />
+            {errors.address && <span className="text-xs text-red-500">{(errors.address as FieldError).message}</span>}
           </div>
 
           <div className="mb-1">
             <label className="block text-sm">Phone Number</label>
-            <input type="text" {...register('phone_number', { required: 'This field is required' })} className="border w-full" />
-            {errors.phone_number && <span className="text-xs text-red-500">{errors.phone_number.message}</span>}
+            <input type="text" {...register('phone_number', { required: {value: true, message: 'This field is required'} })} className="border w-full" />
+            {errors.phone_number && <span className="text-xs text-red-500">{(errors.phone_number as FieldError).message}</span>}
           </div>
 
           <div className="flex justify-center gap-4 mt-4">
