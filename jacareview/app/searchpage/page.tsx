@@ -112,7 +112,6 @@ export default function SearchPage() {
     if (results) {
       setResultsFetched(true);
     }
-    console.log(results)
   }, [results]);
 
 
