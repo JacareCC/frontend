@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../app/globals.css';
+import '../../app/globals.css';
 import TextInput from "./FormTextInputRequired";
 import ClaimConfirm from "../ClaimConfirm";
 import { useRouter } from "next/navigation";
