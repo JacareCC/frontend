@@ -6,9 +6,9 @@ import Navbar from "@/components/Navbar";
 export default function SavedRestaurantsPage(){
 
     return(
-        <div>
-        <Navbar/>
-        <SavedRestaurants/>
+        <div className="max-w-screen-md mx-auto">
+            <Navbar/>
+            <SavedRestaurants/>
         </div>
     )
 }
