@@ -5,15 +5,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import "../../../app/globals.css"
 import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
 import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
-import BusinessNavBar from "@/components/BusinessNavBar";
-import "../../../app/globals.css"
+import "../app/globals.css"
 
-const BusinessPage: React.FC = () => {
+
+
+const BusinessNavBar: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
   const [tierText, setTierText] = useState<null | string>(null);
   const [businessText, setBusinessText] = useState<null | string>(null);
@@ -55,6 +55,7 @@ const BusinessPage: React.FC = () => {
   function handleTab(event:any){
     const text = event.target.innerText;
     setButtonActiveBusiness(text);
+    
   }
 
 
@@ -63,8 +64,7 @@ const BusinessPage: React.FC = () => {
       <Navbar />
 
       <div className="mt-16 p-4">
-        <BusinessNavBar/>
-{/*         
+        
           {businessList && businessList.length > 0 &&(
             <div>
               <div className="flex items-center justify-center font-yaro text-jgreen">
@@ -75,12 +75,14 @@ const BusinessPage: React.FC = () => {
                 <div key={`5${index}`}>
                 <div onClick={handleTab} a-key={element.business_name} className="flex-shrink-0 mx-2" key={index}>
                   <OnlyOneOkButtonBusiness
+                    businessId={element.id}
                     text={element.business_name}
                     textToCheck={isButtonActiveBusiness}
                     setState={setBusinessText}
+                    data={element}
                   />
                   </div>
-                      <div key={`4${index}`}>
+                      {/* <div key={`4${index}`}>
                       {isButtonActiveBusiness === element.business_name && (
                         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
                           <div className="bg-black bg-opacity-50 absolute inset-0"></div>
@@ -108,16 +110,16 @@ const BusinessPage: React.FC = () => {
                             />
                           </div>
                         </div>
-                      )}
+                      )} */}
 
-</div>
+{/* </div> */}
                 </div>
                ))}
             </div>
              </div>
           )
           }
-        */}
+       
 
         
        
@@ -126,4 +128,4 @@ const BusinessPage: React.FC = () => {
   );
 };
 
-export default BusinessPage;
+export default BusinessNavBar;
