@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 interface InfosUserProps {
   email?: string;
   name?: string;
-  birthday?: string;
+  birthday?: string | any;
   placeholder?: string | undefined;
   register?: UseFormRegister<FieldValues>;
   onEditSave?: (data: { email?: string; name?: string; birthday?: string }) => void;
@@ -19,7 +19,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, placeholde
 
   const [editedEmail, setEditedEmail] = useState(email || '');
   const [editedName, setEditedName] = useState(name || '');
-  const [editedBirthday, setEditedBirthday] = useState<string | undefined>(birthday);
+  const [editedBirthday, setEditedBirthday] = useState<string | undefined | any>(birthday);
 
   const handleEditClick = (field: string) => {
     if (field === 'email') {
