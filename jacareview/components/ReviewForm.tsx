@@ -50,7 +50,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
     const { register, handleSubmit, setValue } = useForm<ReviewData>();
 
     const  onSubmitHandler = async (data: ReviewData) => {
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}submitreview/`, {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}review/new/`, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json" , 
@@ -75,7 +75,7 @@ const placeholderString: string = "Please leave your opinion"
 //handler
 
     return (
-        <div className="w-[100vw] flex justify-center">
+        <div className="w-[100vw] mt-20 flex justify-center">
             <form className="w-[100vw] flex flex-col" onSubmit={handleSubmit(onSubmitHandler)}>
                 <h2 className="font-semibold p-2 shadow-md bg-green-50">General Points</h2>
                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
