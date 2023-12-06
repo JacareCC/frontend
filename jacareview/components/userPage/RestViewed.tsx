@@ -121,7 +121,7 @@ export default function RestViewed() {
                         <div key={`b${index}`} className="">
                         <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
                     <div key={`a${index}`} className="mb-2">Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
-                    <Link key={`d${index}`} href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="bg-indigo-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-indigo-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                       Review
                     </Link>
                     {!element.saved ? (
