@@ -118,7 +118,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         onSubmit={handleSubmit(onSubmitHandler)}
       >
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-2 mt-8 bg-jgreen text-base text-white text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-2 mt-8 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 1 ? "hidden" : ""
           }`}
         >
@@ -162,11 +162,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
         {/* Exemplo da segunda página */}
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 2 ? "hidden" : ""
           }`}
         >
-          <h2 className="flex justify-center font-semibold p-2 bg-white ">
+          <h2 className="flex justify-center font-semibold p-2 ">
             Accessibility Points
           </h2>
           <div className="py-2">
@@ -200,11 +200,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
         {/* Exemplo da terceira página */}
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 3 ? "hidden" : ""
           }`}
         >
-          <h2 className="flex justify-center font-semibold p-2 bg-white">
+          <h2 className="flex justify-center font-semibold p-2">
             Food quality Points
           </h2>
           <div className="py-2">
@@ -238,11 +238,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
         {/* Exemplo da quarta página */}
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 4 ? "hidden" : ""
           }`}
         >
-          <h2 className="flex justify-center font-semibold p-2 bg-white">
+          <h2 className="flex justify-center font-semibold p-2">
             Customer service Points
           </h2>
           <div className="py-2">
@@ -288,11 +288,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
         {/* Exemplo da quinta página */}
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 5 ? "hidden" : ""
           }`}
         >
-          <h2 className="flex justify-center font-semibold p-2 bg-white">
+          <h2 className="flex justify-center font-semibold p-2">
             Atmosphere Points
           </h2>
           <div className="py-2">
@@ -326,11 +326,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
         {/* Exemplo da sexta página (última) */}
         <div
-          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${
+          className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-gray-100 sm:text-lg md:text-xl lg:text-2xl ${
             currentPage !== 6 ? "hidden" : ""
           }`}
         >
-          <h2 className="flex justify-center font-semibold p-2 bg-white">
+          <h2 className="flex justify-center font-semibold p-2">
             Value for price Points
           </h2>
           <div className="py-2">
@@ -350,7 +350,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           }`}
         >
           <button
-            className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
+            className={`w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
               currentPage === 1 ? "hidden" : ""
             }`}
             type="button"
@@ -359,7 +359,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
             Previous
           </button>
           <button
-            className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
+            className={`w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
               currentPage === totalPages ? "hidden" : ""
             }`}
             type="button"
@@ -368,7 +368,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
             Next
           </button>
           <button
-            className={`w-full mt-2 bg-emerald-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
+            className={`w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${
               currentPage !== totalPages ? "hidden" : ""
             }`}
             type="submit"
