@@ -116,7 +116,7 @@ export default function SavedRestaurants(){
                     </button>
                     <div className="flex w-full items-center ">
                         <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/place/?q=place_id:${element.googlePlaceId}`}>
-                            Click to go to Google Maps
+                            Google Maps
                             </a>
                     </div>
                 </div>
