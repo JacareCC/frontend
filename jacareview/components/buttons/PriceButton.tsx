@@ -1,4 +1,5 @@
 "use client"
+import { CircleDollarSign } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface PriceButtonProps {
@@ -14,7 +15,7 @@ interface PriceButtonProps {
     price
   }) => {
     const [isButtonActive, setButtonActive] = useState<boolean>(false);
-
+    const number = price;
     useEffect(() =>{
         if(price === text.length){
             setButtonActive(true);

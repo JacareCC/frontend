@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { UseFormRegister } from 'react-hook-form';
-import StarButton from '../buttons/starbutton/StarButton';
+import React, { useState, useEffect } from "react";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import StarButton from "../buttons/starbutton/StarButton";
 
 interface FormFivePointsProps {
   register: UseFormRegister<any>;
   name: string;
   title: string;
+  setValue: UseFormSetValue<any>;
 }
 
-const FormFivePoints: React.FC<FormFivePointsProps> = ({ register, name, title }) => {
+const FormFivePoints: React.FC<FormFivePointsProps> = ({
+  register,
+  name,
+  title,
+  setValue,
+}) => {
   const [rating, setRating] = useState<number | null>(null);
 
   const handleStarClick = (index: number) => {
     const newRating = index + 1;
     setRating(newRating);
-    
+
     // Register the new value immediately
     register(name, { value: newRating });
+    setValue(name, newRating);
   };
 
   return (

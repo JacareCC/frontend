@@ -105,7 +105,7 @@ export default function RestViewed() {
   return (
     <div className="flex flex-col align-center items-center">
     <h1 className="font-yaro pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
-    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
           <div>Loading ...</div>
           ) : (
@@ -116,20 +116,20 @@ export default function RestViewed() {
                   <div className="card max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
                 
               {historyDataFiltered &&
-                historyDataFiltered.slice(0, 4).map((element: any, index: number) => (
+                historyDataFiltered.map((element: any, index: number) => (
                     <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
                         <div key={`b${index}`} className="">
                         <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
                     <div key={`a${index}`} className="mb-2">Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
-                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-indigo-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                       Review
                     </Link>
                     {!element.saved ? (
-                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-blue-500 text-white px-4 py-2 mt-2">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-jgreen text-white px-4 py-2 mt-2">
                         Save
                       </button>
                     ) : (
-                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-indigo-300 text-white px-4 py-2 mt-2">
+                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-secl text-white px-4 py-2 mt-2">
                         Unsave
                       </button>
                     )}

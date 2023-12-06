@@ -1,10 +1,9 @@
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import React, { useState, useEffect } from "react";
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import FormatDateForDjango from "../../app/globalfunctions/FormatDateForDjango";
-
+import { CircleDollarSign } from 'lucide-react';
 interface InfosUserProps {
+  points?: string | any;
   user_uid?: string | any;
   email?: string;
   name?: string;
@@ -14,10 +13,11 @@ interface InfosUserProps {
   onEditSave?: (data: { email?: string; name?: string; birthday?: string }) => void;
 }
 
-const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, register, onEditSave }) => {
+const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, points, register, onEditSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEmail, setEditedEmail] = useState(email || '');
   const [editedName, setEditedName] = useState(name || '');
+  const [editedPoints, setEditePoints] = useState<string | undefined | any>(name || '');
   const [editedBirthday, setEditedBirthday] = useState<string | undefined | any>(birthday);
 
   const [formData, setFormData] = useState({
@@ -25,6 +25,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
     email: email || '',
     name: name || '',
     birthday: birthday || '',
+    points: points || '',
   });
 
   const handleEditSaveClick = async () => {
@@ -56,9 +57,9 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         });
 
         if (results.ok) {
-          console.log('Alterações salvas com sucesso');
+          console.log('sucess');
         } else {
-          console.error('Erro ao salvar as alterações:', results.statusText);
+          console.error('Error:', results.statusText);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -72,10 +73,15 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
     setEditedEmail(email || '');
     setEditedName(name || '');
     setEditedBirthday(birthday);
-  }, [email, name, birthday]);
+  }, [email, name, birthday, points]);
 
   return (
     <div className="flex flex-col gap-4 px-8 py-2 font-yaro">
+      <div className='flex items-center justify-center border-gray-300 gap-2 mb-2 pb-2 border-solid border-b'>
+        <CircleDollarSign className='text-jgreen'/>
+        <p className=' text-lg rounded text-jgreen'>{points} jacoins</p>
+        
+      </div>
       <div className="flex flex-col align-center border-solid border-b border-gray-300 mb-2">
         <label className='text-sm'>Email</label>
         {isEditing ? (
