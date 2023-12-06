@@ -8,15 +8,18 @@ import Navbar from "@/components/Navbar";
 import BusinessEditForm from "@/components/formComponents/BusinessEditForm";
 import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import "../../../../app/globals.css"
+import BusinessNavBar from "@/components/BusinessNavBar";
+import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 
 const BusinessPageWithId: React.FC = () => {
     const [statusCode, setStatusCode] = useState<number|null>(0);
     const [pageData, setPageData] = useState<any>(null);
+    const [parsedId, setParsedId] = useState<any>(null);
     const [parsedPageData, setParsedPageData] = useState<any>(null);
 
     const router = useRouter();
     const params = useSearchParams()
-    const data = params.get("data");
+    const id = params.get("id");
 
     initFirebase();
     const auth = getAuth();
@@ -24,14 +27,17 @@ const BusinessPageWithId: React.FC = () => {
   
 
     useEffect(() =>{
-        if(data){
-            setPageData(data);
+        if(id && user){
+            FetchBusinesses(user.uid, setPageData);
+            const parse = JSON.parse(id);
+            setParsedId(parse);
         }
-    }, [data])
+    }, [id, user])
 
     useEffect(() =>{
       if(pageData){
-      setParsedPageData(JSON.parse(pageData))
+        const filteredData = pageData.filter((element:any)=> element.id === parsedId);
+        setParsedPageData(filteredData);
       }
       
   }, [pageData]);
@@ -42,6 +48,8 @@ const BusinessPageWithId: React.FC = () => {
     }
     
 }, [parsedPageData]);
+
+
 
     useEffect(() =>{
        if(statusCode === 201){
@@ -58,37 +66,37 @@ const BusinessPageWithId: React.FC = () => {
         <Navbar />
     
         <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">
-          {pageData && (
+          {parsedPageData && (
             <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
               <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
               <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
                 <div className="flex flex-col sm:flex-row items-center justify-center">
                   <OnlyOneOkButtonTier
-                    id={parsedPageData?.owner_user_id_id}
-                    restaurant_id={parsedPageData?.id}
+                    id={parsedPageData[0]?.owner_user_id_id}
+                    restaurant_id={parsedPageData[0]?.id}
                     backgroundColor={'bronze'}
                     text={'Bronze'}
                     setStatusCode={setStatusCode}
                   />
                   <OnlyOneOkButtonTier
-                    id={pageData?.owner_user_id_id}
-                    restaurant_id={parsedPageData?.id}
+                    id={parsedPageData[0]?.owner_user_id_id}
+                    restaurant_id={parsedPageData[0]?.id}
                     backgroundColor={'silver'}
                     text={'Silver'}
                     setStatusCode={setStatusCode}
                   />
                   <OnlyOneOkButtonTier
                     backgroundColor={'gold'}
-                    id={parsedPageData?.owner_user_id_id}
-                    restaurant_id={parsedPageData?.id}
+                    id={parsedPageData[0]?.owner_user_id_id}
+                    restaurant_id={parsedPageData[0]?.id}
                     text={'Gold'}
                     setStatusCode={setStatusCode}
                   />
                 </div>
                 <BusinessEditForm
-                  email={pageData.email}
-                  contactPerson={pageData.contact_person}
-                  phoneNumber={pageData.phone_number}
+                  email={parsedPageData[0]?.email}
+                  contactPerson={parsedPageData[0]?.contact_person}
+                  phoneNumber={parsedPageData[0].phone_number}
                   user_uid={user?.uid}
                 />
                 <div className="flex justify-center items-center">

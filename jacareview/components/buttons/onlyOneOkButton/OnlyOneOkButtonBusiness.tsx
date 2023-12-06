@@ -39,7 +39,6 @@ interface OnlyOneOkButtonProps {
   
     const queryParams = {
       id: businessId,
-      data: JSON.stringify(data),
     };
   
     return (

@@ -5,6 +5,7 @@ import FormFivePoints from "./FormFivePoints";
 import { Accessibility } from "lucide-react";
 import BinaryChoice from "./FormBinaryChoice";
 import TextInput from "./FormTextInput";
+import { useRouter } from "next/navigation";
 
 
 interface ReviewFormProps {
@@ -46,32 +47,43 @@ interface ReviewData {
 }
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, restaurantName }) => {
+    const [dataToSend, setDataToSend] = useState<any>(null)
+    const [sendReady, setSendReady] = useState<boolean>(false)
 
     const { register, handleSubmit, setValue } = useForm<ReviewData>();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 5;
 
+    const router = useRouter()
+
     const onSubmitHandler = async (data: ReviewData) => {
-      console.log(data);
-    
-      // Add a condition to check if the "Save" button was clicked
-      if (data.hidden) {
-        // If the "Save" button was clicked, proceed with the post request
-        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}review/new/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-    
-        console.log(results);
-      } else {
-        // If the "Save" button wasn't clicked, you can perform other actions or validation
-        console.log('Save button not clicked yet');
-      }
+      setDataToSend(data);
     };
+
+    useEffect(()=>{
+      if(dataToSend){
+        console.log(dataToSend);
+        console.log(restaurantPlaceId)
+        dataToSend.id = restaurantPlaceId;
+      }
+    }, [dataToSend])
+
+    useEffect(()=>{
+      if(sendReady){
+        submitReview();
+        router.push("/user")
+      }
+    }, [sendReady])
     
+    const submitReview = async () => {
+      const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}review/new/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+    }
 
     const handleNextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -81,6 +93,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
       };
 
+      const handleSendReady = () =>{
+        setSendReady(true);
+      }
+
     useEffect(() => {
         setValue('restaurant_place_id', restaurantPlaceId);
         setValue('user_uid', userUid);
@@ -88,7 +104,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
         setValue('hidden', false);
         setValue('verified', false);
     }, [userUid, restaurantPlaceId])
-console.log(restaurantPlaceId)
+
 
     return (
         <div className="flex flex-col justify-center items-center">
@@ -182,6 +198,7 @@ console.log(restaurantPlaceId)
               <button
                 className={`w-full mt-2 bg-emerald-500 text-indigo-100 p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage !== totalPages ? 'hidden' : ''}`}
                 type="submit"
+                onClick={handleSendReady}
               >
                 Save
               </button>

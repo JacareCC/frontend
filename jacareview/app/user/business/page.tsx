@@ -47,7 +47,6 @@ const BusinessPage: React.FC = () => {
   },[user])
 
   useEffect(() => {
-    console.log(businessList)
   },[businessList])
 
   //
