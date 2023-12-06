@@ -4,11 +4,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
-import Navbar from "@/components/Navbar";
 import BusinessEditForm from "@/components/formComponents/BusinessEditForm";
 import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import "../../../../app/globals.css"
-import BusinessNavBar from "@/components/BusinessNavBar";
+import EditOneOkButtonTier from "@/components/buttons/onlyOneOkButton/EditOneOkTierButton";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import NewNav from "@/components/NewNav";
 
@@ -17,6 +16,9 @@ const BusinessPageWithId: React.FC = () => {
     const [pageData, setPageData] = useState<any>(null);
     const [parsedId, setParsedId] = useState<any>(null);
     const [parsedPageData, setParsedPageData] = useState<any>(null);
+    const [bronzeExists, setBronzeExists] = useState<any>(null);
+    const [silverExists, setSilverExists] = useState<any>(null);
+    const [goldExists, setGoldExists] = useState<any>(null);
 
     const router = useRouter();
     const params = useSearchParams()
@@ -45,10 +47,18 @@ const BusinessPageWithId: React.FC = () => {
 
   useEffect(() =>{
     if(parsedPageData){
-    console.log(parsedPageData)
+    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "bronze" ? setBronzeExists(element) : null)
+    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "silver" ? setSilverExists(element) : null)
+    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "gold" ? setGoldExists(element) : null)
     }
     
 }, [parsedPageData]);
+
+useEffect(()=>{
+  if(bronzeExists){
+    console.log(bronzeExists)
+  }
+},[bronzeExists])
 
 
 
@@ -72,7 +82,15 @@ const BusinessPageWithId: React.FC = () => {
             <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
               <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
               <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
-                <div className="flex flex-col sm:flex-row items-center justify-center">
+                <div className="flex flex-col sm:flex-row items-center justify-center">{
+                  
+                    bronzeExists?  <EditOneOkButtonTier 
+                    backgroundColor={"bronze"}
+                    text={"Bronze"}
+                    points={bronzeExists.points_required}
+                    tierId={bronzeExists.id}
+                    description={bronzeExists.reward_description}
+                    />:
                   <OnlyOneOkButtonTier
                     id={parsedPageData[0]?.owner_user_id_id}
                     restaurant_id={parsedPageData[0]?.id}
@@ -80,20 +98,37 @@ const BusinessPageWithId: React.FC = () => {
                     text={'Bronze'}
                     setStatusCode={setStatusCode}
                   />
-                  <OnlyOneOkButtonTier
+                }
+                  {
+                 silverExists?  <EditOneOkButtonTier 
+                 backgroundColor={"silver"}
+                 text={"Silver"}
+                 points={silverExists.points_required}
+                 tierId={silverExists.id}
+                 description={silverExists.reward_description}
+                 />:<OnlyOneOkButtonTier
                     id={parsedPageData[0]?.owner_user_id_id}
                     restaurant_id={parsedPageData[0]?.id}
                     backgroundColor={'silver'}
                     text={'Silver'}
                     setStatusCode={setStatusCode}
                   />
-                  <OnlyOneOkButtonTier
+                 }
+                 {
+                 goldExists?  <EditOneOkButtonTier 
+                 backgroundColor={"gold"}
+                 text={"Gold"}
+                 points={goldExists.points_required}
+                 tierId={goldExists.id}
+                 description={goldExists.reward_description}
+                 />:
+                 <OnlyOneOkButtonTier
                     backgroundColor={'gold'}
                     id={parsedPageData[0]?.owner_user_id_id}
                     restaurant_id={parsedPageData[0]?.id}
                     text={'Gold'}
                     setStatusCode={setStatusCode}
-                  />
+                  />}
                 </div>
                 <BusinessEditForm
                   email={parsedPageData[0]?.email}

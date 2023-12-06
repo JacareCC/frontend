@@ -15,8 +15,6 @@ import NewNav from "@/components/NewNav";
 
 const BusinessPage: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
-  const [tierText, setTierText] = useState<null | string>(null);
-  const [businessText, setBusinessText] = useState<null | string>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [isButtonActiveBusiness, setButtonActiveBusiness] = useState<any>(null);
   const [uid, setUid] = useState<string>("")
