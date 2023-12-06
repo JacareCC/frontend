@@ -10,6 +10,7 @@ import "../../../../app/globals.css"
 import EditOneOkButtonTier from "@/components/buttons/onlyOneOkButton/EditOneOkTierButton";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import NewNav from "@/components/NewNav";
+import ReviewListBusiness from "@/components/ReviewListBusiness";
 
 const BusinessPageWithId: React.FC = () => {
     const [statusCode, setStatusCode] = useState<number|null>(0);
@@ -19,6 +20,7 @@ const BusinessPageWithId: React.FC = () => {
     const [bronzeExists, setBronzeExists] = useState<any>(null);
     const [silverExists, setSilverExists] = useState<any>(null);
     const [goldExists, setGoldExists] = useState<any>(null);
+    const [reviewsToSend, setReviewsToSend] = useState<any>(null);
 
     const router = useRouter();
     const params = useSearchParams()
@@ -47,6 +49,7 @@ const BusinessPageWithId: React.FC = () => {
 
   useEffect(() =>{
     if(parsedPageData){
+    setReviewsToSend(parsedPageData[0].reviews)
     parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "bronze" ? setBronzeExists(element) : null)
     parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "silver" ? setSilverExists(element) : null)
     parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "gold" ? setGoldExists(element) : null)
@@ -56,7 +59,7 @@ const BusinessPageWithId: React.FC = () => {
 
 useEffect(()=>{
   if(bronzeExists){
-    console.log(bronzeExists)
+    
   }
 },[bronzeExists])
 
@@ -81,7 +84,7 @@ useEffect(()=>{
           {parsedPageData && (
             <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
               <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
-              <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
+              <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-cover" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
                 <div className="flex flex-col sm:flex-row items-center justify-center">{
                   
                     bronzeExists?  <EditOneOkButtonTier 
@@ -136,15 +139,16 @@ useEffect(()=>{
                   phoneNumber={parsedPageData[0].phone_number}
                   user_uid={user?.uid}
                 />
+                <ReviewListBusiness reviews={reviewsToSend}/>
                 <div className="flex justify-center items-center">
                   <button
                     key={"CloseButton"}
                     onClick={handleClose}
                     className={`${
-                      'bg-jgreen'
+                      'bg-green-500'
                     } text-white p-2 m-1 rounded`}
                   >
-                    Close
+                    Back To Restaurants Owned
                   </button>
                 </div>
               </div>
