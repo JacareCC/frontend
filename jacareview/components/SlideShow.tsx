@@ -57,27 +57,27 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
     }
   
     return (
-        <Slider {...settings} className="flex items-center justify-center h-screen mt-16">
+        <Slider {...settings} className="max-w-screen-md mx-auto">
           {resultArray &&
             resultArray.map((slide: any, index: number) => (
               <div
                 key={index}
-                className="bg-white p-4 mb-4 rounded-lg shadow-md w-screen md:w-4/5 lg:w-3/5 mx-auto overflow-hidden h-screen flex flex-col justify-center items-center text-center"
+                className="flex flex-col  justify-center items-center"
               >
-                <div className="text-emerald-500 font-yaro text-lg font-bold mb-2">
-                  {slide.displayName.text}
-                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} mylocation={location} user={user} />}
+                <div className="flex flex-col  justify-center items-center text-jgreen font-yaro text-xl mb-2">
+                    <h1 className='border-b  mb-4 '>{slide.displayName.text}</h1>
                 </div>
-                <div className="text-gray-600 font-yaro mb-2">
+                  {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} mylocation={location} user={user} />}
+                <div className="flex flex-col  justify-center items-center font-yaro m-2 text-jgreen text-lg">
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
                 </div>
-                <a href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`}>Click to go to Google Maps</a>
-                <div className="text-gray-600 font-yaro">
+                <a className='flex flex-col  justify-center items-center w-[80] rounded bg-jgreen text-white px-4 py-2 m-2' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`}>Click to go to Google Maps</a>
+                <div className="flex flex-col  justify-center items-center text-gray-600 font-yaro">
                   {slide.priceLevel ? (
                     <PriceLevelComponent priceLevel={slide.priceLevel} />
                   ) : (
-                    <div>Price Unknown</div>
+                    <div></div>
                   )}
                 </div>
               </div>

@@ -1,6 +1,7 @@
 "use client";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
@@ -13,6 +14,8 @@ import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import gatorSearching from "./gator-searching.png"
+import NewNav from "@/components/NewNav";
+import { CircleDollarSign } from "lucide-react";
 
 
 
@@ -102,11 +105,11 @@ export default function SearchPage() {
     // }
   }, []);
   
-useEffect(() => {
-    if (results) {
-      setResultsFetched(true);
-    }
-  }, [location]);
+// useEffect(() => {
+//     if (results) {
+//       setResultsFetched(true);
+//     }
+//   }, [location]);
 
   useEffect(() => {
     if (results) {
@@ -246,91 +249,96 @@ async function fetchRestaurants() {
 
   
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden">
-      <Navbar /> {/* Sticky Navbar */}
-      {!resultsFetched && (
-        <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
-          {/* Container div for content, adjusted for NavBar height */}
-          {!statusCodeOK ? (
-            // Loading Animation when user is not available
-            <LoadingAnimation />
-          ) : (
-            <>
-              {!resultsFetched && !searchClicked ? (
-              // Your existing sections
-              <>
-               <div className="sm:mt-0 md:w-1/2 mt-16 flex flex-col items-center justify-center">
-                  <img src="./gator-searching.png" alt="Gator Searching" />
-                </div>
-                <div className="bg-white font-yaro text-emerald-500 p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
-                  {/* Section 1 */}
-                  <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
-                    <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
-                    <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
-                  </div>
-
-                   {/* Section 2 */}
-                   <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold text-jgreen mb-6">Max Price</h1>
-                    <div className="flex flex-row">
-                    <PriceButton setPrice={setPrice}  price={price} text={"$"}/>
-                    <PriceButton setPrice={setPrice}  price={price} text={"$$"}/>
-                    <PriceButton setPrice={setPrice}  price={price} text={"$$$"}/>
-                    <PriceButton setPrice={setPrice}  price={price} text={"$$$$"}/>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-center justify-center mb-8">
-  
-                  {/* Section 3 */}
-                  <div className="flex flex-col items-center justify-center mb-0">
-                    <h1 className="text-4xl font-bold mb-6 text-jgreen">Dietary Restrictions</h1>
-                    <div className="flex flex-row">
-                    <ColorChangingButton text={"Vegan"}
-                        setCuisineType={setCuisineType}
-                        cuisineType={cuisineType}
-                        includeOthers={includeOthers}
-                        count={count}
-                        setCount={setCount}
-                        setIncludeOthers={setIncludeOthers}
-                        resetCount={resetCount}/>
-                    <ColorChangingButton text={"Vegetarian"}
-                        setCuisineType={setCuisineType}
-                        cuisineType={cuisineType}
-                        includeOthers={includeOthers}
-                        count={count}
-                        setCount={setCount}
-                        setIncludeOthers={setIncludeOthers}
-                        resetCount={resetCount}/>
-                        </div>
-                  </div>
-                  </div>
-                </div>
-              </>
+    <><div className="max-w-screen-md mx-auto">
+      <NewNav />
+    </div><div className="flex flex-col h-screen w-screen overflow-hidden">
+        {!resultsFetched && (
+          <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
+            {/* Container div for content, adjusted for NavBar height */}
+            {!statusCodeOK ? (
+              // Loading Animation when user is not available
+              <LoadingAnimation />
             ) : (
-              
-              // Render results or loading animation based on conditions
-              <div className="flex items-center justify-center h-screen">
-                {!resultsFetched && (
-                  <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
-                    <img
-                      src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
-                      alt="Alligator eating a star"
-                      className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
-                    />
+              <>
+                {!resultsFetched && !searchClicked ? (
+                  // Your existing sections
+                  <>
+                    <div className="sm:mt-0 md:w-1/2 mt-16 flex flex-col items-center justify-center">
+                      <img src="./gator-searching.png" alt="Gator Searching" />
+                    </div>
+                    <div className="font-yaro p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
+                      {/* Section 1 */}
+                      <div className="flex flex-col items-center justify-center"></div>
+                      <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
+                      <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
+                        <FunSearchButton text="One jacaRestaurant" fetchData={handleSubmitWithLocationOne} />
+                        <FunSearchButton text="Three jacaRestaurants" fetchData={handleSubmitWithLocation} />
+                      </div>
+                      {/* Section 2 */}
+                      <div className="md:flex md:items-baseline md:align-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <h1 className="text-xl font-bold text-jgreen mb-2 border-b">Max Price</h1>
+                        <div className="flex flex-row">
+                          <PriceButton setPrice={setPrice} price={price} text={"$"}  />
+                          <PriceButton setPrice={setPrice} price={price} text={"$$"} />
+                          <PriceButton setPrice={setPrice} price={price} text={"$$$"} />
+                          <PriceButton setPrice={setPrice} price={price} text={"$$$$"} />
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-center justify-center mb-8">
+                        {/* Section 3 */}
+                        <div className="flex flex-col items-center justify-center mb-0 m-4">
+                          <h1 className="text-xl font-bold text-jgreen mb-2 border-b">Dietary Restrictions</h1>
+                          <div className="flex flex-row">
+                            <ColorChangingButton text={"Vegan"}
+                              setCuisineType={setCuisineType}
+                              cuisineType={cuisineType}
+
+                              includeOthers={includeOthers}
+
+                              count={count}
+                              setCount={setCount}
+                              setIncludeOthers={setIncludeOthers}
+                              resetCount={resetCount} />
+                            <ColorChangingButton text={"Vegetarian"}
+                              setCuisineType={setCuisineType}
+                              cuisineType={cuisineType}
+                              includeOthers={includeOthers}
+                              count={count}
+                              setCount={setCount}
+                              setIncludeOthers={setIncludeOthers}
+                              resetCount={resetCount} />
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+
+                  // Render results or loading animation based on conditions
+                  <div className="flex items-center justify-center h-screen">
+                    {!resultsFetched && (
+                      <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
+                        <img
+                          src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
+                          alt="Alligator eating a star"
+                          className="w-full h-full object-cover rounded-full border-4 border-emerald-500" />
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
+              </>
             )}
-          </>
+          </div>
         )}
-      </div>
-    )}
-    {resultsFetched && (
-      <div className="flex-grow">
-        {/* Wrap the Slideshow component in a div that takes up the remaining space */}
-        <Slideshow slides={results} location={location} user={user} />
-      </div>
-    )}
-  </div>
+        {resultsFetched && (
+          <div className="flex-grow">
+            {/* Wrap the Slideshow component in a div that takes up the remaining space */}
+            <Slideshow slides={results} location={location} user={user} />
+          </div>
+        )}
+      </div></>
+  
 );
       }  

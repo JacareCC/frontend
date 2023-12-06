@@ -15,7 +15,7 @@ const FunSearchButton: React.FC<FunSearchButtonProps> = ({fetchData, text}) => {
   return (
     <div className="relative">
        <button
-        className={`mt-4 bg-jgreen hover:bg-emerald-600 text-white font-yaro py-2 px-4 rounded-full transition duration-300 ease-in-out ${
+        className={`mt-4 bg-jgreen hover:bg-emerald-600 text-white font-yaro py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out ${
           isClicked ? 'playing fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50' : ''
         }`}
         onClick={handleClick}

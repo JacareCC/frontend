@@ -12,7 +12,7 @@ const PriceLevelComponent: React.FC<PriceLevelProps> = ({
   }) => {
     const [text, setText]=useState<any>("");
     
-
+console.log(text)
     useEffect(()=>{
         if(priceLevel){
             let multiplier = priceMultiplier(priceLevel)
@@ -22,15 +22,10 @@ const PriceLevelComponent: React.FC<PriceLevelProps> = ({
             }
         }
     },[priceLevel])
-   
-
-    
-   
 
     return(
-        <div className="flex items-center justify-center">
-        
-        {text}
+        <div className="flex items-center justify-center p-2">
+            {text}
         </div>
     )
 }

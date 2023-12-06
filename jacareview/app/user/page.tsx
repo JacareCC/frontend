@@ -5,18 +5,13 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import '../globals.css'
-import Navbar from "@/components/Navbar";
-import Card from "@/components/CardButton";
-import jacaDate from 'public/jaca-date.png'
 import NavbarUser from "@/components/NavBarUser";
 import { useEffect, useState } from "react";
 import InfoUser from "@/components/userPage/InfoUser";
-import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
-import SavedRestaurants from "@/components/SavedRestaurants";
-import { emit } from "process";
 import RestViewed from "@/components/userPage/RestViewed";
 import VerifyUser from "../globalfunctions/TokenVerification";
-
+import ClaimButton from "@/components/userPage/ClaimButton";
+import NewNav from "@/components/NewNav";
 
 
 export default function UserPage(){
@@ -34,13 +29,6 @@ export default function UserPage(){
           router.push("/");
         }
       });
-
-    interface NavbarUserProps {
-        logoSrc: string | null | undefined;
-        userPhotoSrc: string | null | undefined;
-        userName: string | null | undefined
-    }
-
       
         const[userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
         const[userName, setUserName] = useState<string | undefined>(undefined);
@@ -86,18 +74,23 @@ export default function UserPage(){
             setUserName(user?.displayName)
           }
         }, [user]);
-    
+
     return(
-        <div className="">
-            <NavbarUser userName={userName} userLevel={points} userPhotoSrc={userPhoto}/>
-            <div className="flex flex-col justify-center items-center">
-                <InfoUser email={email} birthday={birthday} name={userName} />   
+        <div>
+            <div className="max-w-screen-md mx-auto">
+                <NewNav />
             </div>
-            <div>
-                <RestViewed />
-            </div>
-            <div>
-                <button className="bg-gray-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">Claim a Restaurant</button>
+            <div className="max-w-screen-md mx-auto">
+
+                <div className="">
+                    <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
+                </div>
+                <div>
+                    <RestViewed />
+                </div>
+                <div className="px-4">
+                    <ClaimButton user_uid={uid} />
+                </div>
             </div>
         </div>
     )

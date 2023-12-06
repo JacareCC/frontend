@@ -5,8 +5,9 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter, useSearchParams } from "next/navigation";
 import '../globals.css'
-import ReviewForm from "@/components/ReviewForm";
+import ReviewForm from "@/components/formComponents/ReviewForm";
 import Navbar from "@/components/Navbar";
+import NewNav from "@/components/NewNav";
 // import { getDisplayName } from "next/dist/shared/lib/utils";
 
 export default function ReviewPage() {
@@ -45,8 +46,10 @@ export default function ReviewPage() {
 
     return (
         <>
-            <Navbar /> 
-            <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
+            <div className="max-w-screen-md mx-auto" >
+            <NewNav /> 
+                <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
+            </div>
         </>
     )
 
