@@ -99,7 +99,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 focus:outline-none"
+                    className="bg-jgreen text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 focus:outline-none"
                   >
                     Save
                   </button>

@@ -73,23 +73,24 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({ email, contactPerso
   return (
     <div className="flex flex-col gap-4 px-8 py-2 font-yaro">
       <div className="flex flex-col align-center border-solid border-b border-gray-300 mb-2">
-        <label className='text-sm'>Email</label>
+        <label className='text-sm text-white'>Email</label>
         {isEditing ? (
-          <div className='mb-2 flex justify-between items-center w-full'>
+          <div className='mb-2 flex justify-between items-center w-full text-white'>
             <input
               type='text'
               value={editedEmail}
               onChange={(e) => setEditedEmail(e.target.value)}
               {...register && register('email')} 
+              className="text-black"
             />
           </div>
         ) : (
-          <div className='mb-2 flex justify-between items-center w-full'>
+          <div className='mb-2 flex justify-between items-center w-full text-white'>
             <p className='text-lg'>{editedEmail || "N/A"}</p>
           </div>
         )}
       </div>
-      <div className="mb-2 flex flex-col align-center border-solid border-b border-gray-300">
+      <div className="mb-2 flex flex-col align-center border-solid border-b border-gray-300 text-white">
         <label className='text-sm'>Contact Person</label>
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
@@ -98,6 +99,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({ email, contactPerso
               value={editedContactPerson}
               onChange={(e) => setEditedContactPerson(e.target.value)}
               {...register && register('contactPerson')} 
+              className="text-black"
             />
           </div>
         ) : (
@@ -106,7 +108,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({ email, contactPerso
           </div>
         )}
       </div>
-      <div className="flex flex-col align-center border-solid border-b border-gray-300">
+      <div className="flex flex-col align-center border-solid border-b border-gray-300 text-white">
         <label className='text-sm'>Phone Number</label>
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
@@ -115,6 +117,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({ email, contactPerso
               value={editedPhoneNumber}
               onChange={(e) => setEditedPhoneNumber(e.target.value)}
               {...register && register('phoneNumber')} 
+              className="text-black"
             />
           </div>
         ) : (

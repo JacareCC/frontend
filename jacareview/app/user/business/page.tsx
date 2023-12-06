@@ -6,12 +6,11 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import "../../../app/globals.css"
-import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
-import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import BusinessNavBar from "@/components/BusinessNavBar";
 import "../../../app/globals.css"
+
 
 const BusinessPage: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
@@ -59,68 +58,16 @@ const BusinessPage: React.FC = () => {
 
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Navbar />
-
-      <div className="mt-16 p-4">
-        <BusinessNavBar/>
-{/*         
-          {businessList && businessList.length > 0 &&(
-            <div>
-              <div className="flex items-center justify-center font-yaro text-jgreen">
-            <h1 className="text-3xl font-bold mb-4">Business(es)</h1>
-            </div>
-            <div className="flex flex-row justify-center">
-              {businessList.map((element: any, index: number) => (
-                <div key={`5${index}`}>
-                <div onClick={handleTab} a-key={element.business_name} className="flex-shrink-0 mx-2" key={index}>
-                  <OnlyOneOkButtonBusiness
-                    text={element.business_name}
-                    textToCheck={isButtonActiveBusiness}
-                    setState={setBusinessText}
-                  />
-                  </div>
-                      <div key={`4${index}`}>
-                      {isButtonActiveBusiness === element.business_name && (
-                        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                          <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-                          <div className="bg-white p-8 rounded-md shadow-md relative z-10">
-                            <OnlyOneOkButtonTier
-                              uid={uid}
-                              backgroundColor={"bronze"}
-                              text={"Bronze"}
-                              textToCheck={tierText}
-                              setState={setTierText}
-                            />
-                            <OnlyOneOkButtonTier
-                            uid={uid}
-                              backgroundColor={"silver"}
-                              text={"Silver"}
-                              textToCheck={tierText}
-                              setState={setTierText}
-                            />
-                            <OnlyOneOkButtonTier
-                              backgroundColor={"gold"}
-                              uid={uid}
-                              text={"Gold"}
-                              textToCheck={tierText}
-                              setState={setTierText}
-                            />
-                          </div>
-                        </div>
-                      )}
-
-</div>
-                </div>
-               ))}
-            </div>
-             </div>
-          )
-          }
-        */}
-
-        
-       
+  
+      <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">
+        <div className="md:w-1/2 mt-16 flex items-center justify-center">
+          <img src="../../../business-gator.jpg" alt="Business Gator" />
+        </div>
+        <div className="w-full md:w-1/2 bg-white">
+          <BusinessNavBar />
+        </div>
       </div>
     </div>
   );
