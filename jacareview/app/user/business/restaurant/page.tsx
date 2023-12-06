@@ -63,60 +63,53 @@ const BusinessPageWithId: React.FC = () => {
     }
   
     return (
-      <div className="w-screen h-screen overflow-hidden">
-               <div className="max-w-screen-md mx-auto">
-                <NewNav />
-            </div>
-        <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">
-          {parsedPageData && (
-            <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
-              <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
-              <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
-                <div className="flex flex-col sm:flex-row items-center justify-center">
-                  <OnlyOneOkButtonTier
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    backgroundColor={'bronze'}
-                    text={'Bronze'}
-                    setStatusCode={setStatusCode}
-                  />
-                  <OnlyOneOkButtonTier
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    backgroundColor={'silver'}
-                    text={'Silver'}
-                    setStatusCode={setStatusCode}
-                  />
-                  <OnlyOneOkButtonTier
-                    backgroundColor={'gold'}
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    text={'Gold'}
-                    setStatusCode={setStatusCode}
-                  />
-                </div>
-                <BusinessEditForm
-                  email={parsedPageData[0]?.email}
-                  contactPerson={parsedPageData[0]?.contact_person}
-                  phoneNumber={parsedPageData[0].phone_number}
-                  user_uid={user?.uid}
-                />
-                <div className="flex justify-center items-center">
-                  <button
-                    key={"CloseButton"}
-                    onClick={handleClose}
-                    className={`${
-                      'bg-jgreen'
-                    } text-white p-2 m-1 rounded`}
-                  >
-                    Close
-                  </button>
+               <><div className="max-w-screen-md mx-auto">
+        <NewNav />
+      </div><div className="w-screen h-screen overflow-hidden">
+          <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">
+            {parsedPageData && (
+              <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
+                <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"></div>
+                <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")' }}>
+                  <div className="flex flex-col sm:flex-row items-center justify-center">
+                    <OnlyOneOkButtonTier
+                      id={parsedPageData[0]?.owner_user_id_id}
+                      restaurant_id={parsedPageData[0]?.id}
+                      backgroundColor={'bronze'}
+                      text={'Bronze'}
+                      setStatusCode={setStatusCode} />
+                    <OnlyOneOkButtonTier
+                      id={parsedPageData[0]?.owner_user_id_id}
+                      restaurant_id={parsedPageData[0]?.id}
+                      backgroundColor={'silver'}
+                      text={'Silver'}
+                      setStatusCode={setStatusCode} />
+                    <OnlyOneOkButtonTier
+                      backgroundColor={'gold'}
+                      id={parsedPageData[0]?.owner_user_id_id}
+                      restaurant_id={parsedPageData[0]?.id}
+                      text={'Gold'}
+                      setStatusCode={setStatusCode} />
+                  </div>
+                  <BusinessEditForm
+                    email={parsedPageData[0]?.email}
+                    contactPerson={parsedPageData[0]?.contact_person}
+                    phoneNumber={parsedPageData[0].phone_number}
+                    user_uid={user?.uid} />
+                  <div className="flex justify-center items-center">
+                    <button
+                      key={"CloseButton"}
+                      onClick={handleClose}
+                      className={`${'bg-jgreen'} text-white p-2 m-1 rounded`}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </div>
+            )}
+          </div>
+        </div></>
     );
   };
 

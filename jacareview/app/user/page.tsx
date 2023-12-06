@@ -29,13 +29,6 @@ export default function UserPage(){
           router.push("/");
         }
       });
-
-    interface NavbarUserProps {
-        logoSrc: string | null | undefined;
-        userPhotoSrc: string | null | undefined;
-        userName: string | null | undefined
-    }
-
       
         const[userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
         const[userName, setUserName] = useState<string | undefined>(undefined);
@@ -90,7 +83,7 @@ export default function UserPage(){
             <div className="max-w-screen-md mx-auto">
 
                 <div className="">
-                    <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid}/>   
+                    <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
                 </div>
                 <div>
                     <RestViewed />

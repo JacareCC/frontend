@@ -58,21 +58,18 @@ const BusinessPage: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col h-screen">
-          <div className="max-w-screen-md mx-auto">
-    <NewNav />
-    </div>
-
-  
-      <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">
-        <div className="md:w-1/2 mt-16 flex items-center justify-center">
-          <img src="../../../business-gator.jpg" alt="Business Gator" />
+    <><div className="max-w-screen-md mx-auto">
+      <NewNav />
+    </div><div className="flex flex-col h-screen">
+        <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">
+          <div className="md:w-1/2 mt-16 flex items-center justify-center">
+            <img src="../../../business-gator.jpg" alt="Business Gator" />
+          </div>
+          <div className="w-full md:w-1/2 bg-white">
+            <BusinessNavBar />
+          </div>
         </div>
-        <div className="w-full md:w-1/2 bg-white">
-          <BusinessNavBar />
-        </div>
-      </div>
-    </div>
+      </div></>
   );
 };
 
