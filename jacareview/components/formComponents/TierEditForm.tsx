@@ -58,8 +58,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ description, points, tierId
         console.error('Error:', error);
       }
     }
-    setShowForm(false);
-    setButtonActive(false)
+   
     setIsEditing(!isEditing);
   };
 
