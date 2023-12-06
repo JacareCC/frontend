@@ -105,14 +105,21 @@ export default function SavedRestaurants(){
                 <Link key={`d${index}`} href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                     Review
                 </Link>
-                <button
-                    onClick={getRestaurantID}
-                    a-key={element.restaurant_id_id}
-                    b-key={element.id}
-                    className="w-full rounded bg-secl text-white px-4 py-2 mt-2"
-                >
-                    Unsave
-                </button>
+                <div className="flex w-full items-center gap-2">
+                    <button
+                        onClick={getRestaurantID}
+                        a-key={element.restaurant_id_id}
+                        b-key={element.id}
+                        className="w-full rounded bg-secl text-white px-4 py-2 mt-2"
+                        >
+                        Unsave
+                    </button>
+                    <div className="flex w-full items-center ">
+                        <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/place/?q=place_id:${element.googlePlaceId}`}>
+                            Click to go to Google Maps
+                            </a>
+                    </div>
+                </div>
             </div>
           ))
         )}

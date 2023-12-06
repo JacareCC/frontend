@@ -10,7 +10,7 @@ import TermsAndConditions from "@/components/TermsAndConditions";
 import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
-import logoHome from '../public/logo-home.png'
+import logoHome from '../public/logo-home--.png'
 // import jacarePhone from '../public/IMG_8629.png'
 import jacareReview from '../public/jaca-review.png'
 import jacareEat from '../public/jaca-eat.png'
@@ -20,6 +20,7 @@ import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
+import NewNav from "@/components/NewNav";
 
 
 export default function Home() {
@@ -151,7 +152,10 @@ export default function Home() {
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
-          <NavbarHome />
+        <div className="max-w-screen-md mx-auto">
+
+          <NewNav />
+        </div>
         <main className="container mx-auto lg:px-8 max-w-screen-lg ">
             {!statusCode && user? (
               <LoadingAnimation/>

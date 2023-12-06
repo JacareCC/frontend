@@ -251,7 +251,7 @@ async function fetchRestaurants() {
   return (
     <><div className="max-w-screen-md mx-auto">
       <NewNav />
-    </div><div className="max-w-screen-md mx-auto flex flex-col h-screen w-screen overflow-hidden">
+    </div><div className="flex flex-col h-screen w-screen overflow-hidden">
         {!resultsFetched && (
           <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
             {/* Container div for content, adjusted for NavBar height */}
@@ -268,12 +268,11 @@ async function fetchRestaurants() {
                     </div>
                     <div className="font-yaro p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
                       {/* Section 1 */}
-                      <div className="flex flex-col items-center justify-center">
-                      <h1 className="text-2xl font-bold text-jgreen mb-2 border-b">Search</h1>
+                      <div className="flex flex-col items-center justify-center"></div>
+                      <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
                       <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
                         <FunSearchButton text="One jacaRestaurant" fetchData={handleSubmitWithLocationOne} />
                         <FunSearchButton text="Three jacaRestaurants" fetchData={handleSubmitWithLocation} />
-                      </div>
                       </div>
                       {/* Section 2 */}
                       <div className="md:flex md:items-baseline md:align-center">
@@ -320,7 +319,7 @@ async function fetchRestaurants() {
                   // Render results or loading animation based on conditions
                   <div className="flex items-center justify-center h-screen">
                     {!resultsFetched && (
-                      <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
+                      <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                         <img
                           src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
                           alt="Alligator eating a star"

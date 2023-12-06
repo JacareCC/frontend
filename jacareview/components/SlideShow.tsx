@@ -57,7 +57,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
     }
   
     return (
-        <Slider {...settings} className="flex flex-col  justify-center items-center">
+        <Slider {...settings} className="max-w-screen-md mx-auto">
           {resultArray &&
             resultArray.map((slide: any, index: number) => (
               <div
