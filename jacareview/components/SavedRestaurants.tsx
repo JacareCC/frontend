@@ -88,7 +88,6 @@ export default function SavedRestaurants(){
           console.error('Error undoing save restaurant:', error);
         }
     }
-    
 
     return (
         <div className="flex flex-col align-center items-center">
