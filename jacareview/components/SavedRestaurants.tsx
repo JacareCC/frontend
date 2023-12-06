@@ -115,7 +115,7 @@ export default function SavedRestaurants(){
                         Unsave
                     </button>
                     <div className="flex w-full items-center ">
-                        <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/place/?q=place_id:${element.googlePlaceId}`}>
+                        <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/place/?q=place_id:${element.googlePlaceId} `} target='_blank'>
                             Google Maps
                             </a>
                     </div>

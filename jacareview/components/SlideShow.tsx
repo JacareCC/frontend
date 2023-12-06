@@ -72,7 +72,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
                 </div>
-                <a className='flex flex-col  justify-center items-center w-[80] rounded bg-jgreen text-white px-4 py-2 m-2' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`}>Click to go to Google Maps</a>
+                <a className='flex flex-col  justify-center items-center w-[80] rounded bg-jgreen text-white px-4 py-2 m-2' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`} target='_blank'>Click to go to Google Maps</a>
                 <div className="flex flex-col  justify-center items-center text-gray-600 font-yaro">
                   {slide.priceLevel ? (
                     <PriceLevelComponent priceLevel={slide.priceLevel} />
