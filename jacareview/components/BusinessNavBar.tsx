@@ -5,15 +5,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import "../../../app/globals.css"
+import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
+import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
-import BusinessNavBar from "@/components/BusinessNavBar";
-import "../../../app/globals.css"
-import NewNav from "@/components/NewNav";
+import "../app/globals.css"
+import NewNav from "./NewNav";
 
 
-const BusinessPage: React.FC = () => {
+
+const BusinessNavBar: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
   const [tierText, setTierText] = useState<null | string>(null);
   const [businessText, setBusinessText] = useState<null | string>(null);
@@ -48,32 +49,52 @@ const BusinessPage: React.FC = () => {
   },[user])
 
   useEffect(() => {
+    console.log(businessList)
   },[businessList])
 
   //
   function handleTab(event:any){
     const text = event.target.innerText;
     setButtonActiveBusiness(text);
+    
   }
 
 
   return (
-    <div className="flex flex-col h-screen">
-          <div className="max-w-screen-md mx-auto">
-    <NewNav />
-    </div>
+    <div>
+        <div className="mt-16 p-4">
+        
+          {businessList && businessList.length > 0 &&(
+            <div>
+              <div className="flex items-center justify-center font-yaro text-jgreen">
+            <h1 className="text-3xl font-bold mb-4">Business(es)</h1>
+            </div>
+            <div className="flex flex-row justify-center">
+              {businessList.map((element: any, index: number) => (
+                <div key={`5${index}`}>
+                <div onClick={handleTab} a-key={element.business_name} className="flex-shrink-0 mx-2" key={index}>
+                  <OnlyOneOkButtonBusiness
+                    businessId={element.id}
+                    text={element.business_name}
+                    textToCheck={isButtonActiveBusiness}
+                    setState={setBusinessText}
+                    data={element}
+                  />
+                  </div>
+                  
+                </div>
+               ))}
+            </div>
+             </div>
+          )
+          }
+       
 
-  
-      <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">
-        <div className="md:w-1/2 mt-16 flex items-center justify-center">
-          <img src="../../../business-gator.jpg" alt="Business Gator" />
-        </div>
-        <div className="w-full md:w-1/2 bg-white">
-          <BusinessNavBar />
-        </div>
+        
+       
       </div>
     </div>
   );
 };
 
-export default BusinessPage;
+export default BusinessNavBar;

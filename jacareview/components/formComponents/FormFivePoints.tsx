@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import StarButton from '../buttons/starbutton/StarButton';
 
@@ -12,7 +12,11 @@ const FormFivePoints: React.FC<FormFivePointsProps> = ({ register, name, title }
   const [rating, setRating] = useState<number | null>(null);
 
   const handleStarClick = (index: number) => {
-    setRating(index + 1);
+    const newRating = index + 1;
+    setRating(newRating);
+    
+    // Register the new value immediately
+    register(name, { value: newRating });
   };
 
   return (
@@ -29,7 +33,6 @@ const FormFivePoints: React.FC<FormFivePointsProps> = ({ register, name, title }
           ))}
         </div>
       </div>
-      <input type="hidden" {...register(name)} value={rating || ''} />
     </div>
   );
 };
