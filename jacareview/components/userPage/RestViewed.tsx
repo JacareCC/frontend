@@ -104,8 +104,8 @@ export default function RestViewed() {
   }
   return (
     <div className="flex flex-col align-center items-center">
-    <h1 className="font-yaro pt-2 text-l font-semibold" >Viewed Restaurants</h1>
-    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+    <h1 className="font-yaro pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
+    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
           <div>Loading ...</div>
           ) : (

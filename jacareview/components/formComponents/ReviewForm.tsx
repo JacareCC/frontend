@@ -85,8 +85,8 @@ console.log(restaurantPlaceId)
     return (
         <div className="flex flex-col justify-center items-center">
           <form className="flex flex-col w-full items-center" onSubmit={handleSubmit(onSubmitHandler)}>
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 1 ? 'hidden' : ''}`}>
-              <h2 className="flex justify-center font-semibold p-2 bg-white">General Points</h2>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-2 mt-8 bg-jgreen text-base text-white text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 1 ? 'hidden' : ''}`}>
+              <h2 className="flex justify-center font-semibold p-2">General Points</h2>
               <div className="rounded">
                 <FormFivePoints register={register} name='accessibility' title='Accessibility' />
                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />
@@ -98,7 +98,7 @@ console.log(restaurantPlaceId)
       
             {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
             {/* Exemplo da segunda página */}
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 2 ? 'hidden' : ''}`}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 2 ? 'hidden' : ''}`}>
               <h2 className="flex justify-center font-semibold p-2 bg-white ">Accessibility Points</h2>
               <div className="py-2">
                 <TextInput register={register} name='parking' title='Parking lot' placeholder='Convenient parking with dedicated spaces for patrons.' />
@@ -110,7 +110,7 @@ console.log(restaurantPlaceId)
       
             {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
             {/* Exemplo da terceira página */}
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 3 ? 'hidden' : ''}`}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 3 ? 'hidden' : ''}`}>
               <h2 className="flex justify-center font-semibold p-2 bg-white">Food quality Points</h2>
               <div className="py-2">
                 <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder="Fresh, locally sourced ingredients used in all dishes." />
@@ -122,7 +122,7 @@ console.log(restaurantPlaceId)
       
             {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
             {/* Exemplo da quarta página */}
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 4 ? 'hidden' : ''}`}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 4 ? 'hidden' : ''}`}>
               <h2 className="flex justify-center font-semibold p-2 bg-white">Customer service Points</h2>
               <div className="py-2">
                 <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder='Well-informed staff with knowledge about the menu and dietary options.' />
@@ -136,7 +136,7 @@ console.log(restaurantPlaceId)
       
             {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
             {/* Exemplo da quinta página */}
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 5 ? 'hidden' : ''}`}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 5 ? 'hidden' : ''}`}>
               <h2 className="flex justify-center font-semibold p-2 bg-white">Atmosphere Points</h2>
               <div className="py-2">
                 <TextInput register={register} name='interior_design' title='Interior Design' placeholder='Cozy and inviting interior with stylish decor.' />
@@ -148,7 +148,7 @@ console.log(restaurantPlaceId)
             
             {/* Adicione blocos semelhantes para outras páginas, ajustando a condição e o conteúdo conforme necessário */}
             {/* Exemplo da sexta página (última) */}
-            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 6 ? 'hidden' : ''}`}>
+            <div className={`max-w-screen-md shadow-xl w-11/12 mx-6 my-2 mt-8 my-4 bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl ${currentPage !== 6 ? 'hidden' : ''}`}>
               <h2 className="flex justify-center font-semibold p-2 bg-white">Value for price Points</h2>
               <div className="py-2">
                 <TextInput register={register} name='competitive_price' title="Competitive price" placeholder='Reasonable prices with good value for the quality of food and service.' />
@@ -156,23 +156,23 @@ console.log(restaurantPlaceId)
             </div>
       
             {/* Botões de navegação */}
-            <div className={`flex justify-between gap-2 w-11/12 mx-6 my-4 ${currentPage !== totalPages ? 'mb-16' : ''}`}>
+            <div className={`flex justify-between gap-2 w-11/12 mx-6  my-4 ${currentPage !== totalPages ? 'mb-16' : ''}`}>
               <button
-                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage === 1 ? 'hidden' : ''}`}
+                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage === 1 ? 'hidden' : ''}`}
                 type="button"
                 onClick={handlePrevPage}
               >
                 Previous
               </button>
               <button
-                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage === totalPages ? 'hidden' : ''}`}
+                className={`w-full mt-2 bg-emerald-400 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage === totalPages ? 'hidden' : ''}`}
                 type="button"
                 onClick={handleNextPage}
               >
                 Next
               </button>
               <button
-                className={`w-full mt-2 bg-emerald-500 text-indigo-100 p-2 rounded shadow-lg shadow-xl flex justify-center items-center ${currentPage !== totalPages ? 'hidden' : ''}`}
+                className={`w-full mt-2 bg-emerald-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl ${currentPage !== totalPages ? 'hidden' : ''}`}
                 type="submit"
               >
                 Save
@@ -195,7 +195,7 @@ console.log(restaurantPlaceId)
 //     return (
 //         <div className="flex flex-col justify-center items-center">
 //             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit(onSubmitHandler)}>
-//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
+//                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-jgreen text-base sm:text-lg md:text-xl lg:text-2xl">
 //                 <h2 className="flex justify-center font-semibold p-2 bg-white">General Points</h2>
 //                 <div className="rounded">
 //                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>

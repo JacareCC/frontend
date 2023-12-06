@@ -9,6 +9,7 @@ import "../../../app/globals.css"
 import OnlyOneOkButton from "@/components/buttons/onlyOneOkButton/OnlyOneOkButton";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
+import NewNav from "@/components/NewNav";
 
 const BusinessPage: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
@@ -51,8 +52,9 @@ const BusinessPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
-
+    <div className="max-w-screen-md mx-auto">
+    <NewNav />
+    </div>
       <div className="mt-16 p-4">
       <h1 className="text-3xl font-bold mb-4">Business(es)</h1>
         <div>

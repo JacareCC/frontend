@@ -92,10 +92,8 @@ export default function SavedRestaurants(){
 
     return (
         <div className="flex flex-col align-center items-center">
-            <div className="shadow-xl w-11/12 mx-6 mb-2">
-                <img className="rounded-b-lg shadow-xl" src={'/jaca-phone.png'} alt="jacaphone" />
-            </div>
-        <h1 className="font-yaro pt-2 text-l font-semibold m-2">My Saved Restaurants</h1>
+
+        <h1 className="font-yaro pt-2 text-xl font-semibold m-2">My Saved Restaurants</h1>
         {savedData === "No saved restaurants" && (
           <div className="shadow-xl w-11/12 mx-6 my-2 rounded bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
             <div>No saved restaurants</div>
@@ -103,7 +101,7 @@ export default function SavedRestaurants(){
         )}
         {fetchedData && (
           savedData.map((element: any, index: number) => (
-            <div className="flex flex-col items-center shadow-xl w-11/12 mx-6 my-2 rounded bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
+            <div className="flex flex-col items-center shadow-xl w-11/12 mx-6 my-2 rounded bg-jgreen text-base text-white sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
               <div className="flex flex-col items-center w-full font-semibold">{element.name}</div>
                 <Link key={`d${index}`} href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="w-full mt-2 bg-indigo-100 text-indigo-500 p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                     Review

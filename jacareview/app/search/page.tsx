@@ -14,6 +14,7 @@ import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import gatorSearching from "./gator-searching.png"
+import NewNav from "@/components/NewNav";
 
 
 
@@ -247,19 +248,22 @@ async function fetchRestaurants() {
 
   
   return (
+    <div>
+    <div className="max-w-screen-md mx-auto">
+    <NewNav />
+    </div>
     <div className="flex flex-col h-screen w-screen overflow-hidden">
-      <Navbar /> {/* Sticky Navbar */}
       {!resultsFetched && (
         <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
           {/* Container div for content, adjusted for NavBar height */}
           {!statusCodeOK ? (
             // Loading Animation when user is not available
             <LoadingAnimation />
-          ) : (
-            <>
-              {!resultsFetched && !searchClicked ? (
-              // Your existing sections
+            ) : (
               <>
+              {!resultsFetched && !searchClicked ? (
+                // Your existing sections
+                <>
                <div className="sm:mt-0 md:w-1/2 mt-16 flex flex-col items-center justify-center">
                   <img src="./gator-searching.png" alt="Gator Searching" />
                 </div>
@@ -269,7 +273,6 @@ async function fetchRestaurants() {
                     <FunSearchButton text="JacarExplore 1" fetchData={handleSubmitWithLocationOne} />
                     <FunSearchButton text="JacarExplore 3" fetchData={handleSubmitWithLocation} />
                   </div>
-
                    {/* Section 2 */}
                    <div className="flex flex-col items-center justify-center">
                     <h1 className="text-4xl font-bold text-jgreen mb-6">Max Price</h1>
@@ -289,7 +292,9 @@ async function fetchRestaurants() {
                     <ColorChangingButton text={"Vegan"}
                         setCuisineType={setCuisineType}
                         cuisineType={cuisineType}
+                        
                         includeOthers={includeOthers}
+
                         count={count}
                         setCount={setCount}
                         setIncludeOthers={setIncludeOthers}
@@ -317,7 +322,7 @@ async function fetchRestaurants() {
                       src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
                       alt="Alligator eating a star"
                       className="w-full h-full object-cover rounded-full border-4 border-emerald-500"
-                    />
+                      />
                   </div>
                 )}
               </div>
@@ -332,6 +337,7 @@ async function fetchRestaurants() {
         <Slideshow slides={results} location={location} user={user} />
       </div>
     )}
+  </div>
   </div>
 );
       }  

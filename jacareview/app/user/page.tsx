@@ -11,6 +11,7 @@ import InfoUser from "@/components/userPage/InfoUser";
 import RestViewed from "@/components/userPage/RestViewed";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import ClaimButton from "@/components/userPage/ClaimButton";
+import NewNav from "@/components/NewNav";
 
 
 export default function UserPage(){
@@ -83,7 +84,9 @@ export default function UserPage(){
 
     return(
         <div>
-            <NavbarUser userName={userName} userLevel={points} userPhotoSrc={userPhoto}/>
+            <div className="max-w-screen-md mx-auto">
+                <NewNav />
+            </div>
             <div className="max-w-screen-md mx-auto">
 
                 <div className="">
