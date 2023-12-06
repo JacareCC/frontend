@@ -10,30 +10,37 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useState, useEffect } from "react";
-
-
-interface NewNavProps {
-  logoSrc: string | null | undefined;
-  userPhotoSrc: string | null | undefined;
-  userName: string | null | undefined
-}
-
+import { useRouter } from 'next/navigation';
+import {  signOut } from 'firebase/auth';
 
 
 function NewNav() {
 
-    const[ userPhoto, setUserPhoto] = useState<string | undefined>(undefined);
+    const router = useRouter();
+    const [popUp, setPopUp] = useState<boolean>(false);
+
+    const handleItemClick = (href: string) => {
+        if (href !== '#') {
+            router.push(href);
+        } else {
+            setPopUp(true);
+        }
+    };
+
+    const confirmLogout = async () => {
+        const auth = getAuth();
+        await signOut(auth);
+        router.push('/');
+    };
+
+    const closeDialog = () => {
+        setPopUp(false);
+    };
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
 
-    useEffect (() => {
-        if(user) {
-        if(user.photoURL)
-        setUserPhoto(user?.photoURL)
-        }
-    }, [user]);
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -58,6 +65,7 @@ function NewNav() {
                 <a href="/user">Profile</a>
                 <a href="/restaurants/saved">Saved Restaurants</a>
                 <a href="/user/business">My Business</a>
+                <a href="/user/business">Logout</a>
               </div>
             </div>
             {/* secondary */}
@@ -97,6 +105,7 @@ function NewNav() {
               <a href="/user">Profile</a>
               <a href="/restaurants/saved">Saved Restaurants</a>
               <a href="/user/business">My business</a>
+              <a href="/user/business">Logout</a>
             </div>
           </div>
         </div>

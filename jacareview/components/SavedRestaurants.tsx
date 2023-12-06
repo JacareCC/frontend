@@ -102,7 +102,7 @@ export default function SavedRestaurants(){
           savedData.map((element: any, index: number) => (
             <div className="flex flex-col items-center shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
               <div className="flex flex-col items-center w-full font-semibold">{element.name}</div>
-                <Link key={`d${index}`} href={`/reviewpage/?restaurant=${element.restaurant_id_id}`} className="w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="w-full mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                     Review
                 </Link>
                 <div className="flex w-full items-center gap-2">
