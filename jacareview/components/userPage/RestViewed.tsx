@@ -94,7 +94,7 @@ export default function RestViewed() {
       let filteredHistory = myArr.filter((obj: any, pos: any, arr: any) => {
         return arr.map((mapObj: any) => mapObj[key]).indexOf(obj[key]) === pos;
       });
-
+      filteredHistory.reverse();
       setHistoryDataFiltered(filteredHistory);
     }
   }
