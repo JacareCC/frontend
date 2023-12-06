@@ -13,10 +13,11 @@ interface TierFormProps {
     setShowForm: any;
     setButtonActive? :any ;
     id: string;
-    setStatusCode:any
+    setStatusCode:any;
+    restaurant_id: number
   }
   
-const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setButtonActive, id, setStatusCode }) => {
+const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setButtonActive, id, setStatusCode, restaurant_id }) => {
     
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
@@ -25,18 +26,21 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
     uid: string,
     tier: string
     description: string;
-    points: number
+    points: number;
+    restaurant_id:number
 
   }
+  console.log(id, restaurant_id)
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const dataToSendObj = {
         id:id,
         tier: text.toLocaleLowerCase(),
         description: data.description,
-        points: data.points
+        points: data.points,
+        restaurant_id: restaurant_id
     }
-
+    
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/tier/new/`, {
         method: "POST",
         headers: {

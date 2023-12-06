@@ -7,9 +7,10 @@ interface OnlyOneOkButtonProps {
     setStatusCode?: any;
     textToCheck?: string |null;
     id: string;
+    restaurant_id: number
   }
   
-  const OnlyOneOkButtonTier: React.FC<OnlyOneOkButtonProps> = ({ backgroundColor, text, setStatusCode, id}) => {
+  const OnlyOneOkButtonTier: React.FC<OnlyOneOkButtonProps> = ({ backgroundColor, text, setStatusCode, id, restaurant_id}) => {
     const [isButtonActive, setButtonActive] = useState<boolean>(false);
     const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -39,7 +40,7 @@ interface OnlyOneOkButtonProps {
     </button>
     <div>
     {isButtonActive &&(
-      <TierForm id={id} text={text} setButtonActive={setButtonActive} showForm={showForm} setStatusCode={setStatusCode} setShowForm={setShowForm}/>
+      <TierForm restaurant_id={restaurant_id} id={id} text={text} setButtonActive={setButtonActive} showForm={showForm} setStatusCode={setStatusCode} setShowForm={setShowForm}/>
     )}
     </div>
     </>

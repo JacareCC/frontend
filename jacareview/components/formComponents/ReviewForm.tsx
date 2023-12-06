@@ -51,19 +51,27 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ userUid, restaurantPlaceId, res
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 5;
 
-    const  onSubmitHandler = async (data: ReviewData) => {
-        console.log(data)
+    const onSubmitHandler = async (data: ReviewData) => {
+      console.log(data);
+    
+      // Add a condition to check if the "Save" button was clicked
+      if (data.hidden) {
+        // If the "Save" button was clicked, proceed with the post request
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}review/new/`, {
-            method: 'POST',
-            headers: {
-              "Content-Type": "application/json" , 
-            },
-            body : JSON.stringify(data)
-          })
-              .then(response => console.log(response))
-            
-        console.log(data);
-    }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+    
+        console.log(results);
+      } else {
+        // If the "Save" button wasn't clicked, you can perform other actions or validation
+        console.log('Save button not clicked yet');
+      }
+    };
+    
 
     const handleNextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));

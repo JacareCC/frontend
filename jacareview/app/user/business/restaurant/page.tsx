@@ -12,6 +12,8 @@ import "../../../../app/globals.css"
 const BusinessPageWithId: React.FC = () => {
     const [statusCode, setStatusCode] = useState<number|null>(0);
     const [pageData, setPageData] = useState<any>(null);
+    const [parsedPageData, setParsedPageData] = useState<any>(null);
+
     const router = useRouter();
     const params = useSearchParams()
     const data = params.get("data");
@@ -28,8 +30,18 @@ const BusinessPageWithId: React.FC = () => {
     }, [data])
 
     useEffect(() =>{
-      console.log(pageData);
+      if(pageData){
+      setParsedPageData(JSON.parse(pageData))
+      }
+      
   }, [pageData]);
+
+  useEffect(() =>{
+    if(parsedPageData){
+    console.log(parsedPageData)
+    }
+    
+}, [parsedPageData]);
 
     useEffect(() =>{
        if(statusCode === 201){
@@ -49,23 +61,26 @@ const BusinessPageWithId: React.FC = () => {
           {pageData && (
             <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
               <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
-              <div className="w-4/5 bg-white p-8 rounded-md shadow-md relative " style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
+              <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-no-repeat" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
                 <div className="flex flex-col sm:flex-row items-center justify-center">
                   <OnlyOneOkButtonTier
-                    id={pageData.owner_user_id_id}
+                    id={parsedPageData?.owner_user_id_id}
+                    restaurant_id={parsedPageData?.id}
                     backgroundColor={'bronze'}
                     text={'Bronze'}
                     setStatusCode={setStatusCode}
                   />
                   <OnlyOneOkButtonTier
-                    id={pageData.owner_user_id_id}
+                    id={pageData?.owner_user_id_id}
+                    restaurant_id={parsedPageData?.id}
                     backgroundColor={'silver'}
                     text={'Silver'}
                     setStatusCode={setStatusCode}
                   />
                   <OnlyOneOkButtonTier
                     backgroundColor={'gold'}
-                    id={pageData.owner_user_id_id}
+                    id={parsedPageData?.owner_user_id_id}
+                    restaurant_id={parsedPageData?.id}
                     text={'Gold'}
                     setStatusCode={setStatusCode}
                   />
