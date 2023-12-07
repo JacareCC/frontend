@@ -15,39 +15,24 @@ import {  signOut } from 'firebase/auth';
 
 
 function NewNav() {
-
+    
+    initFirebase();
+    const auth = getAuth(); 
+    const [user, loading] = useAuthState(auth);
     const router = useRouter();
-    const [popUp, setPopUp] = useState<boolean>(false);
 
-    const handleItemClick = (href: string) => {
-        if (href !== '#') {
-            router.push(href);
-        } else {
-            setPopUp(true);
-        }
-    };
-
-    const confirmLogout = async () => {
+    const handleLogout = async () => {
         const auth = getAuth();
         await signOut(auth);
         router.push('/');
     };
-
-    const closeDialog = () => {
-        setPopUp(false);
-    };
-
-    initFirebase();
-    const auth = getAuth(); 
-    const [user, loading] = useAuthState(auth);
-
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
     <div className="">
       <nav>
-        <div className="mx-auto ">
+        <div className="mx-auto">
           <div className="flex mx-auto justify-between">
           <div className="flex items-center md:justify-around w-full mx-auto my-12 md:ml-8 md:mr-16 lg:ml-4 lg:mr-8 xl:ml-8 xl:mr-4">
 
@@ -61,12 +46,12 @@ function NewNav() {
                 </a>
               </div>
               {/* primary */}
-              <div className="hidden lg:flex lg:justify-between lg:gap-12 text-jgreen">
-                <a href="/search">Search</a>
-                <a href="/user">Profile</a>
-                <a href="/restaurants/saved">Saved Restaurants</a>
-                <a href="/user/business">My Business</a>
-                <a href="/user/business">Logout</a>
+              <div className="hidden lg:p-6  lg:flex lg:justify-between lg:gap-12 text-jgreen">
+                {user && (
+                <><a href="/search">Search</a><a href="/user">Profile</a><a href="/restaurants/saved">Saved Restaurants</a><a href="/user/business">My Business</a><button onClick={handleLogout} className="text-jgreen">
+                                      Logout
+                                  </button></>
+                    )}
               </div>
             </div>
             {/* secondary */}
@@ -106,7 +91,7 @@ function NewNav() {
               <a href="/user">Profile</a>
               <a href="/restaurants/saved">Saved Restaurants</a>
               <a href="/user/business">My business</a>
-              <a href="/user/business">Logout</a>
+              <a href="#" onClick={handleLogout}>Logout</a>
             </div>
           </div>
         </div>

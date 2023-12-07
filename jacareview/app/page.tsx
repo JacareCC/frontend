@@ -10,7 +10,7 @@ import TermsAndConditions from "@/components/TermsAndConditions";
 import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
-import logoHome from '../public/logo-home--.png'
+import logoHome from '../public/logo-home-bgnashi.png'
 // import jacarePhone from '../public/IMG_8629.png'
 import jacareReview from '../public/jaca-review.png'
 import jacareEat from '../public/jaca-eat.png'
@@ -152,19 +152,17 @@ export default function Home() {
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
-        <div className="max-w-screen-md mx-auto">
-          <NewNav />
-        </div>
-        <main className="container mx-auto lg:px-8 max-w-screen-lg ">
+        <div className="">
+        <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
               <LoadingAnimation/>
             ) : (
               <>  
-                <div className="flex flex-col items-center sm:flex-row gap-4 md:shadow-lg m-2 my-4 rounded p-1">
-                  <div className="flex items-center basis-1/2">
+                <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">
+                  <div className="flex items-center shadow-2xl m-2 rounded basis-1/2">
                     <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
-                  <div className="flex flex-col items-center basis-1/2 py-10   max-w-full">
+                  <div className="flex flex-col items-center basis-1/2 py-10  max-w-full">
                     <button className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center" onClick={signIn}>
                       <div className="flex items-center px-10">
                         <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
@@ -255,7 +253,7 @@ export default function Home() {
                 <CookieConsent onAccept={handlerCookiesAccept} />
               </div>
             )}
-          </main></>
+          </main></div></>
       ) : (
         <LoadingAnimation/>
       )}
