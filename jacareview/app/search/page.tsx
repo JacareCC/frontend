@@ -249,11 +249,12 @@ async function fetchRestaurants() {
 
   
   return (
-    <><div className="">
+    <>
+    <div className="">
       <NewNav />
-    </div><div className="flex flex-col h-screen w-screen overflow-hidden">
+    </div><div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl md:bg-test rounded">
         {!resultsFetched && (
-          <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
+          <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
             {/* Container div for content, adjusted for NavBar height */}
             {!statusCodeOK ? (
               // Loading Animation when user is not available
@@ -263,10 +264,10 @@ async function fetchRestaurants() {
                 {!resultsFetched && !searchClicked ? (
                   // Your existing sections
                   <>
-                    <div className="sm:mt-0 md:w-1/2 mt-16 flex flex-col items-center justify-center">
-                      <img src="./gator-searching.png" alt="Gator Searching" />
+                    <div className="sm:mt-0 md:w-1/2  flex flex-col items-center justify-center">
+                      <img className="md:rounded-l" src="./gator-searching.png" alt="Gator Searching" />
                     </div>
-                    <div className="font-yaro p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
+                    <div className=" p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
                       {/* Section 1 */}
                       <div className="flex flex-col items-center justify-center"></div>
                       <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
@@ -338,7 +339,8 @@ async function fetchRestaurants() {
             <Slideshow slides={results} location={location} user={user} />
           </div>
         )}
-      </div></>
+      </div>
+      </>
   
 );
       }  

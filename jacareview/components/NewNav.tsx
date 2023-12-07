@@ -85,9 +85,7 @@ function NewNav() {
         >
           <div className="px-8">
             <div className="flex flex-col gap-8 font-bold tracking-wider text-jgreen">
-              <a href="/search" className="border-l-4 border-gray-600">
-                Search
-              </a>
+              <a href="/search">Search</a>
               <a href="/user">Profile</a>
               <a href="/restaurants/saved">Saved Restaurants</a>
               <a href="/user/business">My business</a>
