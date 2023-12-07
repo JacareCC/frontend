@@ -77,7 +77,7 @@ useEffect(()=>{
   
     return (
       <div className="w-screen h-screen overflow-hidden">
-               <div className="max-w-screen-md mx-auto">
+               <div className="">
                 <NewNav />
             </div>
         <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">

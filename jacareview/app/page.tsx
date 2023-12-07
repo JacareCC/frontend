@@ -153,7 +153,6 @@ export default function Home() {
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
         <div className="max-w-screen-md mx-auto">
-
           <NewNav />
         </div>
         <main className="container mx-auto lg:px-8 max-w-screen-lg ">

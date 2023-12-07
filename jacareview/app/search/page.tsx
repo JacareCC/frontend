@@ -249,7 +249,7 @@ async function fetchRestaurants() {
 
   
   return (
-    <><div className="max-w-screen-md mx-auto">
+    <><div className="">
       <NewNav />
     </div><div className="flex flex-col h-screen w-screen overflow-hidden">
         {!resultsFetched && (

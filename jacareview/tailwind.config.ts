@@ -17,7 +17,8 @@ const config: Config = {
         silver: '#c0c0c0',
         gold: '#ffd700',
         secl: '#9EC8B9',
-        secd: '#5C8374'
+        secd: '#5C8374',
+        test: '#ECF4D6',
       },
       fontFamily: {
         yaro: ['yaro'],

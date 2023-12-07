@@ -77,7 +77,7 @@ export default function UserPage(){
 
     return(
         <div>
-            <div className="max-w-screen-md mx-auto">
+            <div className="">
                 <NewNav />
             </div>
             <div className="max-w-screen-md mx-auto">

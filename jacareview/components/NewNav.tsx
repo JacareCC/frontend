@@ -47,9 +47,10 @@ function NewNav() {
   return (
     <div className="">
       <nav>
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto ">
           <div className="flex mx-auto justify-between">
-            <div className="flex items-center gap-16 my-12">
+          <div className="flex items-center md:justify-around w-full mx-auto my-12 md:ml-8 md:mr-16 lg:ml-4 lg:mr-8 xl:ml-8 xl:mr-4">
+
               <div>
                 <a
                   href="/"
@@ -60,7 +61,7 @@ function NewNav() {
                 </a>
               </div>
               {/* primary */}
-              <div className="hidden lg:flex gap-6 text-jgreen">
+              <div className="hidden lg:flex lg:justify-between lg:gap-12 text-jgreen">
                 <a href="/search">Search</a>
                 <a href="/user">Profile</a>
                 <a href="/restaurants/saved">Saved Restaurants</a>
