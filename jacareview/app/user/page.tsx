@@ -5,13 +5,13 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import '../globals.css'
-import NavbarUser from "@/components/NavBarUser";
 import { useEffect, useState } from "react";
 import InfoUser from "@/components/userPage/InfoUser";
 import RestViewed from "@/components/userPage/RestViewed";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import ClaimButton from "@/components/userPage/ClaimButton";
 import NewNav from "@/components/NewNav";
+import LoadingAnimation from "@/components/loading/Loading";
 
 
 export default function UserPage(){
@@ -24,7 +24,7 @@ export default function UserPage(){
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-          VerifyUser(user.uid, setStatusCode);
+          return;
         } else {
           router.push("/");
         }
@@ -37,8 +37,16 @@ export default function UserPage(){
         const[uid, setUid] = useState<string|null |undefined> (null);
         const[points, setPoints] = useState<string |null|undefined>(null);
 
+        useEffect(()=>{
+          if(statusCode && statusCode !== 200){
+            router.push("/")
+          }
+
+        },[statusCode])
+
         useEffect(() => {
             if(user){
+            VerifyUser(user.uid, setStatusCode);
             setUid(user?.uid)
             }
         }, [user]);
@@ -76,6 +84,14 @@ export default function UserPage(){
         }, [user]);
 
     return(
+      <>
+      <>{!statusCode ? (
+        <LoadingAnimation/>
+      ): null
+
+      }</>
+
+      { statusCode && statusCode === 200 && (   
         <div>
             <div className="">
                 <NewNav />
@@ -91,6 +107,8 @@ export default function UserPage(){
                 <div className=" w-full flex items-center justify-center px-4 bg-test md:bg-white">
                     <ClaimButton user_uid={uid} />
                 </div>
-        </div>
+        </div>)
+}
+        </>
     )
 }

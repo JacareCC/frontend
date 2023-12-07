@@ -30,11 +30,6 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
       }
     },[theyVerified, theyWentBack])
 
-    useEffect(()=>{
-      if(reviewData){
-      console.log(reviewData)
-      }
-  },[reviewData])
 
     useEffect(() =>{
       if(isClicked === false) {

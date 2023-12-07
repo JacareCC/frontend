@@ -65,8 +65,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   useEffect(() => {
     if (dataToSend) {
-      console.log(dataToSend);
-      console.log(restaurantPlaceId);
       dataToSend.id = restaurantPlaceId;
     }
   }, [dataToSend]);

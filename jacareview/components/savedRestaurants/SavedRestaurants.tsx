@@ -3,25 +3,31 @@ import {useState, useEffect} from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import LoadingAnimation from "./loading/Loading";
+import LoadingAnimation from "../loading/Loading";
 import { Star } from "lucide-react";
-import moment from "moment";
+import SavedOneRestaurant from "./SavedOneRestaurant";
+import CalculateTimeDifference from "@/app/globalfunctions/CalculateTimeDifference";
+
+interface SavedOneRestaurantsProps{
+  setRandomOneClicked:any;
+  randomOneClicked: boolean
+}
 
 
-export default function SavedRestaurants(){
+
+const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClicked, randomOneClicked}) => {
     const [savedData, setSavedData] = useState<any>(null);
     const [fetchedData, setFetchedData] = useState<boolean>(false);
     const [uid, setUid] = useState<string| null>(null);
     const [restaurantId, setRestaurantId] = useState<string |null>(null);
     const [historyId, setHistoryId] = useState<number | null> (null);
-    const [refreshCount, setRefreshCount] = useState<number | null>(null)
+    const [refreshCount, setRefreshCount] = useState<number | null>(null);
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
-    const router = useRouter();
+  
 
     useEffect(() => {
         if(user){
@@ -34,7 +40,6 @@ export default function SavedRestaurants(){
         if(savedData && savedData !== "No saved restaurants"){
             setFetchedData(true);
         }
-        console.log(savedData);
     }, [savedData])
 
     useEffect(()=>{
@@ -92,21 +97,6 @@ export default function SavedRestaurants(){
         }
     }
 
-    function calculateTimeDifference(visitDate: moment.MomentInput) {
-        const now = moment();
-        const visitMoment = moment(visitDate);
-        const diffInMinutes = now.diff(visitMoment, "minutes");
-        const diffInHours = now.diff(visitMoment, "hours");
-        const diffInDays = now.diff(visitMoment, "days");
-    
-        if (diffInMinutes < 60) {
-          return `${diffInMinutes} minutes ago`;
-        } else if (diffInHours < 24) {
-          return `${diffInHours} hours ago`;
-        } else {
-          return `${diffInDays} days ago`;
-        }
-      }
 
     return (
 <>
@@ -121,13 +111,13 @@ export default function SavedRestaurants(){
                 <div>No saved restaurants</div>
               </div>
             )}
-            {fetchedData && (
+            {fetchedData && !randomOneClicked ? (
               savedData.map((element: any, index: number) => (
 
                 <div className="bg-test flex flex-col items-start shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
                   <div className="flex flex-col items-center w-full font-semibold border-b pb-4">{element.name}</div>
                   <div key={`a${index}`} className="md:pl-2">
-                    Viewed {calculateTimeDifference(element.date_visited)}
+                    Viewed {CalculateTimeDifference(element.date_visited)}
                   </div>
                   <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="w-full mt-2 bg-jgreen text-jyellow p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4">
                     Review
@@ -150,10 +140,14 @@ export default function SavedRestaurants(){
                   </div>
                 </div>
               ))
-            )}
+            ):
+            <SavedOneRestaurant savedData={savedData} setRandomOneClicked={setRandomOneClicked}/>
+            }
           </div>
         </div>
       </div>
     )}
   </>)
     }
+
+    export default SavedRestaurants

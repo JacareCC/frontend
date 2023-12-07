@@ -62,7 +62,6 @@ export default function Home() {
     if(statusCode === 400){
       setRegistrationReady((prev:boolean) => !prev);
     }
-    console.log(statusCode);
   },[statusCode])
 
 
@@ -95,7 +94,6 @@ export default function Home() {
   }, []);
 
   const handlerCookiesAccept = () => {
-    console.log(cookiesAccepted)
     setCookiesAccepted(true);
     setShowConsent(false);
   }
@@ -108,7 +106,6 @@ export default function Home() {
       // Handle successful sign-in
       setUid(result.user.uid);
       setLoginTry((prev:boolean) => !prev);
-      console.log('Signed in successfully:', result.user);
     } catch (error: any) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('Popup request cancelled');

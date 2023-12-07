@@ -20,7 +20,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
   
     const settings = {
         accessibility:true,
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,

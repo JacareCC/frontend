@@ -36,7 +36,6 @@ const VerifyButton: React.FC<VerifyButtonProps> = ({
         });
 
         if (results.ok) {
-          console.log("hurray");
           setTheyVerified(true)
         } else {
           console.error('Error saving changes:', results.statusText);

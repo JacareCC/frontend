@@ -4,7 +4,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 import LoadingAnimation from "../loading/Loading";

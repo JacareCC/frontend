@@ -57,15 +57,6 @@ const BusinessPageWithId: React.FC = () => {
     
 }, [parsedPageData]);
 
-useEffect(()=>{
-  if(bronzeExists){
-    console.log(bronzeExists)
-    console.log(reviewsToSend)
-  }
-},[bronzeExists, reviewsToSend])
-
-
-
     useEffect(() =>{
        if(statusCode === 201){
         window.location.reload();
