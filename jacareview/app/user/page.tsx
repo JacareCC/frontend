@@ -80,18 +80,17 @@ export default function UserPage(){
             <div className="">
                 <NewNav />
             </div>
-            <div className="flex flex-col items-center container mx-auto md:mt-10 md:shadow-2xl rounded">
-
-                <div className="w-full">
+            <div className="flex flex-col md:flex-row items-center container mx-auto md:shadow-2xl rounded mb-4">
+                <div className="w-full mb-4">
                     <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
                 </div>
                 <div className="w-full">
                     <RestViewed />
                 </div>
-                <div className=" w-full flex items-center justify-center px-4">
+            </div>
+                <div className=" w-full flex items-center justify-center px-4 bg-test md:bg-white">
                     <ClaimButton user_uid={uid} />
                 </div>
-            </div>
         </div>
     )
 }

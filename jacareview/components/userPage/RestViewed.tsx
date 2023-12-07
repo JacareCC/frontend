@@ -6,6 +6,7 @@ import moment from "moment";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
+import { Star } from "lucide-react";
 
 export default function RestViewed() {
   const [historyData, setHistoryData] = useState<any>(null);
@@ -49,7 +50,8 @@ export default function RestViewed() {
       window.location.reload();
     }
   }, [triggerRefresh]);
-  function calculateTimeDifference(visitDate) {
+  
+  function calculateTimeDifference(visitDate: moment.MomentInput) {
     const now = moment();
     const visitMoment = moment(visitDate);
     const diffInMinutes = now.diff(visitMoment, "minutes");
@@ -114,11 +116,8 @@ export default function RestViewed() {
     }
   }
 
-  function toProfilePage() {
-    router.push("/userpage");
-  }
   return (
-    <div className="flex flex-col align-center items-center">
+    <div className="flex flex-col align-center items-center bg-test">
     <h1 className="pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
     <div className=" shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
@@ -132,24 +131,27 @@ export default function RestViewed() {
                 
               {historyDataFiltered &&
                 historyDataFiltered.map((element: any, index: number) => (
-                    <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
+                    <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4 bg-test">
                         <div key={`b${index}`} className="">
                         <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
                         <div key={`a${index}`} className="mb-2">
                           Viewed {calculateTimeDifference(element.date_visited)}
-                        </div>
-                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center" >
+                    </div>
+                    <div className="flex flex-col gap-4">
+                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-jyellow p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4" >
                       Review
+                      <Star/>
                     </Link>
                     {!element.saved ? (
-                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-jgreen text-white px-4 py-2 mt-2">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                         Save
                       </button>
                     ) : (
-                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-secl text-white px-4 py-2 mt-2">
-                        Unsave
+                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        Remove
                       </button>
                     )}
+                    </div>
                     </div>
                   </div>
                 ))}

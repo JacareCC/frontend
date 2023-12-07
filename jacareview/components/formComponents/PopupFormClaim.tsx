@@ -80,11 +80,11 @@ const PopupFormClaim: React.FC<PopupFormClaimProps> = ({ user_uid, onClose }) =>
             {errors.phone_number && <span className="text-xs text-red-500">{(errors.phone_number as FieldError).message}</span>}
           </div>
 
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex  gap-4 mt-4">
           <button type="button" onClick={onClose} className="rounded bg-gray-300 text-gray-700 px-4 py-2">
             Cancel
           </button>
-          <button type="submit" className="rounded bg-green-500 text-white px-4 py-2">
+          <button type="submit" className="rounded bg-orange text-white px-4 py-2">
             Submit
           </button>
         </div>

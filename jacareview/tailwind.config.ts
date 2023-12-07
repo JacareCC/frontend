@@ -20,6 +20,7 @@ const config: Config = {
         secd: '#5C8374',
         test: '#ECF4D6',
         orange: '#FF6969',
+        lgreen: '#9ED2BE',
       },
       fontFamily: {
         yaro: ['yaro'],
