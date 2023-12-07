@@ -1,12 +1,14 @@
 // Import necessary dependencies
 import { useState } from "react";
 
-interface ResetButtonProps {
-  setIsVerified:any
+interface VerifyButtonProps {
+  setIsVerified:any;
+  id: number;
 }
 
-const VerifyButton: React.FC<ResetButtonProps> = ({
-  setIsVerified
+const VerifyButton: React.FC<VerifyButtonProps> = ({
+  setIsVerified,
+  id
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
