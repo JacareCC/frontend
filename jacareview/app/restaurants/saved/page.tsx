@@ -1,20 +1,20 @@
-"use client";
+"use client"
 import SavedRestaurants from "@/components/SavedRestaurants";
-import "../../../app/globals.css";
+import "../../../app/globals.css"
 import Navbar from "@/components/Navbar";
 import NewNav from "@/components/NewNav";
 
 // ... (previous imports)
 
+
 export default function SavedRestaurantsPage() {
-  return (
-    <div className="max-w-screen-md mx-auto">
-      <NewNav />
-      <div className="flex items-center justify-center ">
-        <div className="card w-full max-h-[500px] xl:max-h-[800] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
-          <SavedRestaurants />
-        </div>
-      </div>
-    </div>
-  );
-}
+    return (
+        <><NewNav /><div className="">
+            <div className="flex flex-col items-center container mx-auto md:mt-10 md:shadow-2xl rounded">
+                <div className="w-full md:3/4 lg:w-3/4 xl:w-2/3">
+                    <SavedRestaurants />
+                </div>
+            </div>
+        </div></>
+    );
+  }
