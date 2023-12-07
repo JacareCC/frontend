@@ -88,7 +88,7 @@ export default function UserPage(){
                 <div className="w-full">
                     <RestViewed />
                 </div>
-                <div className="px-4">
+                <div className="w-full flex items-center justify-center px-4">
                     <ClaimButton user_uid={uid} />
                 </div>
             </div>

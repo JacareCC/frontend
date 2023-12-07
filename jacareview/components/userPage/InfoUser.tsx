@@ -87,6 +87,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         {isEditing ? (
           <div className='mb-2 flex justify-between items-center w-full'>
             <input
+              className='bg-gray-200 basis-2/3 rounded'
               type='text'
               value={editedEmail}
               onChange={(e) => setEditedEmail(e.target.value)}
@@ -104,6 +105,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
             <input
+              className='bg-gray-200 basis-2/3 rounded'
               type='text'
               value={editedName}
               onChange={(e) => setEditedName(e.target.value)}
@@ -121,6 +123,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
             <input
+              className='bg-gray-200 basis-2/3 rounded'
               type='date'
               value={editedBirthday}
               onChange={(e) => setEditedBirthday(e.target.value)}
@@ -133,8 +136,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
           </div>
         )}
       </div>
-
-      <button className='bg-green-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={handleEditSaveClick}>
+      <button className='w-1/2 md:w-1/4 bg-orange text-white p-2 rounded shadow-lg shadow-xl' onClick={handleEditSaveClick}>
         {isEditing ? 'Save' : 'Edit'}
       </button>
     </div>
