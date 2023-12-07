@@ -1,11 +1,14 @@
 "use client"
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReviewBack from "./buttons/ReviewInfoBackButton";
+import WasThisHelpful from "./buttons/wasThisHelpful/WasThisHelpful";
 
 interface ReviewInfoProps {
   data: Record<string, any>; 
   element: any;
   setIsClicked: any;
+  setTheyVerified:any;
+  setTheyWentBack:any;
 }
 
 
@@ -21,14 +24,14 @@ const starMapping: Record<number, string> = {
 };
 
 
-const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked }) => {
- 
+const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, setTheyVerified, setTheyWentBack }) => {
+  
   return (
     <>
 
     {data && ( <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-md max-w-2xl w-full">
-      <ReviewBack setIsClicked={setIsClicked} />
+      <div className="bg-white p-8 rounded-md max-w-2xl w-full h-96 overflow-y-auto">
+      <ReviewBack setTheyVerified={setTheyVerified} setTheyWentBack={setTheyWentBack} setIsClicked={setIsClicked} />
         
         {element.isVerified ? <h2 className="text-3xl font-semibold mb-4">Review Information: You found this review helpful</h2> : <h2 className="text-3xl font-semibold mb-4">Review Information</h2>}
         <ul>
@@ -57,6 +60,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked }) 
             return null; 
           })}
         </ul>
+        <WasThisHelpful setTheyVerified={setTheyVerified} verified={element.isVerified} id={element.id}/>
       </div>
     </div>)}
     </>

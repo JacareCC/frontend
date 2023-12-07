@@ -1,18 +1,26 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { ArrowLeft } from "lucide-react"
 
 interface ReviewBackProps {
-    setIsClicked: any
+    setIsClicked: any;
+    setTheyVerified:any;
+    setTheyWentBack:any
 }
 
 const ReviewBack: React.FC<ReviewBackProps> = ({
-    setIsClicked
+    setIsClicked,
+    setTheyWentBack
 }) => {
 
+    useEffect(() =>{
+        setTheyWentBack(false);
+
+    },[])
 
 function handleGoBack(){
     setIsClicked((prev:boolean) => !prev);
+    setTheyWentBack(true);
 }
 
 

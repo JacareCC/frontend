@@ -1,15 +1,18 @@
 "use client"
 import { useState, useEffect } from "react"
 import VerifyButton from "./VerifyButton"
+import HideRestaurantButton from "./hideComponents/OriginalHideButton"
 
 interface HelpfulProps {
-    verified: boolean
-    id: number
+    verified: boolean;
+    id: number;
+    setTheyVerified:any;
 }
 
 const WasThisHelpful: React.FC<HelpfulProps> = ({
     verified,
-    id
+    id,
+    setTheyVerified
 }) =>{
     const[justVerified, SetJustVerified] = useState<boolean>(false);
 
@@ -18,8 +21,13 @@ const WasThisHelpful: React.FC<HelpfulProps> = ({
     return (
 <>
 {!justVerified && !verified &&
-(<VerifyButton id={id} setIsVerified={SetJustVerified}/>)}
 
+(<div>
+    <VerifyButton setTheyVerified={setTheyVerified} id={id} setIsVerified={SetJustVerified}/>
+    </div>)}
+
+
+<HideRestaurantButton id={id}/>
 <></>
 </>
     )

@@ -17,6 +17,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description || '');
   const [editedPoints, setEditedPoints] = useState(points || 0);
+  const [editedRefresh, setEditedRefresh] = useState(points || 0);
   
 
   const [formData, setFormData] = useState({
@@ -124,17 +125,12 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
             type="number"
             id="refresh"
             value={formData.refresh}
-            onChange={(e) =>
-              setFormData((prevData) => ({
-                ...prevData,
-                refresh: parseInt(e.target.value),
-              }))
-            }
+            onChange={(e) => setEditedRefresh(parseInt(e.target.value))}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-jyellow text-black"
           />
         ) : (
           <div className="mb-2 flex justify-between items-center w-full text-black">
-            <p className="text-lg">{formData.refresh || 1}</p>
+            <p className="text-lg">{editedRefresh || 1}</p>
           </div>
         )}
       </div>

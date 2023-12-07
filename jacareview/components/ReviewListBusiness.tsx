@@ -9,13 +9,26 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
     const [reviewData, setReviewData]= useState<any>(null);
     const [isClicked, setIsClicked] = useState<boolean>(false);
     const [element, setElement] = useState<any>(null);
+    const [theyVerified, setTheyVerified] = useState<boolean>(false);
+  const [theyWentBack, setTheyWentBack] = useState<boolean>(false);
+ 
 
     useEffect(()=>{
       if(reviews){
-        let reverseReviews = reviews.reverse();
+        let reverseReviews = reviews.sort();
+        reverseReviews= reverseReviews.sort(function(a:any, b:any) {
+          return (b.created_at < a.created_at) ? -1 : ((b.created_at > a.created_at) ? 1 : 0);
+      });
+        
         setHistoryData(reverseReviews);
       }
     },[reviews])
+
+    useEffect(() => {
+      if(theyVerified && theyWentBack){
+        window.location.reload();
+      }
+    },[theyVerified, theyWentBack])
 
     useEffect(()=>{
       if(reviewData){
@@ -53,7 +66,7 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
             {historyData &&
               historyData.map((element: any, index: number) => (
                   <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
-                    { element.data.hidden === false && (
+                    { element.isHidden === false && (
                   <button  onClick={(event) => handleClick(event, element.data, element)} a-key={element.data} className='bg-green-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center' >Go To Review Made {moment(element.created_at).fromNow()}</button>
                     )
                     }
@@ -63,7 +76,7 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
         )}
               
       </div>
-       {isClicked && reviewData && element &&(<ReviewInfo setIsClicked={setIsClicked} data={reviewData} element={element}/>)}
+       {isClicked && reviewData && element &&(<ReviewInfo setTheyVerified={setTheyVerified} setTheyWentBack={setTheyWentBack} setIsClicked={setIsClicked} data={reviewData} element={element}/>)}
       </div>
     )
 

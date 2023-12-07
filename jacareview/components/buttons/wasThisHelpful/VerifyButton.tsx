@@ -4,16 +4,19 @@ import { useState } from "react";
 interface VerifyButtonProps {
   setIsVerified:any;
   id: number;
+  setTheyVerified: any;
 }
 
 const VerifyButton: React.FC<VerifyButtonProps> = ({
   setIsVerified,
-  id
+  id,
+  setTheyVerified
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  // Function to handle button click
+ 
   function handleButtonClick() {
+    sendToVerify()
     setIsClicked(true);
     setTimeout(() => {
       setIsClicked(false);
@@ -21,11 +24,33 @@ const VerifyButton: React.FC<VerifyButtonProps> = ({
     }, 500);
   }
 
-  // Determine the button text and background color based on the click state
-  const buttonText = isClicked ? 'Sending Positive Feedback...' : 'Yes it was helpful';
-  const buttonColor = isClicked ? 'jgreen' : 'jyellow';
+  async function sendToVerify(){
+    try {
+        const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/business/review/verify/`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            
+          },
+          body: JSON.stringify({id: id}),
+        });
 
-  // Return the styled button
+        if (results.ok) {
+          console.log("hurray");
+          setTheyVerified(true)
+        } else {
+          console.error('Error saving changes:', results.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+  
+  const buttonText = isClicked ? 'Sending Positive Feedback...' : 'Yes it was helpful';
+  const buttonColor = isClicked ? 'bg-jgreen' : 'bg-jyellow';
+
+
   return (
     <button
       onClick={handleButtonClick}
