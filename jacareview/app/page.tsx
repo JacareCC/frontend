@@ -11,7 +11,6 @@ import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
 import logoHome from '../public/logo-home-bgnashi.png'
-// import jacarePhone from '../public/IMG_8629.png'
 import jacareReview from '../public/jaca-review.png'
 import jacareEat from '../public/jaca-eat.png'
 import jacaDate from '../public/jaca-date.png'
@@ -20,7 +19,7 @@ import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
-import NewNav from "@/components/NewNav";
+
 
 
 export default function Home() {
