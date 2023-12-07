@@ -49,6 +49,21 @@ export default function RestViewed() {
       window.location.reload();
     }
   }, [triggerRefresh]);
+  function calculateTimeDifference(visitDate) {
+    const now = moment();
+    const visitMoment = moment(visitDate);
+    const diffInMinutes = now.diff(visitMoment, "minutes");
+    const diffInHours = now.diff(visitMoment, "hours");
+    const diffInDays = now.diff(visitMoment, "days");
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} minutes ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hours ago`;
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  }
 
   // helper
   async function getHistoryData() {
@@ -120,7 +135,9 @@ export default function RestViewed() {
                     <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
                         <div key={`b${index}`} className="">
                         <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
-                    <div key={`a${index}`} className="mb-2">Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
+                        <div key={`a${index}`} className="mb-2">
+                          Viewed {calculateTimeDifference(element.date_visited)}
+                        </div>
                     <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center" >
                       Review
                     </Link>
