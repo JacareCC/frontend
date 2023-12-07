@@ -19,7 +19,7 @@ const ClaimButton: React.FC<ClaimButtonProps> = ({ user_uid }) => {
         className="w-1/2 md:w-1/4 m-4 bg-orange text-white p-2 rounded shadow-lg shadow-xl"
         onClick={openPopup}
       >
-        Claim a Restaurant
+        Register your restaurant
       </button>
 
       {isPopupOpen && (

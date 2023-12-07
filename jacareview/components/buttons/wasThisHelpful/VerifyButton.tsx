@@ -1,22 +1,27 @@
 // Import necessary dependencies
 import { useState } from "react";
 
-// Define the ResetButton component
-export default function ResetButton({ setResetCount }: { setResetCount: any }) {
+interface ResetButtonProps {
+  setIsVerified:any
+}
+
+const VerifyButton: React.FC<ResetButtonProps> = ({
+  setIsVerified
+}) => {
   const [isClicked, setIsClicked] = useState(false);
 
   // Function to handle button click
   function handleButtonClick() {
-    setResetCount((prev: number) => prev + 1);
     setIsClicked(true);
     setTimeout(() => {
       setIsClicked(false);
+      setIsVerified(true);
     }, 500);
   }
 
   // Determine the button text and background color based on the click state
-  const buttonText = isClicked ? 'Resetting...' : 'Reset';
-  const buttonColor = isClicked ? 'bg-gray-300' : 'bg-emerald-500';
+  const buttonText = isClicked ? 'Sending Positive Feedback...' : 'Yes it was helpful';
+  const buttonColor = isClicked ? 'jgreen' : 'jyellow';
 
   // Return the styled button
   return (
@@ -31,3 +36,5 @@ export default function ResetButton({ setResetCount }: { setResetCount: any }) {
     </button>
   );
 };
+
+export default VerifyButton;

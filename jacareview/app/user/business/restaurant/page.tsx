@@ -59,9 +59,10 @@ const BusinessPageWithId: React.FC = () => {
 
 useEffect(()=>{
   if(bronzeExists){
-    
+    console.log(bronzeExists)
+    console.log(reviewsToSend)
   }
-},[bronzeExists])
+},[bronzeExists, reviewsToSend])
 
 
 
@@ -88,11 +89,13 @@ useEffect(()=>{
                 <div className="flex flex-col sm:flex-row items-center justify-center">{
                   
                     bronzeExists?  <EditOneOkButtonTier 
+                    refresh={bronzeExists.refreshes_in}
                     backgroundColor={"bronze"}
                     text={"Bronze"}
                     points={bronzeExists.points_required}
                     tierId={bronzeExists.id}
                     description={bronzeExists.reward_description}
+
                     />:
                   <OnlyOneOkButtonTier
                     id={parsedPageData[0]?.owner_user_id_id}
@@ -104,6 +107,7 @@ useEffect(()=>{
                 }
                   {
                  silverExists?  <EditOneOkButtonTier 
+                 refresh={silverExists.refreshes_in}
                  backgroundColor={"silver"}
                  text={"Silver"}
                  points={silverExists.points_required}
@@ -119,6 +123,7 @@ useEffect(()=>{
                  }
                  {
                  goldExists?  <EditOneOkButtonTier 
+                 refresh={goldExists.refreshes_in}
                  backgroundColor={"gold"}
                  text={"Gold"}
                  points={goldExists.points_required}
