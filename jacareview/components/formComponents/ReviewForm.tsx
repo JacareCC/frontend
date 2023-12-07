@@ -171,24 +171,28 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           </h2>
           <div className="py-2">
             <TextInput
+              setValue={setValue}
               register={register}
               name="parking"
               title="Parking lot"
               placeholder="Convenient parking with dedicated spaces for patrons."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="public_transit_access"
               title="Public transit access"
               placeholder="Easily accessible via public transportation (e.g., bus, subway)."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="findability"
               title="Findability"
               placeholder="Clearly marked entrance and easy to locate within the area."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="disability_access"
               title="Disability Access"
@@ -209,24 +213,28 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           </h2>
           <div className="py-2">
             <TextInput
+              setValue={setValue}
               register={register}
               name="ingredients_quality"
               title="Ingredients Quality"
               placeholder="Fresh, locally sourced ingredients used in all dishes."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="amount_of_food"
               title="Portion size"
               placeholder="Generous portion sizes that satisfy customers."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="presentation"
               title="Presentation"
               placeholder="Artfully presented dishes that are visually appealing."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="drink_menu"
               title="Drink Menu"
@@ -247,36 +255,42 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           </h2>
           <div className="py-2">
             <TextInput
+              setValue={setValue}
               register={register}
               name="staff_knowledge"
               title="Staff knowledge"
               placeholder="Well-informed staff with knowledge about the menu and dietary options."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="courtesy"
               title="Courtesy"
               placeholder="Friendly and courteous staff providing excellent customer service."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="table_wait_time"
               title="Table wait time in minutes"
               placeholder="Efficient service with minimal wait times for seating."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="food_wait_time"
               title="Food wait time in minutes"
               placeholder="Prompt preparation and delivery of meals."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="foreigner_friendly"
               title="Foreigner Friendly"
               placeholder="Welcoming to international visitors with English-speaking staff."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="dietary_description"
               title="Dietary Description"
@@ -297,24 +311,28 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           </h2>
           <div className="py-2">
             <TextInput
+              setValue={setValue}
               register={register}
               name="interior_design"
               title="Interior Design"
               placeholder="Cozy and inviting interior with stylish decor."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="exterior_design"
               title="Exterior Design"
               placeholder="Eye-catching exterior design that stands out."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="cleanliness"
               title="Cleanliness"
               placeholder="Impeccably clean and well-maintained facilities."
             />
             <TextInput
+              setValue={setValue}
               register={register}
               name="comfort"
               title="Comfort"
@@ -335,6 +353,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           </h2>
           <div className="py-2">
             <TextInput
+              setValue={setValue}
               register={register}
               name="competitive_price"
               title="Competitive price"
