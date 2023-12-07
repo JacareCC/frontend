@@ -4,7 +4,7 @@ import loadingGif from './gator-eating-chopsticks-gif.gif';
 
 const LoadingAnimation = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <div className="bg-emerald-500 p-2 rounded-full w-80">
         <img
           src={loadingGif.src}

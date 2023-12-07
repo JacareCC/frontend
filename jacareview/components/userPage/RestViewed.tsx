@@ -7,6 +7,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
+import LoadingAnimation from "../loading/Loading";
 
 export default function RestViewed() {
   const [historyData, setHistoryData] = useState<any>(null);
@@ -121,19 +122,19 @@ export default function RestViewed() {
     <h1 className="pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
     <div className=" shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
-          <div>Loading ...</div>
+          <LoadingAnimation />
           ) : (
               <div>
           {historyData.length === 0 ? (
               <div>No Restaurants Visited</div>
               ) : (
-                  <div className="card w-full max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
+                  <div className="card w-full max-h-[400px] md:max-h-[600px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
                 
               {historyDataFiltered &&
                 historyDataFiltered.map((element: any, index: number) => (
                     <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4 bg-test">
                         <div key={`b${index}`} className="">
-                        <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
+                        <div key={`c${index}`} className="mb-1 border-b text-center pb-2">{element.name || 'no name'} </div>
                         <div key={`a${index}`} className="mb-2">
                           Viewed {calculateTimeDifference(element.date_visited)}
                     </div>

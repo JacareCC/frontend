@@ -252,7 +252,7 @@ async function fetchRestaurants() {
     <>
     <div className="">
       <NewNav />
-    </div><div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl md:bg-test rounded">
+    </div><div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
         {!resultsFetched && (
           <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
             {/* Container div for content, adjusted for NavBar height */}
