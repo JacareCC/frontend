@@ -76,14 +76,14 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
   }, [email, name, birthday, points]);
 
   return (
-    <div className="flex flex-col gap-4 px-8 py-2 font-yaro">
+    <div className="flex flex-col gap-4 px-8 py-2">
       <div className='flex items-center justify-center border-gray-300 gap-2 mb-2 pb-2 border-solid border-b'>
         <CircleDollarSign className='text-jgreen'/>
         <p className=' text-lg rounded text-jgreen'>{points} jacoins</p>
         
       </div>
       <div className="flex flex-col align-center border-solid border-b border-gray-300 mb-2">
-        <label className='text-sm'>Email</label>
+        <label className='text-sm text-gray-500'>Email</label>
         {isEditing ? (
           <div className='mb-2 flex justify-between items-center w-full'>
             <input
@@ -100,7 +100,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         )}
       </div>
       <div className="mb-2 flex flex-col align-center border-solid border-b border-gray-300">
-        <label className='text-sm'>Name</label>
+        <label className='text-sm text-gray-500'>Name</label>
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
             <input
@@ -117,7 +117,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         )}
       </div>
       <div className="flex flex-col align-center border-solid border-b border-gray-300">
-        <label className='text-sm'>Birthday</label>
+        <label className='text-sm text-gray-500'>Birthday</label>
         {isEditing ? (
           <div className='flex justify-between items-center w-full'>
             <input

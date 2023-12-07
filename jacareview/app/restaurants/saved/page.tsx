@@ -9,9 +9,9 @@ import NewNav from "@/components/NewNav";
 
 export default function SavedRestaurantsPage() {
     return (
-        <><NewNav /><div className="max-w-screen-md mx-auto">
-            <div className="flex items-center justify-center ">
-                <div className="card w-full max-h-[500px] xl:max-h-[800] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
+        <><NewNav /><div className="">
+            <div className="flex flex-col items-center container mx-auto md:mt-10 md:shadow-2xl rounded">
+                <div className="w-full md:3/4 lg:w-3/4 xl:w-2/3">
                     <SavedRestaurants />
                 </div>
             </div>

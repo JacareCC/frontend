@@ -80,12 +80,12 @@ export default function UserPage(){
             <div className="">
                 <NewNav />
             </div>
-            <div className="max-w-screen-md mx-auto">
+            <div className="flex flex-col items-center container mx-auto md:mt-10 md:shadow-2xl rounded">
 
-                <div className="">
+                <div className="w-full">
                     <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
                 </div>
-                <div>
+                <div className="w-full">
                     <RestViewed />
                 </div>
                 <div className="px-4">
