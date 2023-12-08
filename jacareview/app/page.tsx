@@ -151,7 +151,9 @@ export default function Home() {
         <div className="">
         <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
+              <div className="flex justify-center items-center">
               <LoadingAnimation/>
+              </div>
             ) : (
               <>  
                 <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">

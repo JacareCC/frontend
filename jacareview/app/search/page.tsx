@@ -154,15 +154,18 @@ async function fetchRestaurants() {
   
   return (
     <>
-    <div className="">
+    <div className="h-[calc(100dvh)">
+    {statusCodeOK && (<div className="">
       <NewNav />
-    </div><div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
+    </div>)}
+    <div className="flex flex-col container mx-auto md: mt-0 shadow-2xl bg-test rounded">
         {!resultsFetched && (
           <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
            
             {!statusCodeOK ? (
-             
+             <div className="h-screen flex items-center justify-center">
               <LoadingAnimation />
+              </div>
             ) : (
               <>
                 {!resultsFetched && !searchClicked ? (
@@ -175,12 +178,12 @@ async function fetchRestaurants() {
                       {/* Section 1 */}
                       <div className="flex flex-col items-center justify-center"></div>
                       <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
-                      <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
-                        <FunSearchButton text="One jacaRestaurant" fetchData={handleSubmitWithLocationOne} />
-                        <FunSearchButton text="Three jacaRestaurants" fetchData={handleSubmitWithLocation} />
+                      <div className="flex items-center justify-center ml-4 mr-4 mb-8 space-x-4 md:space-x-8">
+                        <FunSearchButton text="One JacaRestaurant" fetchData={handleSubmitWithLocationOne} />
+                        <FunSearchButton text="Three JacaRestaurants" fetchData={handleSubmitWithLocation} />
                       </div>
                       {/* Section 2 */}
-                      <div className="md:flex md:items-baseline md:align-center">
+                      <div className="md:flex flex-col md: justify-center items-center">
                       <div className="flex flex-col items-center justify-center">
                         <h1 className="text-xl font-bold text-jgreen mb-2 border-b">Max Price</h1>
                         <div className="flex flex-row">
@@ -242,6 +245,7 @@ async function fetchRestaurants() {
             <Slideshow slides={results} location={location} user={user} />
           </div>
         )}
+      </div>
       </div>
       </>
   
