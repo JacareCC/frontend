@@ -8,6 +8,8 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import "../../../app/globals.css";
+import NewNav from "@/components/NewNav";
+import LoadingAnimation from "@/components/loading/Loading";
 
 interface RestaurantRewardsPageProps {}
 
@@ -32,6 +34,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
   const [statusCodeOK, setStatusCodeOk] = useState<boolean>(false);
   const [uid, setUid] = useState<string | null | undefined>(null);
   const [points, setPoints] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [business, setBusiness] = useState<Business | null>(null);
   const id = searchParams.get("id");
 
@@ -64,6 +67,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
       getUserData();
       getBusinessData();
     }
+    setIsLoading(false);
   }, [uid]);
 
   async function getBusinessData() {
@@ -113,27 +117,40 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
           uid: uid,
         }),
       }
-    )
-      .then((res) => res.json())
+    ).then((res) => res.json());
   }
 
   return (
     <div>
-      <h1>{business?.name}</h1>
-      <p>Your Jacoins: {points}</p>
-      <ul>
-        {business?.rewards.map((reward) => {
-          return (
-            <li>
-              <p>
-                {reward.reward_level}: {reward.reward_description}, Jacoins:
-                {reward.points_required}
-              </p>
-              <button onClick={() => handleBuy(reward.id)}>Buy</button>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="">
+        <NewNav />
+      </div>
+      <div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
+        <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
+          {isLoading ? (
+            <LoadingAnimation />
+          ) : (
+            <>
+              <h1>{business?.name}</h1>
+              <p>Your Jacoins: {points}</p>
+              <ul>
+                {business?.rewards.map((reward) => {
+                  return (
+                    <li>
+                      <p>
+                        {reward.reward_level}: {reward.reward_description},
+                        Jacoins:
+                        {reward.points_required}
+                      </p>
+                      <button onClick={() => handleBuy(reward.id)}>Buy</button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
