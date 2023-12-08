@@ -163,8 +163,8 @@ async function fetchRestaurants() {
           <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
            
             {!statusCodeOK ? (
-             <div className="h-screen flex items-center justify-center">
-              <LoadingAnimation />
+             <div className="fixed top-0 right-0 left-0 h-screen w-screen bg-white flex items-center justify-center">
+               <LoadingAnimation />
               </div>
             ) : (
               <>
@@ -224,13 +224,16 @@ async function fetchRestaurants() {
                   </>
                 ) : (
 
-                  <div className="flex items-center justify-center h-screen">
+                  <div className="">
                     {!resultsFetched && (
-                      <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
-                        <img
-                          src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
-                          alt="Alligator eating a star"
-                          className="w-full h-full object-cover rounded-full border-4 border-emerald-500" />
+                      // <div className="fixed top-0 bg- white left-0 right-0 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden h-screen w-screen bg-white flex items-center justify-center">
+                      //   <img
+                      //     src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
+                      //     alt="Alligator eating a star"
+                      //     className="w-full h-full object-cover rounded-full border-4 border-emerald-500" />
+                      // </div>
+                      <div className="top-0 left-0 right-0 fixed h-screen w-screen bg-white flex items-center justify-center">
+                        <LoadingAnimation />
                       </div>
                     )}
                   </div>

@@ -92,7 +92,7 @@ export default function UserPage(){
     return(
       <>
       <>{!statusCode ? (
-        <div className="h-screen flex justify-center items-center">
+        <div className="h-screen w-screen flex justify-center items-center">
         <LoadingAnimation/>
         </div>
       ): null
@@ -104,7 +104,7 @@ export default function UserPage(){
             <div className="">
                 <NewNav />
             </div>
-            <div className="flex flex-col md:flex-row items-center container mx-auto md:shadow-2xl rounded mb-4">
+            <div className="flex flex-col md:flex-row items-center container mx-auto md:shadow-2xl rounded">
                 <div className="w-full mb-4">
                     <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
                 </div>
@@ -112,7 +112,7 @@ export default function UserPage(){
                     <RestViewed />
                 </div>
             </div>
-                <div className=" w-full flex items-center justify-center px-4 bg-test md:bg-white">
+                <div className=" flex flex-col md:flex-row items-center container mx-auto rounded pb-4">
                     <ClaimButton user_uid={uid} />
                 </div>
         </div>)

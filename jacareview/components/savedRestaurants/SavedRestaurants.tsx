@@ -101,7 +101,9 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
     return (
 <>
     {!savedData ? (
-      <LoadingAnimation />
+      <div className="fixed top-0 left-0 right-0 h-screen w-screen flex justify-center items-center bg-white">
+        <LoadingAnimation />
+      </div>
     ) : (
       <div className="flex flex-col items-center">
         <div className="card w-full max-h-[500px] xl:max-h-[800] overflow-y-scroll scrollbar-thin">

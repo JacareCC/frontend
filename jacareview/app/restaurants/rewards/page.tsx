@@ -128,7 +128,9 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
       <div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
         <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
           {isLoading ? (
-            <LoadingAnimation />
+            <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
+              <LoadingAnimation />
+            </div>
           ) : (
             <>
               <h1>{business?.name}</h1>

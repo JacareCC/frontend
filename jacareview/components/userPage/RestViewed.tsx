@@ -119,9 +119,11 @@ export default function RestViewed() {
   return (
     <div className="flex flex-col align-center items-center bg-test">
     <h1 className="pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
-    <div className=" shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+    <div className=" shadow-xl w-11/12 mx-6  rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
+        <div className="fixed right-0 top-0 left-0 h-screen w-screen bg-white flex items-center justify-center">
           <LoadingAnimation />
+        </div>
           ) : (
               <div>
           {historyData.length === 0 ? (

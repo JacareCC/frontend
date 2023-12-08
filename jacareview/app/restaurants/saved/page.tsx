@@ -24,7 +24,7 @@ export default function SavedRestaurantsPage() {
                     Surprise me!
                     </button>
 
-                <div className="w-full bg-white ">
+                <div className="w-full bg-white">
                     <SavedRestaurants randomOneClicked={randomOneClicked} setRandomOneClicked={setRandomOneClicked}/>
                 </div>
             </div>
