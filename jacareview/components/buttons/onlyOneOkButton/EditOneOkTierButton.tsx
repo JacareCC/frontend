@@ -7,9 +7,10 @@ interface EditOneOkButtonProps {
     points: number;
     description: string;
     tierId: number
+    refresh: number
   }
   
-  const EditOneOkButtonTier: React.FC<EditOneOkButtonProps> = ({ backgroundColor, text, description, points, tierId}) => {
+  const EditOneOkButtonTier: React.FC<EditOneOkButtonProps> = ({ refresh, backgroundColor, text, description, points, tierId}) => {
     const [isButtonActive, setButtonActive] = useState<boolean>(false);
     const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -39,7 +40,7 @@ interface EditOneOkButtonProps {
     </button>
     <div>
     {isButtonActive &&(
-      <TierEditForm setShowForm={setShowForm} setButtonActive={setButtonActive} points={points} description={description} tierId={tierId}/>
+      <TierEditForm refresh={refresh} setShowForm={setShowForm} setButtonActive={setButtonActive} points={points} description={description} tierId={tierId}/>
     )}
     </div>
     </>

@@ -11,7 +11,6 @@ import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
 import logoHome from '../public/logo-home-bgnashi.png'
-// import jacarePhone from '../public/IMG_8629.png'
 import jacareReview from '../public/jaca-review.png'
 import jacareEat from '../public/jaca-eat.png'
 import jacaDate from '../public/jaca-date.png'
@@ -20,7 +19,7 @@ import { Check } from 'lucide-react'
 import NavbarHome from "@/components/NavbarHome";
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
-import NewNav from "@/components/NewNav";
+
 
 
 export default function Home() {
@@ -62,7 +61,6 @@ export default function Home() {
     if(statusCode === 400){
       setRegistrationReady((prev:boolean) => !prev);
     }
-    console.log(statusCode);
   },[statusCode])
 
 
@@ -95,7 +93,6 @@ export default function Home() {
   }, []);
 
   const handlerCookiesAccept = () => {
-    console.log(cookiesAccepted)
     setCookiesAccepted(true);
     setShowConsent(false);
   }
@@ -108,7 +105,6 @@ export default function Home() {
       // Handle successful sign-in
       setUid(result.user.uid);
       setLoginTry((prev:boolean) => !prev);
-      console.log('Signed in successfully:', result.user);
     } catch (error: any) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('Popup request cancelled');
@@ -155,7 +151,9 @@ export default function Home() {
         <div className="">
         <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
+              <div className="flex justify-center items-center">
               <LoadingAnimation/>
+              </div>
             ) : (
               <>  
                 <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">

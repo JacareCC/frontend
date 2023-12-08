@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 interface FormData {
   description: string;
   points: number;
+  refresh: number;
 }
 
 interface TierFormProps {
@@ -38,7 +39,8 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
         tier: text.toLocaleLowerCase(),
         description: data.description,
         points: data.points,
-        restaurant_id: restaurant_id
+        restaurant_id: restaurant_id,
+        refresh: data.refresh
     }
     
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/tier/new/`, {
@@ -100,6 +102,25 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
                     <span className="text-xs text-red-500">{errors.points.message}</span>
                   )}
                 </div>
+                <div className="mb-4 font-yaro">
+                  <label htmlFor="refrsh" className="block text-sm font-semibold mb-1">
+                    Days until refresh:
+                  </label>
+                  <input
+                    type="number"
+                    id="refresh"
+                    {...register('refresh', {
+                      required: 'Days is required',
+                      valueAsNumber: true,
+                      validate: (value) => !isNaN(value) || 'Days must be a number',
+                    })}
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                  />
+                  {errors.refresh && (
+                    <span className="text-xs text-red-500">{errors.refresh.message}</span>
+                  )}
+                </div>
+                
                 <div className="flex justify-end">
                   <button
                     type="submit"

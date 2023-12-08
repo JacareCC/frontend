@@ -80,26 +80,26 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
       <div className='flex items-center justify-center border-gray-300 gap-2 mb-2 pb-2 border-solid border-b'>
         <CircleDollarSign className='text-jgreen'/>
         <p className=' text-lg rounded text-jgreen'>{points} jacoins</p>
-        
       </div>
-      <div className="flex flex-col align-center border-solid border-b border-gray-300 mb-2">
+  
+      <div className='mb-2 flex flex-col'>
         <label className='text-sm text-gray-500'>Email</label>
         {isEditing ? (
-          <div className='mb-2 flex justify-between items-center w-full'>
-            <input
-              className='bg-gray-200 basis-2/3 rounded'
-              type='text'
-              value={editedEmail}
-              onChange={(e) => setEditedEmail(e.target.value)}
-              {...register && register('email')} 
-            />
-          </div>
+          <input
+            className='bg-gray-200 basis-2/3 rounded'
+            type='email'
+            value={editedEmail}
+            onChange={(e) => setEditedEmail(e.target.value)}
+            {...register && register('email', { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })
+          }
+          />
         ) : (
           <div className='mb-2 flex justify-between items-center w-full'>
             <p className='text-lg'>{editedEmail || "jacare@jacareview.com"}</p>
           </div>
         )}
       </div>
+  
       <div className="mb-2 flex flex-col align-center border-solid border-b border-gray-300">
         <label className='text-sm text-gray-500'>Name</label>
         {isEditing ? (
@@ -118,6 +118,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
           </div>
         )}
       </div>
+  
       <div className="flex flex-col align-center border-solid border-b border-gray-300">
         <label className='text-sm text-gray-500'>Birthday</label>
         {isEditing ? (
@@ -127,7 +128,6 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
               type='date'
               value={editedBirthday}
               onChange={(e) => setEditedBirthday(e.target.value)}
-              // {...register && register('birthday')} // Adiciona o campo ao formulário se register for fornecido
             />      
           </div>
         ) : (
@@ -136,11 +136,11 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
           </div>
         )}
       </div>
+  
       <button className='w-1/2 md:w-1/4 bg-orange text-white p-2 rounded shadow-lg shadow-xl' onClick={handleEditSaveClick}>
         {isEditing ? 'Save' : 'Edit'}
       </button>
     </div>
   );
-};
-
+        }  
 export default InfosUser;

@@ -8,19 +8,22 @@ interface TierEditFormProps {
   description?: string;
   points: number;  
   placeholder?: string | undefined;
+  refresh: number;
   register?: UseFormRegister<FieldValues>;
   onEditSave?: (data: { description: string; points: number}) => void;
 }
 
-const TierEditForm: React.FC<TierEditFormProps> = ({ description, points, tierId, register, onEditSave, setButtonActive, setShowForm }) => {
+const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, points, tierId, register, onEditSave, setButtonActive, setShowForm }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description || '');
   const [editedPoints, setEditedPoints] = useState(points || 0);
+  const [editedRefresh, setEditedRefresh] = useState(points || 0);
   
 
   const [formData, setFormData] = useState({
     description: description || '',
     points: points || 0,
+    refresh: refresh || 1,
   });
 
   const handleEditSaveClick = async () => {
@@ -28,6 +31,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ description, points, tierId
       const data = {
         description: description || "",
         points: points || 0,
+        refresh: refresh || 1,
       };
 
       setFormData((prevData) => ({
@@ -109,6 +113,24 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ description, points, tierId
         ) : (
           <div className="mb-2 flex justify-between items-center w-full text-black">
             <p className="text-lg">{editedPoints || 0}</p>
+          </div>
+        )}
+      </div>
+      <div className="mb-4 font-yaro text-black">
+        <label htmlFor="refresh" className="block text-sm font-semibold mb-1 text-black">
+          Days until refresh:
+        </label>
+        {isEditing ? (
+          <input
+            type="number"
+            id="refresh"
+            value={formData.refresh}
+            onChange={(e) => setEditedRefresh(parseInt(e.target.value))}
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-jyellow text-black"
+          />
+        ) : (
+          <div className="mb-2 flex justify-between items-center w-full text-black">
+            <p className="text-lg">{editedRefresh || 1}</p>
           </div>
         )}
       </div>
