@@ -62,7 +62,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
             resultArray.map((slide: any, index: number) => (
               <div
                 key={index}
-                className="flex flex-col  justify-center items-center md:py-8"
+                className="flex flex-col  justify-center items-center md:py-4"
               >
                 <div className="flex flex-col  justify-center items-center text-jgreen text-xl mb-2">
                     <h1 className=' mb-4 mt-4 '>{slide.displayName.text}</h1>
