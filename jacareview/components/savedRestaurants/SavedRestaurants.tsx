@@ -97,7 +97,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         }
     }
 
-
+console.log(savedData)
     return (
 <>
     {!savedData ? (
