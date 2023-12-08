@@ -42,6 +42,7 @@ const BusinessPageWithId: React.FC = () => {
     useEffect(() =>{
       if(pageData){
         const filteredData = pageData.filter((element:any)=> element.id === parsedId);
+        console.log(pageData)
         setParsedPageData(filteredData);
       }
       

@@ -50,6 +50,12 @@ export default function UserPage(){
             setUid(user?.uid)
             }
         }, [user]);
+
+        useEffect(()=>{
+          if(statusCode && statusCode !== 200){
+            router.push("/")
+          }
+        },[statusCode])
     
         useEffect(()=>{
             if(uid){
@@ -86,7 +92,9 @@ export default function UserPage(){
     return(
       <>
       <>{!statusCode ? (
+        <div className="h-screen flex justify-center items-center">
         <LoadingAnimation/>
+        </div>
       ): null
 
       }</>
