@@ -244,7 +244,6 @@ async function fetchRestaurants() {
         )}
         {resultsFetched && (
           <div className="flex-grow">
-           
             <Slideshow slides={results} location={location} user={user} />
           </div>
         )}

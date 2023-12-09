@@ -141,6 +141,7 @@ export default function RestViewed() {
                     </div>
                     <div className="flex flex-col gap-4">
                     <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-jyellow p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4" >
+                    <Star className="text-jgreen"/>
                       Review
                       <Star/>
                     </Link>
