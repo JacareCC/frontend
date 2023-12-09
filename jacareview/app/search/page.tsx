@@ -7,7 +7,6 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import ColorChangingButton from "@/components/buttons/ColorChangingButton";
 import "../globals.css";
-import Navbar from "@/components/Navbar";
 import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
 import VerifyUser from "../globalfunctions/TokenVerification";
@@ -15,7 +14,7 @@ import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import gatorSearching from "./gator-searching.png"
 import NewNav from "@/components/NewNav";
-import { CircleDollarSign } from "lucide-react";
+
 
 
 
@@ -77,13 +76,11 @@ export default function SearchPage() {
   };
 
   useEffect(() => {
-    // Scroll to the top of the page on component mount (refresh)
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     searchObject.price = price;
-    console.log(searchObject);
   }, [price, cuisineType]);
 
   useEffect(() => {
@@ -95,21 +92,34 @@ export default function SearchPage() {
   }, [resetCount]);
   
   useEffect(() => {
-      if ("geolocation" in navigator) {
-        // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-          const { latitude, longitude } = coords;
-          setLocation({ latitude, longitude });
-        });
-      }
-    // }
+      // if ("geolocation" in navigator) {
+      //   navigator.geolocation.getCurrentPosition(({ coords }) => {
+      //     const { latitude, longitude } = coords;
+      //     setLocation({ latitude, longitude });
+      //   });
+      // }
+    requestGeolocation();
   }, []);
   
-// useEffect(() => {
-//     if (results) {
-//       setResultsFetched(true);
-//     }
-//   }, [location]);
+ 
+  const requestGeolocation = async () => {
+    if ("geolocation" in navigator) {
+      try {
+        const position = await new Promise<any>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        const { coords } = position;
+        const { latitude, longitude } = coords;
+        setLocation({ latitude, longitude });
+      } catch (error:any) {
+        console.error("Error getting geolocation:", error.message);
+        // Handle errors
+      }
+    }
+  };
+  
+
 
   useEffect(() => {
     if (results) {
@@ -118,95 +128,7 @@ export default function SearchPage() {
   }, [results]);
 
 
-//   //handlers for Change
-  
 
-//   function handleCuisineAdd(event: any) {
-//     let cuisineTypeAdded: string = event.target.innerText;
-//     let cuisineToSend: string = "";
-    // if (!cuisineTypeList.includes(event.target.value)) {
-    //   setCuisineTypeList((oldArray) => [...oldArray, event.target.value]);
-    // }
-    
-//     if (cuisineTypeAdded === 'Vegan' || cuisineTypeAdded === "Vegetarian"){
-//         if(!cuisineType.includes(cuisineTypeAdded)){
-//         setCuisineType(["vegan_restaurant"])
-//         }
-//         if(cuisineTypeAdded === 'Vegetarian' && cuisineType.includes("vegan_restaurant")){
-//             setCuisineType((oldArray) => [...oldArray, "vegetarian_restaurant"]);
-//         }
-//         else{
-//         setCuisineType(["vegetarian_restaurant"]);
-//         }
-//     }
-
-//     if(includeOthers){
-//     if (cuisineTypeAdded === "Ice Cream") {
-//       cuisineToSend = "ice_cream_shop";
-//     }
-//     if (cuisineTypeAdded === "Any") {
-//       cuisineToSend = "restaurant";
-//     }
-//     if (cuisineTypeAdded === "Fast Food") {
-//       cuisineToSend = "fast_food_restaurant";
-//     }
-//     if (cuisineTypeAdded === "Sandwich Shop") {
-//       cuisineToSend = "sandwich_shop";
-//     }
-//     if (cuisineTypeAdded === "Steak House") {
-//       cuisineToSend = "steak_house";
-//     }
-//     if (
-//       cuisineTypeAdded === "Bar" ||
-//       event.target.value === "Cafe" ||
-//       event.target.value === "Bakery"
-//     ) {
-//       cuisineToSend = cuisineTypeAdded.toLowerCase();
-//     } else if (cuisineToSend === "") {
-//       cuisineToSend = cuisineTypeAdded.toLowerCase() + "_restaurant";
-//     }
-
-//     if (!cuisineType.includes(cuisineToSend))
-//       setCuisineType((oldArray) => [...oldArray, cuisineToSend]);
-// }
-//   }
-
-//   function handleCuisineRemoval(event: any) {
-//     let indexString: string = event.target.getAttribute("a-key");
-//     let indexNumber: number = parseInt(indexString);
-//     const newCuisineTypeList: string[] = [...cuisineTypeList];
-//     newCuisineTypeList.splice(indexNumber, 1);
-//     setCuisineTypeList(newCuisineTypeList);
-//     const newCuisineTypeArray: string[] = [...cuisineType];
-//     newCuisineTypeArray.splice(indexNumber, 1);
-//     setCuisineType(newCuisineTypeArray);
-//   }
-
-//   function handleDistanceToTravel(event: any) {
-//     let stringDistance = event.target.innerText;
-//     let splitStringDistance = stringDistance.split("k")[0];
-//     let parsedStringDistanceToKM = parseInt(splitStringDistance) * 1000;
-//     setDistanceToTravel(parsedStringDistanceToKM);
-//   }
-
-//   function handlePrice(event: any) {
-//     let priceString = event.target.value;
-//     let priceNumber = priceString.length;
-//     setPrice(priceNumber);
-//   }
-
-//   function handleOpen(event: any) {
-//     if (event.target.value === "Yes") {
-//       setOpenNow(true);
-//     } else if (event.target.value === "No") {
-//       setOpenNow(false);
-//     }
-//   }
-
-//   function handleAmountOfOptions(event: any) {
-//     const numberOfResults = parseInt(event.target.value);
-//     setAmountOfOptions(numberOfResults);
-//   }
 async function fetchRestaurants() {
     
     const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}search/`, {
@@ -221,7 +143,7 @@ async function fetchRestaurants() {
           setStatusCode(response.status);
           return response.json();
         })
-        .then((data) => { console.log(data);
+        .then((data) => { 
           setResults(data);
         });
 }
@@ -249,33 +171,37 @@ async function fetchRestaurants() {
 
   
   return (
-    <><div className="max-w-screen-md mx-auto">
+    <>
+    <div className="h-[calc(100dvh)">
+    {statusCodeOK && (<div className="">
       <NewNav />
-    </div><div className="flex flex-col h-screen w-screen overflow-hidden">
+    </div>)}
+    <div className="flex flex-col container mx-auto md: mt-0 shadow-2xl bg-test rounded">
         {!resultsFetched && (
-          <div className="flex flex-col md:flex-row flex-grow justify-around items-center">
-            {/* Container div for content, adjusted for NavBar height */}
+          <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
+           
             {!statusCodeOK ? (
-              // Loading Animation when user is not available
+             <div className="h-screen flex items-center justify-center">
               <LoadingAnimation />
+              </div>
             ) : (
               <>
                 {!resultsFetched && !searchClicked ? (
-                  // Your existing sections
+              
                   <>
-                    <div className="sm:mt-0 md:w-1/2 mt-16 flex flex-col items-center justify-center">
-                      <img src="./gator-searching.png" alt="Gator Searching" />
+                    <div className="sm:mt-0 md:w-1/2  flex flex-col items-center justify-center">
+                      <img className="md:rounded-l" src="./gator-searching.png" alt="Gator Searching" />
                     </div>
-                    <div className="font-yaro p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
+                    <div className=" p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
                       {/* Section 1 */}
                       <div className="flex flex-col items-center justify-center"></div>
                       <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
-                      <div className="flex items-center justify-center mb-8 space-x-4 md:space-x-8">
-                        <FunSearchButton text="One jacaRestaurant" fetchData={handleSubmitWithLocationOne} />
-                        <FunSearchButton text="Three jacaRestaurants" fetchData={handleSubmitWithLocation} />
+                      <div className="flex items-center justify-center ml-4 mr-4 mb-8 space-x-4 md:space-x-8">
+                        <FunSearchButton text="One JacaRestaurant" fetchData={handleSubmitWithLocationOne} />
+                        <FunSearchButton text="Three JacaRestaurants" fetchData={handleSubmitWithLocation} />
                       </div>
                       {/* Section 2 */}
-                      <div className="md:flex md:items-baseline md:align-center">
+                      <div className="md:flex flex-col md: justify-center items-center">
                       <div className="flex flex-col items-center justify-center">
                         <h1 className="text-xl font-bold text-jgreen mb-2 border-b">Max Price</h1>
                         <div className="flex flex-row">
@@ -316,7 +242,6 @@ async function fetchRestaurants() {
                   </>
                 ) : (
 
-                  // Render results or loading animation based on conditions
                   <div className="flex items-center justify-center h-screen">
                     {!resultsFetched && (
                       <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
@@ -334,11 +259,13 @@ async function fetchRestaurants() {
         )}
         {resultsFetched && (
           <div className="flex-grow">
-            {/* Wrap the Slideshow component in a div that takes up the remaining space */}
+           
             <Slideshow slides={results} location={location} user={user} />
           </div>
         )}
-      </div></>
+      </div>
+      </div>
+      </>
   
 );
       }  

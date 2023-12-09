@@ -20,7 +20,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
   
     const settings = {
         accessibility:true,
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -62,20 +62,22 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
             resultArray.map((slide: any, index: number) => (
               <div
                 key={index}
-                className="flex flex-col  justify-center items-center"
+                className="flex flex-col  justify-center items-center md:p-4"
               >
-                <div className="flex flex-col  justify-center items-center text-jgreen font-yaro text-xl mb-2">
-                    <h1 className='border-b  mb-4 '>{slide.displayName.text}</h1>
+                <div className="flex flex-col  justify-center items-center text-jgreen text-xl mb-2">
+                    <h1 className=' mb-4 mt-4 '>{slide.displayName.text}</h1>
                 </div>
                   {slide.location && <GoogleMap apiKey={apiKey} placeId={slide.place_id} location={slide.location} mylocation={location} user={user} />}
-                <div className="flex flex-col  justify-center items-center font-yaro m-2 text-jgreen text-lg">
+                <div className="flex flex-col  justify-center items-center m-2 text-jgreen text-lg">
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
+                <a className=' bg-jgreen text-white p-2 rounded shadow-lg shadow-xl' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`} target='_blank'>Click to go to Google Maps</a>
                 </div>
-                <a className='flex flex-col  justify-center items-center w-[80] rounded bg-jgreen text-white px-4 py-2 m-2' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`}>Click to go to Google Maps</a>
-                <div className="flex flex-col  justify-center items-center text-gray-600 font-yaro">
+                <div className="flex flex-col  justify-center items-center text-gray-600">
                   {slide.priceLevel ? (
-                    <PriceLevelComponent priceLevel={slide.priceLevel} />
+                    <div className='text-jgreen'>
+                      <PriceLevelComponent priceLevel={slide.priceLevel} />
+                    </div>
                   ) : (
                     <div></div>
                   )}

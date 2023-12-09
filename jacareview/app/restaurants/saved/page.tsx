@@ -1,23 +1,34 @@
 "use client"
-import SavedRestaurants from "@/components/SavedRestaurants";
+import SavedRestaurants from "@/components/savedRestaurants/SavedRestaurants";
 import "../../../app/globals.css"
-import Navbar from "@/components/Navbar";
 import NewNav from "@/components/NewNav";
-
-// ... (previous imports)
+import { useState } from "react";
 
 
 export default function SavedRestaurantsPage() {
+    const [randomOneClicked, setRandomOneClicked] = useState<boolean>(false);
+
+    function handleRandomGo(){
+        setRandomOneClicked(true)
+    }
+
     return (
-      <div className="max-w-screen-md mx-auto">
-        <NewNav />
-        <div className="flex items-center justify-center ">
-          <div className="card w-full max-h-[500px] xl:max-h-[800] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
-              <SavedRestaurants />
-          </div>
-        </div>
-      </div>
+        <><NewNav />
+        <div className="flex flex-col md:flex-row container mx-auto md:shadow-2xl md:bg-test rounded pb-4 md:pr-4 bg-test max-w-2xl max-h-xh">
+            <div className="sm:mt-0 md:hidden  w-full">
+                <img className="md:rounded-l" src='../jaca-phone.png' alt="Gator Searching" />
+            </div>
+            <div className="flex bg-test  flex-col items-center container mx-auto  md:shadow-2xl rounded md:ml-4">
+                <h1 className="text-2xl pt-2 font-semibold m-2">My Saved Restaurants</h1>
+                <button onClick={handleRandomGo} className="bg-gradient-to-r mb-4 from-yellow-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded shadow-md hover:scale-105 transform transition-transform duration-300">
+                    Surprise me!
+                    </button>
+
+                <div className="w-full bg-white rounded mx-2">
+                    <SavedRestaurants randomOneClicked={randomOneClicked} setRandomOneClicked={setRandomOneClicked}/>
+                </div>
+            </div>
+
+        </div></>
     );
-  }
-  
-  
+}

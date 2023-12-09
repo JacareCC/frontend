@@ -42,28 +42,27 @@ const BusinessPageWithId: React.FC = () => {
     useEffect(() =>{
       if(pageData){
         const filteredData = pageData.filter((element:any)=> element.id === parsedId);
+        console.log(pageData)
         setParsedPageData(filteredData);
       }
       
   }, [pageData]);
 
-  useEffect(() =>{
-    if(parsedPageData){
-    setReviewsToSend(parsedPageData[0].reviews)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "bronze" ? setBronzeExists(element) : null)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "silver" ? setSilverExists(element) : null)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "gold" ? setGoldExists(element) : null)
+  useEffect(() => {
+    if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
+      setReviewsToSend(parsedPageData[0].reviews);
+  
+      parsedPageData[0].rewards.forEach((element: { reward_level: string; }) => {
+        if (element.reward_level === "bronze") {
+          setBronzeExists(element);
+        } else if (element.reward_level === "silver") {
+          setSilverExists(element);
+        } else if (element.reward_level === "gold") {
+          setGoldExists(element);
+        }
+      });
     }
-    
-}, [parsedPageData]);
-
-useEffect(()=>{
-  if(bronzeExists){
-    
-  }
-},[bronzeExists])
-
-
+  }, [parsedPageData]);
 
     useEffect(() =>{
        if(statusCode === 201){
@@ -77,7 +76,7 @@ useEffect(()=>{
   
     return (
       <div className="w-screen h-screen overflow-hidden">
-               <div className="max-w-screen-md mx-auto">
+               <div className="">
                 <NewNav />
             </div>
         <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">
@@ -88,11 +87,13 @@ useEffect(()=>{
                 <div className="flex flex-col sm:flex-row items-center justify-center">{
                   
                     bronzeExists?  <EditOneOkButtonTier 
+                    refresh={bronzeExists.refreshes_in}
                     backgroundColor={"bronze"}
                     text={"Bronze"}
                     points={bronzeExists.points_required}
                     tierId={bronzeExists.id}
                     description={bronzeExists.reward_description}
+
                     />:
                   <OnlyOneOkButtonTier
                     id={parsedPageData[0]?.owner_user_id_id}
@@ -104,6 +105,7 @@ useEffect(()=>{
                 }
                   {
                  silverExists?  <EditOneOkButtonTier 
+                 refresh={silverExists.refreshes_in}
                  backgroundColor={"silver"}
                  text={"Silver"}
                  points={silverExists.points_required}
@@ -119,6 +121,7 @@ useEffect(()=>{
                  }
                  {
                  goldExists?  <EditOneOkButtonTier 
+                 refresh={goldExists.refreshes_in}
                  backgroundColor={"gold"}
                  text={"Gold"}
                  points={goldExists.points_required}

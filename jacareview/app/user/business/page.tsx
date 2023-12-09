@@ -56,7 +56,7 @@ const BusinessPage: React.FC = () => {
 
 
   return (
-    <><div className="max-w-screen-md mx-auto">
+    <><div className="">
       <NewNav />
     </div><div className="flex flex-col h-screen">
         <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">

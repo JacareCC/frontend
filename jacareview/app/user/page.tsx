@@ -5,13 +5,13 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter } from "next/navigation";
 import '../globals.css'
-import NavbarUser from "@/components/NavBarUser";
 import { useEffect, useState } from "react";
 import InfoUser from "@/components/userPage/InfoUser";
 import RestViewed from "@/components/userPage/RestViewed";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import ClaimButton from "@/components/userPage/ClaimButton";
 import NewNav from "@/components/NewNav";
+import LoadingAnimation from "@/components/loading/Loading";
 
 
 export default function UserPage(){
@@ -24,7 +24,7 @@ export default function UserPage(){
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-          VerifyUser(user.uid, setStatusCode);
+          return;
         } else {
           router.push("/");
         }
@@ -37,11 +37,25 @@ export default function UserPage(){
         const[uid, setUid] = useState<string|null |undefined> (null);
         const[points, setPoints] = useState<string |null|undefined>(null);
 
+        useEffect(()=>{
+          if(statusCode && statusCode !== 200){
+            router.push("/")
+          }
+
+        },[statusCode])
+
         useEffect(() => {
             if(user){
+            VerifyUser(user.uid, setStatusCode);
             setUid(user?.uid)
             }
         }, [user]);
+
+        useEffect(()=>{
+          if(statusCode && statusCode !== 200){
+            router.push("/")
+          }
+        },[statusCode])
     
         useEffect(()=>{
             if(uid){
@@ -76,22 +90,33 @@ export default function UserPage(){
         }, [user]);
 
     return(
+      <>
+      <>{!statusCode ? (
+        <div className="h-screen w-screen flex justify-center items-center">
+        <LoadingAnimation/>
+        </div>
+      ): null
+
+      }</>
+
+      { statusCode && statusCode === 200 && (   
         <div>
-            <div className="max-w-screen-md mx-auto">
+            <div className="">
                 <NewNav />
             </div>
-            <div className="max-w-screen-md mx-auto">
-
-                <div className="">
+            <div className="flex flex-col md:flex-row items-center container mx-auto md:shadow-2xl rounded">
+                <div className="w-full mb-4">
                     <InfoUser email={email} birthday={birthday} name={userName} user_uid={uid} points={points}/>   
                 </div>
-                <div>
+                <div className="w-full">
                     <RestViewed />
                 </div>
-                <div className="px-4">
+            </div>
+                <div className=" flex flex-col md:flex-row items-center container mx-auto rounded pb-4">
                     <ClaimButton user_uid={uid} />
                 </div>
-            </div>
-        </div>
+        </div>)
+}
+        </>
     )
 }

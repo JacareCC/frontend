@@ -7,6 +7,7 @@ interface FormFivePointsProps {
   name: string;
   title: string;
   setValue: UseFormSetValue<any>;
+  onStarFilled: (index: number) => void;
 }
 
 const FormFivePoints: React.FC<FormFivePointsProps> = ({
@@ -14,6 +15,7 @@ const FormFivePoints: React.FC<FormFivePointsProps> = ({
   name,
   title,
   setValue,
+  onStarFilled,
 }) => {
   const [rating, setRating] = useState<number | null>(null);
 
@@ -21,9 +23,10 @@ const FormFivePoints: React.FC<FormFivePointsProps> = ({
     const newRating = index + 1;
     setRating(newRating);
 
-    // Register the new value immediately
     register(name, { value: newRating });
     setValue(name, newRating);
+
+    onStarFilled(index);
   };
 
   return (

@@ -4,8 +4,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
+import { Star } from "lucide-react";
+import LoadingAnimation from "../loading/Loading";
 
 export default function RestViewed() {
   const [historyData, setHistoryData] = useState<any>(null);
@@ -49,6 +50,22 @@ export default function RestViewed() {
       window.location.reload();
     }
   }, [triggerRefresh]);
+  
+  function calculateTimeDifference(visitDate: moment.MomentInput) {
+    const now = moment();
+    const visitMoment = moment(visitDate);
+    const diffInMinutes = now.diff(visitMoment, "minutes");
+    const diffInHours = now.diff(visitMoment, "hours");
+    const diffInDays = now.diff(visitMoment, "days");
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} minutes ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hours ago`;
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  }
 
   // helper
   async function getHistoryData() {
@@ -99,40 +116,45 @@ export default function RestViewed() {
     }
   }
 
-  function toProfilePage() {
-    router.push("/userpage");
-  }
   return (
-    <div className="flex flex-col align-center items-center">
-    <h1 className="font-yaro pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
-    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+    <div className="flex flex-col align-center items-center bg-test pb-4">
+    <h1 className="pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
+    <div className=" shadow-xl w-11/12 mx-6  rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
       {!historyData ? (
-          <div>Loading ...</div>
+        <div className="fixed right-0 top-0 left-0 h-screen w-screen bg-white flex items-center justify-center">
+          <LoadingAnimation />
+        </div>
           ) : (
               <div>
           {historyData.length === 0 ? (
               <div>No Restaurants Visited</div>
               ) : (
-                  <div className="card max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
+                  <div className="card w-full max-h-[400px] md:max-h-[600px] overflow-y-scroll scrollbar-thin px-4 py-2">
                 
               {historyDataFiltered &&
                 historyDataFiltered.map((element: any, index: number) => (
-                    <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
+                    <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4 bg-test">
                         <div key={`b${index}`} className="">
-                        <div key={`c${index}`} className="mb-1">{element.name || 'no name'} </div>
-                    <div key={`a${index}`} className="mb-2">Viewed at: {moment(element.date_visited).format("MM/DD/YYYY")}</div>
-                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        <div key={`c${index}`} className="mb-1 border-b text-center pb-2">{element.name || 'no name'} </div>
+                        <div key={`a${index}`} className="mb-2">
+                          Viewed {calculateTimeDifference(element.date_visited)}
+                    </div>
+                    <div className="flex flex-col gap-4">
+                    <Link key={`d${index}`} href={`/review/?restaurant=${element.restaurant_id_id}`} className="bg-jgreen  text-jyellow p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4" >
+                    <Star className="text-jgreen"/>
                       Review
+                      <Star/>
                     </Link>
                     {!element.saved ? (
-                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-jgreen text-white px-4 py-2 mt-2">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                         Save
                       </button>
                     ) : (
-                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="w-full rounded bg-secl text-white px-4 py-2 mt-2">
-                        Unsave
+                        <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        Remove
                       </button>
                     )}
+                    </div>
                     </div>
                   </div>
                 ))}

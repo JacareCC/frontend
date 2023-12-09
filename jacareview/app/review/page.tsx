@@ -6,9 +6,8 @@ import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter, useSearchParams } from "next/navigation";
 import '../globals.css'
 import ReviewForm from "@/components/formComponents/ReviewForm";
-import Navbar from "@/components/Navbar";
 import NewNav from "@/components/NewNav";
-// import { getDisplayName } from "next/dist/shared/lib/utils";
+import VerifyUser from "../globalfunctions/TokenVerification";
 
 export default function ReviewPage() {
 
@@ -17,6 +16,8 @@ export default function ReviewPage() {
     const [user, loading] = useAuthState(auth);
     const [userUid, setUserUid] = useState<String | null> (null)
     const [restaurantPlaceId, setRestarantPlaceId] = useState<string | null>(null)
+    const[statusCode, setStatusCode] = useState<number|null>(null);
+    
     const restaurantName = 'aaa' //need to pass the restaurant's name
     const params = useSearchParams()
     const restaurant = params.get("restaurant");
@@ -28,15 +29,10 @@ export default function ReviewPage() {
         setRestarantPlaceId(restaurant);
     },[])
     
-    useEffect(()=>{
-        console.log(restaurantPlaceId);
-    },[restaurantPlaceId])
-    
-
+   
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
+        VerifyUser(user.uid, setStatusCode);
         const uid = user.uid;
         setUserUid(uid);
         } else {
@@ -46,7 +42,7 @@ export default function ReviewPage() {
 
     return (
         <>
-            <div className="max-w-screen-md mx-auto" >
+            <div className="" >
             <NewNav /> 
                 <ReviewForm userUid={String(userUid)} restaurantPlaceId={String(restaurantPlaceId)} restaurantName={String(restaurantName)} />
             </div>
