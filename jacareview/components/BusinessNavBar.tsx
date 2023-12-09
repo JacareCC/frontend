@@ -67,12 +67,15 @@ const BusinessNavBar: React.FC = () => {
         <div className="bg-white">
           {businessList && businessList.length > 0 && (
             <div>
-              <div className="flex flex-col justify-center p-2">
+              <div className="flex flex-col justify-center p-2 ">
                 {businessList.map((element: any, index: number) => (
-                  <><h1 className="text-lg text-center border-b bg-test font-semibold rounded-t">{element.business_name}</h1><div
+                  <>
+                  <div className="">
+                  <h1 className="text-lg text-center border-b bg-test font-semibold rounded-t">{element.business_name}</h1>
+                  <div
                     key={`5${index}`}
-                    className="px-4 py-2 card w-full scrollbar-thin  bg-test mb-4 rounded-b"
-                  >
+                    className="card w-full scrollbar-thin  bg-test mb-4 rounded-b shadow-xl p-2 pb-4"
+                    >
                     <div onClick={handleTab} a-key={element.business_name} className="p-2" key={index}>
                       <div className="pb-1">
                         {element.reviews ? (
@@ -80,9 +83,10 @@ const BusinessNavBar: React.FC = () => {
                             <h1>You have {element.reviews.length} reviews</h1>
                           </div>
                         ) :
-                          <div>
+                        <div>
                             <h1>No reviews</h1>
                           </div>}
+                            </div>
                       </div>
                       <OnlyOneOkButtonBusiness
                         businessId={element.id}
