@@ -48,15 +48,21 @@ const BusinessPageWithId: React.FC = () => {
       
   }, [pageData]);
 
-  useEffect(() =>{
-    if(parsedPageData){
-    setReviewsToSend(parsedPageData[0].reviews)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "bronze" ? setBronzeExists(element) : null)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "silver" ? setSilverExists(element) : null)
-    parsedPageData[0].rewards.filter((element:any)=> element.reward_level === "gold" ? setGoldExists(element) : null)
+  useEffect(() => {
+    if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
+      setReviewsToSend(parsedPageData[0].reviews);
+  
+      parsedPageData[0].rewards.forEach((element: { reward_level: string; }) => {
+        if (element.reward_level === "bronze") {
+          setBronzeExists(element);
+        } else if (element.reward_level === "silver") {
+          setSilverExists(element);
+        } else if (element.reward_level === "gold") {
+          setGoldExists(element);
+        }
+      });
     }
-    
-}, [parsedPageData]);
+  }, [parsedPageData]);
 
     useEffect(() =>{
        if(statusCode === 201){
