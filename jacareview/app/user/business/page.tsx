@@ -11,6 +11,7 @@ import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import BusinessNavBar from "@/components/BusinessNavBar";
 import "../../../app/globals.css"
 import NewNav from "@/components/NewNav";
+import LoadingAnimation from "@/components/loading/Loading";
 
 
 const BusinessPage: React.FC = () => {
@@ -56,18 +57,27 @@ const BusinessPage: React.FC = () => {
 
 
   return (
-    <><div className="">
-      <NewNav />
-    </div><div className="flex flex-col h-screen">
-        <div className="flex-grow flex flex-col-reverse md:flex-row items-center justify-center overflow-hidden">
-          <div className="md:w-1/2 mt-16 flex items-center justify-center">
-            <img src="../../../business-gator.jpg" alt="Business Gator" />
-          </div>
-          <div className="w-full md:w-1/2 bg-white">
-            <BusinessNavBar />
-          </div>
-        </div>
-      </div></>
+<>{!statusCode ? (
+  <div className="h-screen w-screen flex justify-center items-center">
+    <LoadingAnimation />
+  </div>
+) : null}
+{/* Adicionando uma div de contêiner para envolver os elementos condicionais */}
+{statusCode && statusCode === 200 && (
+  <div>
+    <NewNav />
+    <div className="flex flex-col md:flex-row items-center container mx-auto md:shadow-2xl md:rounded bg-test">
+      <div className="flex items-center justify-center">
+        <img className="md:rounded-l" src="../../../jake.png" alt="Business Gator" />
+      </div>
+      <div className="w-full md:max-h-sm">
+        <BusinessNavBar />
+      </div>
+    </div>
+  </div>
+)}
+</>
+
   );
 };
 

@@ -75,17 +75,13 @@ const BusinessPageWithId: React.FC = () => {
     }
   
     return (
-      <div className="w-screen h-screen overflow-hidden">
-               <div className="">
+      <div className="">
                 <NewNav />
-            </div>
-        <div className="mt-16 p-4 flex flex-col items-center bg-cover bg-center">
+        <div className="">
           {parsedPageData && (
-            <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
-              <div className="overflow-hidden bg-black bg-center bg-opacity-50 absolute inset-0"  ></div>
-              <div className="w-4/5 bg-gray p-8 rounded-md shadow-md relative bg-center bg-cover" style={{ backgroundImage: 'url("../../../../business-gator.jpg")'}}>
+            <div className="">
+              <div>
                 <div className="flex flex-col sm:flex-row items-center justify-center">{
-                  
                     bronzeExists?  <EditOneOkButtonTier 
                     refresh={bronzeExists.refreshes_in}
                     backgroundColor={"bronze"}
@@ -127,14 +123,16 @@ const BusinessPageWithId: React.FC = () => {
                  points={goldExists.points_required}
                  tierId={goldExists.id}
                  description={goldExists.reward_description}
-                 />:
-                 <OnlyOneOkButtonTier
-                    backgroundColor={'gold'}
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    text={'Gold'}
-                    setStatusCode={setStatusCode}
-                  />}
+                 /> 
+                    :
+                  <OnlyOneOkButtonTier
+                      backgroundColor={'gold'}
+                      id={parsedPageData[0]?.owner_user_id_id}
+                      restaurant_id={parsedPageData[0]?.id}
+                      text={'Gold'}
+                      setStatusCode={setStatusCode}
+                    />
+                  }
                 </div>
                 <BusinessEditForm
                   email={parsedPageData[0]?.email}

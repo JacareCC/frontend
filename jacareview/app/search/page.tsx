@@ -163,7 +163,7 @@ async function fetchRestaurants() {
           <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
            
             {!statusCodeOK ? (
-             <div className="fixed top-0 right-0 left-0 h-screen w-screen bg-white flex items-center justify-center">
+             <div className="fixed top-0 right-0 left-0 h-screen w-screen flex items-center justify-center bg-white">
                <LoadingAnimation />
               </div>
             ) : (
@@ -174,11 +174,11 @@ async function fetchRestaurants() {
                     <div className="sm:mt-0 md:w-1/2  flex flex-col items-center justify-center">
                       <img className="md:rounded-l" src="./gator-searching.png" alt="Gator Searching" />
                     </div>
-                    <div className=" p-4 sm:p-0 mb-4 md:flex flex-col items-center justify-center w-full md:w-1/2">
+                    <div className=" p-4 sm:p-0 md:flex flex-col items-center justify-center w-full md:w-1/2">
                       {/* Section 1 */}
                       <div className="flex flex-col items-center justify-center"></div>
                       <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
-                      <div className="flex items-center justify-center ml-4 mr-4 mb-8 space-x-4 md:space-x-8">
+                      <div className="flex items-center justify-center ml-4 mr-4 mb-2 space-x-4 md:space-x-8">
                         <FunSearchButton text="One JacaRestaurant" fetchData={handleSubmitWithLocationOne} />
                         <FunSearchButton text="Three JacaRestaurants" fetchData={handleSubmitWithLocation} />
                       </div>

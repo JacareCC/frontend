@@ -127,7 +127,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({ email, contactPerso
         )}
       </div>
 
-      <button className='bg-green-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center' onClick={handleEditSaveClick}>
+      <button className='w-1/2 md:w-1/4 bg-orange text-white p-2 rounded shadow-lg shadow-xl' onClick={handleEditSaveClick}>
         {isEditing ? 'Save' : 'Edit'}
       </button>
     </div>

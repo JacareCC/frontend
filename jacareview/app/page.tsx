@@ -151,8 +151,8 @@ export default function Home() {
         <div className="">
         <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
-              <div className="flex justify-center items-center">
-              <LoadingAnimation/>
+              <div className="flex justify-center items-center ">
+                <LoadingAnimation/>
               </div>
             ) : (
               <>  

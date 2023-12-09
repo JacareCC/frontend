@@ -12,7 +12,7 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
     const [theyVerified, setTheyVerified] = useState<boolean>(false);
   const [theyWentBack, setTheyWentBack] = useState<boolean>(false);
  
-
+console.log(reviews)
     useEffect(()=>{
       if(reviews){
         let reverseReviews = reviews.sort();
@@ -55,9 +55,6 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
             <div>No Reviews</div>
             ) : (
                 <div className="card max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
-                   <div>
-             
-              </div>
             {historyData &&
               historyData.map((element: any, index: number) => (
                   <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
