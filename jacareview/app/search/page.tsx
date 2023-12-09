@@ -92,14 +92,32 @@ export default function SearchPage() {
   }, [resetCount]);
   
   useEffect(() => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-          const { latitude, longitude } = coords;
-          setLocation({ latitude, longitude });
-        });
-      }
-    
+      // if ("geolocation" in navigator) {
+      //   navigator.geolocation.getCurrentPosition(({ coords }) => {
+      //     const { latitude, longitude } = coords;
+      //     setLocation({ latitude, longitude });
+      //   });
+      // }
+    requestGeolocation();
   }, []);
+  
+ 
+  const requestGeolocation = async () => {
+    if ("geolocation" in navigator) {
+      try {
+        const position = await new Promise<any>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        const { coords } = position;
+        const { latitude, longitude } = coords;
+        setLocation({ latitude, longitude });
+      } catch (error:any) {
+        console.error("Error getting geolocation:", error.message);
+        // Handle errors
+      }
+    }
+  };
   
 
 
@@ -224,16 +242,13 @@ async function fetchRestaurants() {
                   </>
                 ) : (
 
-                  <div className="">
+                  <div className="flex items-center justify-center h-screen">
                     {!resultsFetched && (
-                      // <div className="fixed top-0 bg- white left-0 right-0 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden h-screen w-screen bg-white flex items-center justify-center">
-                      //   <img
-                      //     src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
-                      //     alt="Alligator eating a star"
-                      //     className="w-full h-full object-cover rounded-full border-4 border-emerald-500" />
-                      // </div>
-                      <div className="top-0 left-0 right-0 fixed h-screen w-screen bg-white flex items-center justify-center">
-                        <LoadingAnimation />
+                      <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
+                        <img
+                          src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
+                          alt="Alligator eating a star"
+                          className="w-full h-full object-cover rounded-full border-4 border-emerald-500" />
                       </div>
                     )}
                   </div>
@@ -244,6 +259,7 @@ async function fetchRestaurants() {
         )}
         {resultsFetched && (
           <div className="flex-grow">
+           
             <Slideshow slides={results} location={location} user={user} />
           </div>
         )}
