@@ -13,7 +13,7 @@ import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import gatorSearching from "./gator-searching.png"
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 
 
 
@@ -33,6 +33,7 @@ export default function SearchPage() {
   const [statusCodeOK, setStatusCodeOk] = useState<boolean>(false);
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
   const [searchClicked, setSearchClicked] = useState<boolean>(false)
+  const [turnOnLocation, setTurnOnLocation] = useState<boolean>(false);
 
   initFirebase();
   const auth = getAuth();
@@ -159,6 +160,7 @@ async function fetchRestaurants() {
       fetchRestaurants();
       }
       if(!location){
+
         throw new Error();
       }
     setSearchClicked((prev:boolean) => !prev);

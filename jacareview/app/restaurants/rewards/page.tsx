@@ -8,7 +8,7 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import "../../../app/globals.css";
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 import LoadingAnimation from "@/components/loading/Loading";
 
 interface RestaurantRewardsPageProps {}

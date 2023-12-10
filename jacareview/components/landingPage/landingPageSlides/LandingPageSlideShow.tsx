@@ -43,7 +43,7 @@ export default function LandingPageSlideshow() {
   
     return (
         <div onClick={handlePause}>
-        <Slider  {...settings} className="flexmax-w-screen-md mx-auto">
+        <Slider  {...settings} className="mx-auto">
           <LandingPageSearchSlide/>
           <LandingAnonReviewsSlide/>
           <LandingPageRewardsSlide/>

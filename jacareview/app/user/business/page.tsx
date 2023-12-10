@@ -4,13 +4,13 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbarComponents/Navbar";
 import "../../../app/globals.css"
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
-import BusinessNavBar from "@/components/BusinessNavBar";
+import BusinessNavBar from "@/components/navbarComponents/BusinessNavBar";
 import "../../../app/globals.css"
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 import LoadingAnimation from "@/components/loading/Loading";
 
 

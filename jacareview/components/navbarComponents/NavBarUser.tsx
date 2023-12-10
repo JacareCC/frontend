@@ -1,11 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import logo from '../public/logo-nav-white.png';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { initFirebase } from '@/firebase/firebaseapp';
-import { useState, useEffect } from 'react';
-import MenuHamburger from './header_components/menuHamburger';
+import MenuHamburger from '../header_components/menuHamburger';
 
 interface NavbarUserProps {
   userPhotoSrc: string | undefined;

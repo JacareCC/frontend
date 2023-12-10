@@ -1,5 +1,5 @@
 import Image from "next/image";
-import jacareReview from '../../public/jaca-review.png'
+import jacareReview from '../../../public/jaca-review.png'
 
 export default function LandingAnonReviewsSlide(){
 

@@ -1,7 +1,7 @@
 "use client"
 import SavedRestaurants from "@/components/savedRestaurants/SavedRestaurants";
 import "../../../app/globals.css"
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 import { useState } from "react";
 
 

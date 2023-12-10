@@ -9,7 +9,7 @@ import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkB
 import "../../../../app/globals.css";
 import EditOneOkButtonTier from "@/components/buttons/onlyOneOkButton/EditOneOkTierButton";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 import ReviewListBusiness from "@/components/ReviewListBusiness";
 import { ArrowBigLeft, BackpackIcon } from "lucide-react";
 
