@@ -24,7 +24,7 @@ const LocationPopup: React.FC<LocationPopupProps> = ({ setTurnOnLocation }) => {
     >
       <div className="bg-white p-8 rounded-lg shadow-md">
         <p className="mb-4">
-          In order to use the search function, allow your location in the browser.
+          In order to use the search function, allow your location in the browser
         </p>
         <div className="flex items-center justify-center">
         <button
