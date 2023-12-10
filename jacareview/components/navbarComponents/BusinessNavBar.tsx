@@ -4,13 +4,11 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
-import OnlyOneOkButtonTier from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonTier";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
-import "../app/globals.css";
-import NewNav from "./NewNav";
+import "../../app/globals.css"
+
 
 const BusinessNavBar: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);

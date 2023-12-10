@@ -6,7 +6,7 @@ import { initFirebase } from "@/firebase/firebaseapp"
 import { useRouter, useSearchParams } from "next/navigation";
 import '../globals.css'
 import ReviewForm from "@/components/formComponents/ReviewForm";
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
 import VerifyUser from "../globalfunctions/TokenVerification";
 
 export default function ReviewPage() {

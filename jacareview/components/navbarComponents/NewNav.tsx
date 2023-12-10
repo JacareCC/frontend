@@ -12,8 +12,8 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import {  signOut } from 'firebase/auth';
-import LogoutConfirm from "./header_components/LogoutConfirm";
-import LoadingAnimation from "./loading/Loading";
+import LogoutConfirm from "../header_components/LogoutConfirm";
+import LoadingAnimation from "../loading/Loading";
 
 
 function NewNav() {

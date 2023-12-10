@@ -1,5 +1,5 @@
 import Image from "next/image";
-import jacaBusiness from '../../public/jaca-business.png'
+import jacaBusiness from '../../../public/jaca-business.png'
 
 
 export default function LandingPageBusinessSlide(){

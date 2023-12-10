@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import { useState, useEffect } from "react";
-import MenuHamburger from './header_components/menuHamburger';
+import MenuHamburger from '../header_components/menuHamburger';
 
 interface NavbarProps {
   logoSrc: string | null | undefined;

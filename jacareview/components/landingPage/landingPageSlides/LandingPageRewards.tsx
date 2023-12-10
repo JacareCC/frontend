@@ -1,5 +1,5 @@
 import Image from "next/image";
-import jacaDate from '../../public/jaca-date.png'
+import jacaDate from '../../../public/jaca-date.png'
 
 
 export default function LandingPageRewardsSlide(){

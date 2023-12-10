@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import CookieConsent from "@/components/Cookies";
-import TermsAndConditions from "@/components/TermsAndConditions";
+import TermsAndConditions from "@/components/landingPage/TermsAndConditions";
 import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
@@ -15,7 +15,7 @@ import { Check } from 'lucide-react'
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
-import LandingPageSlideshow from "@/components/landingPageSlides/LandingPageSlideShow";
+import LandingPageSlideshow from "@/components/landingPage/landingPageSlides/LandingPageSlideShow";
 import Will from "../public/Will-Photo.jpg"
 
 
@@ -74,7 +74,7 @@ export default function Home() {
   }, [termsAgreed]);
 
   useEffect(() => {
-    if(user && !statusCode){
+    if(user && !statusCode && termsAgreed){
       handleUserRegistration(user.uid, user.email);
    
     }

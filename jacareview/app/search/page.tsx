@@ -12,8 +12,8 @@ import LoadingAnimation from "@/components/loading/Loading";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
-import gatorSearching from "./gator-searching.png"
-import NewNav from "@/components/NewNav";
+import NewNav from "@/components/navbarComponents/NewNav";
+import LocationPopup from "@/components/LocationOnPopUp";
 
 
 
@@ -33,6 +33,7 @@ export default function SearchPage() {
   const [statusCodeOK, setStatusCodeOk] = useState<boolean>(false);
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
   const [searchClicked, setSearchClicked] = useState<boolean>(false)
+  const [turnOnLocation, setTurnOnLocation] = useState<boolean>(false);
 
   initFirebase();
   const auth = getAuth();
@@ -148,7 +149,7 @@ async function fetchRestaurants() {
     fetchRestaurants();
     }
     if(!location){
-      throw new Error();
+      setTurnOnLocation((prev:boolean) => !prev)
     }
     setSearchClicked((prev:boolean) => !prev);
   }
@@ -159,7 +160,7 @@ async function fetchRestaurants() {
       fetchRestaurants();
       }
       if(!location){
-        throw new Error();
+        setTurnOnLocation((prev:boolean) => !prev)
       }
     setSearchClicked((prev:boolean) => !prev);
   }
@@ -168,6 +169,7 @@ async function fetchRestaurants() {
   return (
     <>
     <div className="h-[calc(100dvh)">
+    {turnOnLocation && (<LocationPopup setTurnOnLocation={setTurnOnLocation}/>)}
     {statusCodeOK && (<div className="">
       <NewNav />
     </div>)}
