@@ -150,7 +150,6 @@ async function fetchRestaurants() {
     }
     if(!location){
       setTurnOnLocation((prev:boolean) => !prev)
-      throw new Error();
     }
     setSearchClicked((prev:boolean) => !prev);
   }
@@ -162,7 +161,6 @@ async function fetchRestaurants() {
       }
       if(!location){
         setTurnOnLocation((prev:boolean) => !prev)
-        throw new Error();
       }
     setSearchClicked((prev:boolean) => !prev);
   }
