@@ -23,7 +23,6 @@ export default function SavedRestaurantsPage() {
                 <button onClick={handleRandomGo} className="bg-gradient-to-r mb-4 from-yellow-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded shadow-md hover:scale-105 transform transition-transform duration-300">
                     Surprise me!
                     </button>
-
                 <div className="w-full bg-white rounded mx-2">
                     <SavedRestaurants randomOneClicked={randomOneClicked} setRandomOneClicked={setRandomOneClicked}/>
                 </div>

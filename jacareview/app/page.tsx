@@ -228,9 +228,9 @@ export default function Home() {
                         </div>
                       </button>
                     ) : (
-                      <button onClick={handleToggleToTerms} className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center">
+                      <button className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center">
                         <div className="flex items-center">
-                          <Image   priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
+                          <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
                           <span className="ml-2 text-base sm:text-lg lg:text-xl">Sign Up!</span>
                         </div>
                       </button>
@@ -242,9 +242,7 @@ export default function Home() {
                       {termsAgreed ? (<Check style={{ width: '40px', height: '30px', stroke: 'var(--jyellow)' }} />) : null}
                     </div>
                     {toggleAgreement && (
-                      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black h-screen w-screen bg-opacity-50">
                       <TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement} />
-                      </div>
                     )}
                   </div></>
             )}

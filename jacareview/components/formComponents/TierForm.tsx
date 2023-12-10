@@ -70,7 +70,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
           {showForm && (
             <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md shadow-md">
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4 font-yaro">
+                <div className="mb-4 ">
                   <label htmlFor="description" className="block text-sm font-semibold mb-1">
                     Description:
                   </label>
@@ -84,7 +84,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
                     <span className="text-xs text-red-500">{errors.description.message}</span>
                   )}
                 </div>
-                <div className="mb-4 font-yaro">
+                <div className="mb-4 ">
                   <label htmlFor="points" className="block text-sm font-semibold mb-1">
                     Points:
                   </label>
@@ -102,7 +102,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
                     <span className="text-xs text-red-500">{errors.points.message}</span>
                   )}
                 </div>
-                <div className="mb-4 font-yaro">
+                <div className="mb-4">
                   <label htmlFor="refrsh" className="block text-sm font-semibold mb-1">
                     Days until refresh:
                   </label>

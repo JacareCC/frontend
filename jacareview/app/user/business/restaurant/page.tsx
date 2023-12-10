@@ -11,6 +11,7 @@ import EditOneOkButtonTier from "@/components/buttons/onlyOneOkButton/EditOneOkT
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import NewNav from "@/components/NewNav";
 import ReviewListBusiness from "@/components/ReviewListBusiness";
+import { ArrowBigLeft, BackpackIcon } from "lucide-react";
 
 const BusinessPageWithId: React.FC = () => {
     const [statusCode, setStatusCode] = useState<number|null>(0);
@@ -21,7 +22,7 @@ const BusinessPageWithId: React.FC = () => {
     const [silverExists, setSilverExists] = useState<any>(null);
     const [goldExists, setGoldExists] = useState<any>(null);
     const [reviewsToSend, setReviewsToSend] = useState<any>(null);
-
+    const [isQrActive, setIsQrActive] = useState<boolean>(false);
     const router = useRouter();
     const params = useSearchParams()
     const id = params.get("id");
@@ -39,15 +40,22 @@ const BusinessPageWithId: React.FC = () => {
         }
     }, [id, user])
 
+    const handleQRClick = () => {
+      setIsQrActive(true);
+    };
+  
+    const handleCloseQR = () => {
+      setIsQrActive(false);
+    };
+
     useEffect(() =>{
       if(pageData){
         const filteredData = pageData.filter((element:any)=> element.id === parsedId);
-        console.log(pageData)
         setParsedPageData(filteredData);
       }
       
   }, [pageData]);
-
+console.log(parsedPageData)
   useEffect(() => {
     if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
       setReviewsToSend(parsedPageData[0].reviews);
@@ -76,84 +84,119 @@ const BusinessPageWithId: React.FC = () => {
   
     return (
       <div className="">
-                <NewNav />
-        <div className="">
+        <NewNav />
+        <div className="max-w-screen-md mx-auto flex flex-col ">
           {parsedPageData && (
+            <>
             <div className="">
-              <div>
-                <div className="flex flex-col sm:flex-row items-center justify-center">{
-                    bronzeExists?  <EditOneOkButtonTier 
+              <h1 className="pb-4 w-full  flex justify-center text-xl font-semibold">
+                {parsedPageData[0].business_name}
+              </h1>
+            </div>
+            <div className="w-full flex justify-center">
+                <div className="flex flex-col items-center">
+                  <img
+                    src={parsedPageData[0].qr_code_link}
+                    alt="QR Code"
+                    className="cursor-pointer"
+                    onClick={handleQRClick} />
+                  <p className="text-blue-500 cursor-pointer" onClick={handleQRClick}>
+                    Click to enlarge
+                  </p>
+                </div>
+              </div>
+              <div className="">
+                {isQrActive && (
+                  <div className="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
+                    <div className="modal-content bg-white p-8 mx-auto mt-20 max-w-2xl rounded-lg">
+                      <span
+                        onClick={handleCloseQR}
+                        className="close absolute top-0 right-0 p-4 cursor-pointer"
+                      >
+                        &times;
+                      </span>
+                      <img
+                        src={parsedPageData[0].qr_code_link}
+                        alt="QR Code"
+                        className="mx-auto"
+                        style={{ width: '100%', height: 'auto' }} />
+                      <button
+                        className="flex justify-center w-full"
+                        onClick={handleCloseQR}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                  
+                )}
+              </div><div className="">
+                <div className="rounded border-xl m-2 shadow-xl flex flex-col gap-2 p-2">
+                  <h1 className="flex flex-col items-center font-semibold text-xl">Tiers</h1>
+                  <div className="flex flex-row sm:flex-row items-center justify-center">{bronzeExists ? <EditOneOkButtonTier
                     refresh={bronzeExists.refreshes_in}
                     backgroundColor={"bronze"}
                     text={"Bronze"}
                     points={bronzeExists.points_required}
                     tierId={bronzeExists.id}
-                    description={bronzeExists.reward_description}
-
-                    />:
-                  <OnlyOneOkButtonTier
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    backgroundColor={'bronze'}
-                    text={'Bronze'}
-                    setStatusCode={setStatusCode}
-                  />
-                }
-                  {
-                 silverExists?  <EditOneOkButtonTier 
-                 refresh={silverExists.refreshes_in}
-                 backgroundColor={"silver"}
-                 text={"Silver"}
-                 points={silverExists.points_required}
-                 tierId={silverExists.id}
-                 description={silverExists.reward_description}
-                 />:<OnlyOneOkButtonTier
-                    id={parsedPageData[0]?.owner_user_id_id}
-                    restaurant_id={parsedPageData[0]?.id}
-                    backgroundColor={'silver'}
-                    text={'Silver'}
-                    setStatusCode={setStatusCode}
-                  />
-                 }
-                 {
-                 goldExists?  <EditOneOkButtonTier 
-                 refresh={goldExists.refreshes_in}
-                 backgroundColor={"gold"}
-                 text={"Gold"}
-                 points={goldExists.points_required}
-                 tierId={goldExists.id}
-                 description={goldExists.reward_description}
-                 /> 
-                    :
-                  <OnlyOneOkButtonTier
-                      backgroundColor={'gold'}
+                    description={bronzeExists.reward_description} /> :
+                    <OnlyOneOkButtonTier
                       id={parsedPageData[0]?.owner_user_id_id}
                       restaurant_id={parsedPageData[0]?.id}
-                      text={'Gold'}
-                      setStatusCode={setStatusCode}
-                    />
-                  }
+                      backgroundColor={'bronze'}
+                      text={'Bronze'}
+                      setStatusCode={setStatusCode} />}
+                    {silverExists ? <EditOneOkButtonTier
+                      refresh={silverExists.refreshes_in}
+                      backgroundColor={"silver"}
+                      text={"Silver"}
+                      points={silverExists.points_required}
+                      tierId={silverExists.id}
+                      description={silverExists.reward_description} /> : <OnlyOneOkButtonTier
+                      id={parsedPageData[0]?.owner_user_id_id}
+                      restaurant_id={parsedPageData[0]?.id}
+                      backgroundColor={'silver'}
+                      text={'Silver'}
+                      setStatusCode={setStatusCode} />}
+                    {goldExists ? <EditOneOkButtonTier
+                      refresh={goldExists.refreshes_in}
+                      backgroundColor={"gold"}
+                      text={"Gold"}
+                      points={goldExists.points_required}
+                      tierId={goldExists.id}
+                      description={goldExists.reward_description} />
+                      :
+                      <OnlyOneOkButtonTier
+                        backgroundColor={'gold'}
+                        id={parsedPageData[0]?.owner_user_id_id}
+                        restaurant_id={parsedPageData[0]?.id}
+                        text={'Gold'}
+                        setStatusCode={setStatusCode} />}
+                  </div>
                 </div>
-                <BusinessEditForm
-                  email={parsedPageData[0]?.email}
-                  contactPerson={parsedPageData[0]?.contact_person}
-                  phoneNumber={parsedPageData[0].phone_number}
-                  user_uid={user?.uid}
-                />
-                <ReviewListBusiness reviews={reviewsToSend}/>
-                <div className="flex justify-center items-center">
-                  <button
-                    key={"CloseButton"}
-                    onClick={handleClose}
-                    className={`${
-                      'bg-green-500'
-                    } text-white p-2 m-1 rounded`}
-                  >
-                    Back To Restaurants Owned
-                  </button>
+                <div className="flex flex-col md:flex-row">
+                  <div className="w-full md:w-1/2 flex flex-col justify-center">
+                    <BusinessEditForm
+                      email={parsedPageData[0]?.email}
+                      contactPerson={parsedPageData[0]?.contact_person}
+                      phoneNumber={parsedPageData[0].phone_number}
+                      user_uid={user?.uid} />
+                  </div>
+                  <div className="w-auto md:w-1/2 md:mr-2">
+                    <ReviewListBusiness reviews={parsedPageData[0].reviews} />
+                  </div>
                 </div>
-              </div>
-              </div>
+                <div className="flex justify-star items-center mt-2">
+                </div>
+                <button
+                key={"CloseButton"}
+                onClick={handleClose}
+                className='mb-2 ml-2 w-1/4 md:w-1/2 md:w-2/12 bg-gray-400  p-2 rounded shadow-lg shadow-xl text-white flex gap-4'
+              >
+                <ArrowBigLeft />
+                Back
+              </button>
+              </div></>
             )}
           </div>
           </div>

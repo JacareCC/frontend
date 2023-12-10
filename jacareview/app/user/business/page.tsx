@@ -62,7 +62,6 @@ const BusinessPage: React.FC = () => {
     <LoadingAnimation />
   </div>
 ) : null}
-{/* Adicionando uma div de contêiner para envolver os elementos condicionais */}
 {statusCode && statusCode === 200 && (
   <div>
     <NewNav />
