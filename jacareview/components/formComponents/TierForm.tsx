@@ -41,7 +41,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
         restaurant_id: restaurant_id,
         refresh: data.refresh
     }
-    console.log(data)
+   
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/tier/new/`, {
         method: "POST",
         headers: {

@@ -55,10 +55,11 @@ const BusinessPageWithId: React.FC = () => {
       setParsedPageData(filteredData);
     }
   }, [pageData]);
-  console.log(parsedPageData);
+ 
   useEffect(() => {
     if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
       setReviewsToSend(parsedPageData[0].reviews);
+      console.log(parsedPageData[0])
 
       parsedPageData[0].rewards.forEach((element: { reward_level: string }) => {
         if (element.reward_level === "bronze") {
@@ -71,6 +72,10 @@ const BusinessPageWithId: React.FC = () => {
       });
     }
   }, [parsedPageData]);
+
+  useEffect(() => {
+    console.log(bronzeExists)
+  },[bronzeExists])
 
   useEffect(() => {
     if (statusCode === 201) {
