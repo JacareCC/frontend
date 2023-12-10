@@ -60,7 +60,7 @@ export default function Home() {
       setLoginTry((prev:boolean) => !prev);
     }
     if(statusCode === 400){
-      setRegistrationReady((prev:boolean) => !prev);
+      router.push("/search");
     }
   },[statusCode])
 
@@ -71,11 +71,31 @@ export default function Home() {
     }
   }
   
-  }, [loginTry])
+  }, [loginTry]);
 
-  useEffect(() =>{
-    if(registrationReady){
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
+  useEffect(() => {
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    setCookiesAccepted(!!cookiesAccepted);
+    setShowConsent(!cookiesAccepted);
+  }, []);
+
+  useEffect(() => {
+    if(termsAgreed){
+      handleRegister();
+      
+    }
+  }, [termsAgreed]);
+
+  useEffect(() => {
+    if(user && !statusCode){
+      handleUserRegistration(user.uid, user.email);
+   
+    }
+  }, [user]);
+
+
+  async function handleUserRegistration(uid: string, email: string| null){
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json" , 
@@ -85,14 +105,9 @@ export default function Home() {
         .then(response => response.status )
         .then(status => setStatusCode(status));   
   }
-  }, [registrationReady])
 
-  useEffect(() => {
-    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-    setCookiesAccepted(!!cookiesAccepted);
-    setShowConsent(!cookiesAccepted);
-  }, []);
 
+  
   const handlerCookiesAccept = () => {
     setCookiesAccepted(true);
     setShowConsent(false);
@@ -130,8 +145,7 @@ export default function Home() {
       // Handle successful sign-in
       if(user){
       setUid(result.user.uid);
-      setRegistrationReady((prev:boolean) => !prev);
-      
+      setRegistrationReady(true);
       }
     } catch (error: any) {
       if (error.code === 'auth/cancelled-popup-request') {
@@ -168,18 +182,50 @@ export default function Home() {
               </div>
             ) : (
               <>  
+
+
                 <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">
                   <div className="flex items-center shadow-lg shadow-indigo-500/40 m-2 rounded basis-1/2">
                     <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
+
+
+                  
+                  <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col object-fill items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10  max-w-full relative">
+                    
+                      
+            
+                      <button onClick={handleToggleToTerms} className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center" >
+                       <div className="flex items-center px-10">
+                          <Image   priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
+                          <span className="ml-2 text-base sm:text-lg lg:text-xl whitespace-nowrap">Sign Up!</span>
+                        </div>
+                      </button>
+                    
+                    <div className="flex">
+                      {termsAgreed ? (<Check style={{ width: '40px', height: '30px', stroke: 'var(--jyellow)' }} />) : null}
+                    </div>
+                    {toggleAgreement && (
+                      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black h-screen w-screen bg-opacity-50">
+                      <TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement} />
+                      </div>
+                    )}
+                  </div>
                   <div className="flex flex-col items-center basis-1/2 py-10  max-w-full">
+                    <h2 className="text-sm">Already have an account?</h2>
                     <button className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center" onClick={signIn}>
                       <div className="flex items-center px-10">
                         <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
-                        <span className="ml-2  whitespace-nowrap">Sign In!</span>
+                        <span className="ml-2  whitespace-nowrap">Sign In</span>
                       </div>
                     </button>
+                    </div>
                   </div>
+                  </div>
+
+
                 </div>
                   <div className="flex flex-col  gap-3 ">
                     <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-sky-100 via-30% to-emerald-100 to-90%">
@@ -231,32 +277,7 @@ export default function Home() {
                       </div>
                     </div>
                     </div>
-                    <div className="flex flex-col items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10  max-w-full relative">
-                    {termsAgreed ? (
-                      <button className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center" onClick={handleRegister}>
-                        <div className="flex items-center">
-                          <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
-                          <span className="ml-2">Sign Up!</span>
-                        </div>
-                      </button>
-                    ) : (
-                      <button className="bg-emerald-100 text-indigo-500  p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-2/3 lg:w-1/2 flex justify-center items-center">
-                        <div className="flex items-center">
-                          <Image priority={true} src={googleIcon} alt="Google Icon" width={20} height={20} />
-                          <span className="ml-2 text-base sm:text-lg lg:text-xl">Sign Up!</span>
-                        </div>
-                      </button>
-                    )}
-                    <div className="flex ">
-                      <h2 className="mb-0.5 mt-4 underline  ml-2 text-base sm:text-lg lg:text-xl" onClick={handleToggleToTerms}>
-                        Click here to read and agree to Terms and Conditions before Registration
-                      </h2>
-                      {termsAgreed ? (<Check style={{ width: '40px', height: '30px', stroke: 'var(--jyellow)' }} />) : null}
-                    </div>
-                    {toggleAgreement && (
-                      <TermsAndConditions setTermsAgreed={setTermsAgreed} setToggleAgreement={setToggleAgreement} />
-                    )}
-                  </div></>
+                   </>
             )}
             {showConsent && (
               <div className="absolute z-2 inset-0 flex items-center justify-center">
@@ -267,7 +288,7 @@ export default function Home() {
                 <div className="container mx-auto px-4">
                   <div className="flex flex-wrap justify-center text-center mb-24">
                     <div className="w-full lg:w-6/12 px-4">
-                      <h2 className="text-4xl font-semibold">Here are our team</h2>
+                      <h2 className="text-4xl font-semibold">Our team</h2>
                       <p className="text-lg leading-relaxed m-4 text-gray-600">
                         
                       </p>
