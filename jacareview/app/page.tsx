@@ -11,15 +11,11 @@ import './globals.css'
 import Image from "next/image";
 import googleIcon from '../public/google.png'
 import logoHome from '../public/logo-home-bgnashi.png'
-import jacareReview from '../public/jaca-review.png'
-import jacareEat from '../public/jaca-eat.png'
-import jacaDate from '../public/jaca-date.png'
-import jacaBusiness from '../public/jaca-business.png'
 import { Check } from 'lucide-react'
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
-import { GithubIcon } from "lucide-react";
+import LandingPageSlideshow from "@/components/landingPageSlides/LandingPageSlideShow";
 import Will from "../public/Will-Photo.jpg"
 
 
@@ -175,7 +171,7 @@ export default function Home() {
               <>  
 
 
-                <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">
+                <div className="flex flex-col items-center sm:flex-row  gap-4  mx-2 pt-4 mb-4 rounded p-1">
                   <div className="flex items-center shadow-lg shadow-indigo-500/40 m-2 rounded basis-1/2">
                     <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
@@ -183,8 +179,8 @@ export default function Home() {
 
                   
                   <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-col object-fill items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10  max-w-full relative">
+                  <div className="flex flex-col justify-center items-center sm: h-1/5">
+                  <div className="flex flex-col object-fill sm: h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10  max-w-full relative">
                     
                       
             
@@ -204,7 +200,8 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-col items-center basis-1/2 py-10  max-w-full">
+
+                  <div className="flex flex-col object-fill sm: h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 mb-5 p-10  max-w-full relative">
                     <h2 className="text-sm">Already have an account?</h2>
                     <button className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center" onClick={signIn}>
                       <div className="flex items-center px-10">
@@ -219,54 +216,10 @@ export default function Home() {
 
                 </div>
                   <div className="flex flex-col  gap-3 ">
-                    <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-sky-100 via-30% to-emerald-100 to-90%">
-                    <div className="flex p-2 gap-4">
-                      <div className="">
-                        <Image className="rounded-lg" src={jacareEat} alt="logo" width={400} height={400} />
-                      </div>
-                      <div className="mx-auto">
-                        <div><h2 className="font-yaro text-jgreen text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" >Simple and Fast Search</h2></div>
-                        <div><p className="text-zinc-700  pl-2 pt-2 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">Explore a variety of culinary options nearby. Finding the perfect restaurant is now easier than ever.</p>
-                      </div>
-                      </div>
-                    </div>
-                    </div>
-                    <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-sky-100 via-30% to-emerald-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" >
-                    <div className="flex p-2 gap-4">
-                      <div className="">
-                        <div><h2 className="font-yaro text-jgreen" >Anonymous Reviews</h2></div>
-                        <div><p className="text-zinc-700 pl-2 pt-2">Your opinions matter, and we want you to feel free to express them without any concerns.</p>
-                      </div>
-                      </div>
-                      <div className="">
-                        <Image priority={true} className="rounded-lg" src={jacareReview} alt="logo" width={400} height={400} />
-                      </div>
-                    </div>
-                    </div>
-                    <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-indigo-100 from-10% via-sky-100 via-30% to-emerald-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-                    <div className="flex p-2 gap-4">
-                      <div className="">
-                        <Image priority={true} className="rounded-lg" src={jacaDate} alt="logo" width={400} height={400} />
-                      </div>
-                      <div className="">
-                        <div><h2 className="font-yaro text-jgreen" >Incredible Rewards</h2></div>
-                        <div><p className="text-zinc-700  pl-2 pt-2">Earn exclusive rewards for reviewing. The more you share, the more benefits you receive.</p>
-                      </div>
-                    </div>
-                      </div>
-                    </div>
-                    <div className="shadow-2xl m-2 rounded bg-gradient-to-r from-emerald-100 from-10% via-sky-100 via-30% to-indigo-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-                      <div className="flex p-2 gap-4">
-                        <div className="">
-                          <div><h2 className="font-yaro text-jgreen" >For your business</h2></div>
-                          <div><p className="text-zinc-700  pl-2 pt-2">Enhance Your Online Presence. Receive Genuine Feedback. Reward Your Customers.</p>
-                        </div>
-                        </div>
-                        <div className="">
-                          <Image priority={true} className="rounded-lg" src={jacaBusiness} alt="logo" width={400} height={400} />
-                        </div>
-                      </div>
-                    </div>
+                    
+                   <LandingPageSlideshow/>
+                  
+                    
                     </div>
                    </>
             )}
