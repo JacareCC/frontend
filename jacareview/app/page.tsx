@@ -4,7 +4,7 @@ import { initFirebase } from "@/firebase/firebaseapp"
 import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CookieConsent from "@/components/Cookies";
 import TermsAndConditions from "@/components/TermsAndConditions";
 import './globals.css'
@@ -16,10 +16,10 @@ import jacareEat from '../public/jaca-eat.png'
 import jacaDate from '../public/jaca-date.png'
 import jacaBusiness from '../public/jaca-business.png'
 import { Check } from 'lucide-react'
-import NavbarHome from "@/components/NavbarHome";
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
-
+import TeamCard from "@/components/landingPage/MyCard";
+import { GithubIcon } from "lucide-react";
 
 
 export default function Home() {
@@ -31,6 +31,7 @@ export default function Home() {
   const [loginTry, setLoginTry] = useState<boolean>(false)
   const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(false);
   const [showConsent, setShowConsent] = useState<boolean>(true);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
 
   initFirebase();
@@ -141,6 +142,12 @@ export default function Home() {
     }
   }
 
+  const scrollToSection = () => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   statusCode !== 200 && statusCode !== 201
 
   return (
@@ -148,6 +155,11 @@ export default function Home() {
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
+        <div className="flex w-auto justify-end my-2 shadow-lg shadow-indigo-500/40">
+        <button className="text-jgreen p-2 px-4  rounded shadow-lg shadow-indigo-500/40 cursor-pointer" onClick={scrollToSection}>
+              About Us
+            </button>
+        </div>
         <div className="">
         <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
@@ -157,7 +169,7 @@ export default function Home() {
             ) : (
               <>  
                 <div className="flex flex-col items-center sm:flex-row gap-4  mx-2 pt-4 mb-4 rounded p-1">
-                  <div className="flex items-center shadow-2xl m-2 rounded basis-1/2">
+                  <div className="flex items-center shadow-lg shadow-indigo-500/40 m-2 rounded basis-1/2">
                     <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
                   <div className="flex flex-col items-center basis-1/2 py-10  max-w-full">
@@ -251,6 +263,47 @@ export default function Home() {
                 <CookieConsent onAccept={handlerCookiesAccept} />
               </div>
             )}
+              <section ref={sectionRef} className="pt-20 md:pb-32 bg-indigo-100 md:mb-8 rounded shadow-lg shadow-indigo-500/40">
+                <div className="container mx-auto px-4">
+                  <div className="flex flex-wrap justify-center text-center mb-24">
+                    <div className="w-full lg:w-6/12 px-4">
+                      <h2 className="text-4xl font-semibold">Here are our team</h2>
+                      <p className="text-lg leading-relaxed m-4 text-gray-600">
+                        
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap justify-center">
+                    <TeamCard
+                      imgSrc={'https://avatars.githubusercontent.com/u/55517364?s=400&u=e267aa5b3d8479ce7da963f204c85c07adb92dee&v=4'}
+                      name="Júlio Gonzalez"
+                      role="Project Owner"
+                      socialLinks={[
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png', color: '', url: 'https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/' },
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png', color: '', url: 'https://github.com/GONZALEZ-RODRIGUES' },
+                      ]}
+                    />
+                    <TeamCard
+                      imgSrc={require('../public/jaca-business.png')}
+                      name="Will Brammer"
+                      role="Tech Lead"
+                      socialLinks={[
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png', color: '', url: 'https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/' },
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png', color: '', url: 'https://github.com/GONZALEZ-RODRIGUES' },
+                      ]}
+                    />
+                    <TeamCard
+                      imgSrc={'../public/jaca-business.png'}
+                      name="Kai kun"
+                      role="FullStack Engenner"
+                      socialLinks={[
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png', color: '', url: 'https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/' },
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png', color: '', url: 'https://github.com/GONZALEZ-RODRIGUES' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </section>
           </main></div></>
       ) : (
         <LoadingAnimation/>
