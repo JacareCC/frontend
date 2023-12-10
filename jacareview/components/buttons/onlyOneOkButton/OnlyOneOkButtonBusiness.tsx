@@ -51,7 +51,7 @@ interface OnlyOneOkButtonProps {
         
           <button
             onClick={handleButtonClick}
-            className={`w-18 ${`bg-jgreen`} text-white p-2 m-1 rounded`}
+            className={`w-18 ${`bg-jgreen`} w-full text-white p-2 rounded`}
           >
             {text}
           </button>

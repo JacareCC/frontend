@@ -12,7 +12,7 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
     const [theyVerified, setTheyVerified] = useState<boolean>(false);
   const [theyWentBack, setTheyWentBack] = useState<boolean>(false);
  
-
+console.log(reviews)
     useEffect(()=>{
       if(reviews){
         let reverseReviews = reviews.sort();
@@ -45,28 +45,32 @@ export default function ReviewListBusiness({reviews}:{reviews:any}){
       setReviewData(data)
       setElement(element)
     }
-
+console.log(historyData)
     return(
-        <div className="flex flex-col align-center items-center bg-white rounded">
-    <h1 className="font-yaro pt-2 text-l font-semibold text-xl my-2" >Viewed Restaurants</h1>
-    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-        
-        { historyData && historyData.length === 0 ? (
-            <div>No Reviews</div>
+    <div className="flex flex-col align-center items-center bg-test">
+    <div className="max-w-screen-md shadow-xl w-11/12 mx-6 mb-2 rounded text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl bg-white">
+    <h1 className="flex justify-center bg-test p-2 text-l font-semibold text-xl">Reviews</h1>
+        { historyData === null ? (
+            <div className="m-2 p-2 bg-test font-semibold flex justify-center text-xl">No Reviews</div>
             ) : (
-                <div className="card max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2">
-                   <div>
-             
-              </div>
+          <div className="bg-test card max-h-[400px] overflow-y-scroll scrollbar-thin p-4 px-4 py-2 flex flex-col rounded gap-4 bg-white">
             {historyData &&
-              historyData.map((element: any, index: number) => (
-                  <div key={`z${index}`} className="flex flex-col border-b mb-2 p-4">
-                    { element.isHidden === false && (
-                  <button  onClick={(event) => handleClick(event, element.data, element)} a-key={element.data} className='bg-green-500 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center' >Go To Review Made {moment(element.created_at).fromNow()}</button>
-                    )
-                    }
-                </div>
-              ))}
+              historyData
+                .filter((element: any) => element.isHidden === false)
+                .map((filteredElement: any, index: number) => (
+                  <div key={`z${index}`} className="flex flex-col  p-4 bg-test rounded">
+                    <h1 className="pb-2"> 
+                      Review made {moment(filteredElement.created_at).fromNow()}
+                    </h1>
+                    <button
+                      onClick={(event) => handleClick(event, filteredElement.data, filteredElement)}
+                      a-key={filteredElement.data}
+                      className='bg-jgreen text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center'
+                    >
+                      Show
+                    </button>
+                  </div>
+                ))}
           </div>
         )}
               

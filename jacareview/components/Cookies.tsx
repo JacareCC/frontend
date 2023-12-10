@@ -9,7 +9,7 @@ export default function CookieConsent ({ onAccept }:{onAccept:any}) {
     if (cookiesAccepted) {
       setShowConsent(false);
     }
-  }, []);
+  }, [showConsent]);
 
   function acceptCookies(){
     localStorage.setItem('cookiesAccepted', 'true');

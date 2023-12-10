@@ -15,7 +15,6 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
   
     useEffect(() => {
       setResultArray(slides.result);
-      console.log(slides.result)
     }, [slides]);
   
     const settings = {
@@ -71,7 +70,8 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
                 <div className="flex flex-col  justify-center items-center m-2 text-jgreen text-lg">
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
-                <a className=' bg-jgreen text-white p-2 rounded shadow-lg shadow-xl' href={`https://www.google.com/maps/place/?q=place_id:${slide.place_id}`} target='_blank'>Click to go to Google Maps</a>
+                <a className=' bg-jgreen text-white p-2 rounded shadow-lg shadow-xl' 
+                href={`https://www.google.com/maps/search/?api=1&query=${slide.displayName.text.replace(/ /g, "+")}&location=${slide.location.latitude},${slide.location.longitude}&query_place_id=${slide.place_id}`} target='_blank'>Click to go to Google Maps</a>
                 </div>
                 <div className="flex flex-col  justify-center items-center text-gray-600">
                   {slide.priceLevel ? (

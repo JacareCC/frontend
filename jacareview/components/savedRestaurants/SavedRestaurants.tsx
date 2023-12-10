@@ -8,6 +8,10 @@ import LoadingAnimation from "../loading/Loading";
 import { Star } from "lucide-react";
 import SavedOneRestaurant from "./SavedOneRestaurant";
 import CalculateTimeDifference from "@/app/globalfunctions/CalculateTimeDifference";
+import { getPreciseDistance } from "geolib";
+import { GeolibInputCoordinates } from "geolib/es/types";
+import { useRouter } from "next/navigation";
+import VerifyUser from "@/app/globalfunctions/TokenVerification";
 
 interface SavedOneRestaurantsProps{
   setRandomOneClicked:any;
@@ -23,10 +27,32 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
     const [restaurantId, setRestaurantId] = useState<string |null>(null);
     const [historyId, setHistoryId] = useState<number | null> (null);
     const [refreshCount, setRefreshCount] = useState<number | null>(null);
+    const [location, setLocation] = useState<any>(null);
+    const [statusCode, setStatusCode] = useState<number | null>(null);
+    const [statusCodeOk, setStatusCodeOk] = useState<boolean>(false);
 
     initFirebase();
     const auth = getAuth(); 
     const [user, loading] = useAuthState(auth);
+    const router = useRouter();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        VerifyUser(user.uid, setStatusCode);
+      } else {
+        router.push("/");
+      }
+    });
+  
+    useEffect(()=>{
+      if(statusCode && statusCode !== 200){
+        router.push("/")
+      }
+      else if(statusCode=== 200){
+        setStatusCodeOk(true);
+      }
+    },[statusCode])
+  
   
 
     useEffect(() => {
@@ -40,7 +66,10 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         if(savedData && savedData !== "No saved restaurants"){
             setFetchedData(true);
         }
+        console.log(savedData)
     }, [savedData])
+
+
 
     useEffect(()=>{
         if(restaurantId && historyId){
@@ -54,6 +83,32 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         window.location.reload();
         }
     },[refreshCount]);
+
+    
+
+    useEffect(() => {
+
+    requestGeolocation();
+  }, []);
+  
+ 
+  const requestGeolocation = async () => {
+    if ("geolocation" in navigator) {
+      try {
+        const position = await new Promise<any>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        const { coords } = position;
+        const { latitude, longitude } = coords;
+        setLocation({ latitude, longitude });
+      } catch (error:any) {
+        console.error("Error getting geolocation:", error.message);
+        // Handle errors
+      }
+    }
+  };
+  
 
    
     async function getSavedRestaurants() {
@@ -97,7 +152,22 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         }
     }
 
-console.log(savedData)
+    function getDistanceInApproxKm(
+      point1: GeolibInputCoordinates,
+      point2: GeolibInputCoordinates
+    ) {
+      const metersDistance = getPreciseDistance(point1, point2);
+  
+      if (metersDistance >= 1000) {
+        let kmDistance = metersDistance / 1000;
+        let kmDistanceInString = kmDistance.toFixed(2) + ' km';
+        return kmDistanceInString;
+      } else {
+        return `${metersDistance} m`;
+      }
+    }
+
+
     return (
 <>
     {!savedData ? (
@@ -113,11 +183,15 @@ console.log(savedData)
                 <div>No saved restaurants</div>
               </div>
             )}
-            {fetchedData && !randomOneClicked ? (
-              savedData.map((element: any, index: number) => (
+            {fetchedData && !randomOneClicked && (
+              [...savedData].reverse().map((element: any, index: number) => (
 
                 <div className="bg-test flex flex-col items-start shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
                   <div className="flex flex-col items-center w-full font-semibold border-b pb-4">{element.name}</div>
+                  {element.location && location &&
+                  (<div key={`b${index}`} className="md:pl-2">
+                    Current Distance: {getDistanceInApproxKm(element.location, location)}
+                    </div>)}
                   <div key={`a${index}`} className="md:pl-2">
                     Viewed {CalculateTimeDifference(element.date_visited)}
                   </div>
@@ -136,15 +210,15 @@ console.log(savedData)
                       Remove
                     </button>
                     <div className="flex w-full items-center">
-                      <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/place/?q=place_id:${element.googlePlaceId} `} target='_blank'>
+                      <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/search/?api=1&query=${element.name.replace(/ /g, "+")}&location=${element.location.latitude},${element.location.longitude}&query._place_id=${element.googlePlaceId}`} target='_blank'>
                         Go to map
                       </a>
                     </div>
                   </div>
                 </div>
               ))
-            ):
-            <SavedOneRestaurant savedData={savedData} setRandomOneClicked={setRandomOneClicked}/>
+            )}
+            { fetchedData && randomOneClicked && (<SavedOneRestaurant savedData={savedData} setRandomOneClicked={setRandomOneClicked}/>)
             }
           </div>
         </div>

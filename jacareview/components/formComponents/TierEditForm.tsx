@@ -80,7 +80,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md shadow-md text-black">
-      <div className="mb-4 font-yaro text-black">
+      <div className="mb-4  text-black">
         <label htmlFor="description" className="block text-sm font-semibold mb-1 text-black">
           Description:
         </label>
@@ -98,7 +98,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
           </div>
         )}
       </div>
-      <div className="mb-4 font-yaro text-black">
+      <div className="mb-4  text-black">
         <label htmlFor="points" className="block text-sm text-black font-semibold mb-1">
           Points:
         </label>
@@ -116,7 +116,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
           </div>
         )}
       </div>
-      <div className="mb-4 font-yaro text-black">
+      <div className="mb-4  text-black">
         <label htmlFor="refresh" className="block text-sm font-semibold mb-1 text-black">
           Days until refresh:
         </label>
