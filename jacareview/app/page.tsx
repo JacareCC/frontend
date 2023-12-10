@@ -74,7 +74,7 @@ export default function Home() {
   }, [termsAgreed]);
 
   useEffect(() => {
-    if(user && !statusCode){
+    if(user && !statusCode && termsAgreed){
       handleUserRegistration(user.uid, user.email);
    
     }
