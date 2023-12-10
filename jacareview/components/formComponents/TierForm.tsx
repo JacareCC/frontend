@@ -31,7 +31,6 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
     restaurant_id:number
 
   }
-  console.log(id, restaurant_id)
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const dataToSendObj = {
@@ -42,7 +41,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
         restaurant_id: restaurant_id,
         refresh: data.refresh
     }
-    
+    console.log(data)
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/tier/new/`, {
         method: "POST",
         headers: {
@@ -103,7 +102,7 @@ const TierForm: React.FC<TierFormProps> = ({ text, showForm, setShowForm, setBut
                   )}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="refrsh" className="block text-sm font-semibold mb-1">
+                  <label htmlFor="refresh" className="block text-sm font-semibold mb-1">
                     Days until refresh:
                   </label>
                   <input
