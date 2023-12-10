@@ -20,6 +20,7 @@ import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
 import { GithubIcon } from "lucide-react";
+import Will from "../public/Will-Photo.jpg"
 
 
 export default function Home() {
@@ -56,22 +57,12 @@ export default function Home() {
     if(statusCode === 200 || statusCode === 201){
       router.push("/search");
     }
-    if(statusCode === 401){
-      setLoginTry((prev:boolean) => !prev);
-    }
     if(statusCode === 400){
       router.push("/search");
     }
   },[statusCode])
 
 
-  useEffect(() =>{
-    if(loginTry){{
-    VerifyUser(user?.uid, setStatusCode)
-    }
-  }
-  
-  }, [loginTry]);
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -305,12 +296,12 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={require('../public/jaca-business.png')}
+                      imgSrc={Will.src}
                       name="Will Brammer"
                       role="Tech Lead"
                       socialLinks={[
-                        { icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png', color: '', url: 'https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/' },
-                        { icon: 'https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png', color: '', url: 'https://github.com/GONZALEZ-RODRIGUES' },
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png', color: '', url: 'https://www.linkedin.com/in/william-brammer/' },
+                        { icon: 'https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png', color: '', url: 'https://github.com/NabbeunNabi' },
                       ]}
                     />
                     <TeamCard

@@ -92,12 +92,7 @@ export default function SearchPage() {
   }, [resetCount]);
   
   useEffect(() => {
-      // if ("geolocation" in navigator) {
-      //   navigator.geolocation.getCurrentPosition(({ coords }) => {
-      //     const { latitude, longitude } = coords;
-      //     setLocation({ latitude, longitude });
-      //   });
-      // }
+   
     requestGeolocation();
   }, []);
   
