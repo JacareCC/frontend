@@ -12,8 +12,8 @@ import LoadingAnimation from "@/components/loading/Loading";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
-import gatorSearching from "./gator-searching.png"
 import NewNav from "@/components/navbarComponents/NewNav";
+import LocationPopup from "@/components/LocationOnPopUp";
 
 
 
@@ -149,6 +149,7 @@ async function fetchRestaurants() {
     fetchRestaurants();
     }
     if(!location){
+      setTurnOnLocation((prev:boolean) => !prev)
       throw new Error();
     }
     setSearchClicked((prev:boolean) => !prev);
@@ -160,7 +161,7 @@ async function fetchRestaurants() {
       fetchRestaurants();
       }
       if(!location){
-
+        setTurnOnLocation((prev:boolean) => !prev)
         throw new Error();
       }
     setSearchClicked((prev:boolean) => !prev);
@@ -170,6 +171,7 @@ async function fetchRestaurants() {
   return (
     <>
     <div className="h-[calc(100dvh)">
+    {turnOnLocation && (<LocationPopup setTurnOnLocation={setTurnOnLocation}/>)}
     {statusCodeOK && (<div className="">
       <NewNav />
     </div>)}
