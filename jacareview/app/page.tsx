@@ -54,6 +54,9 @@ export default function Home() {
     if (statusCode === 400) {
       router.push("/search");
     }
+    if (statusCode === 401 && user) {
+      handleUserRegistration(user.uid, user?.email)
+    }
   }, [statusCode]);
 
   useEffect(() => {
@@ -62,17 +65,7 @@ export default function Home() {
     setShowConsent(!cookiesAccepted);
   }, [showConsent]);
 
-  useEffect(() => {
-    if (termsAgreed) {
-      handleRegister();
-    }
-  }, [termsAgreed]);
-
-  useEffect(() => {
-    if (user && !statusCode && termsAgreed) {
-      handleUserRegistration(user.uid, user.email);
-    }
-  }, [user]);
+  
 
   async function handleUserRegistration(uid: string, email: string | null) {
     const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
@@ -97,7 +90,6 @@ export default function Home() {
 
       // Handle successful sign-in
       setUid(result.user.uid);
-      setLoginTry((prev: boolean) => !prev);
     } catch (error: any) {
       if (error.code === "auth/cancelled-popup-request") {
         console.log("Popup request cancelled");
@@ -107,28 +99,12 @@ export default function Home() {
     }
   };
 
-  //handler
-  function handleToggleToTerms() {
-    setToggleAgreement((prev: boolean) => !prev);
+  function handleToggleAgreement(){
+    setToggleAgreement(true);
   }
 
-  async function handleRegister() {
-    try {
-      const result = await signInWithPopup(auth, provider);
 
-      // Handle successful sign-in
-      if (user) {
-        setUid(result.user.uid);
-        setRegistrationReady(true);
-      }
-    } catch (error: any) {
-      if (error.code === "auth/cancelled-popup-request") {
-        console.log("Popup request cancelled");
-      } else {
-        console.error("Error during sign-in:", error);
-      }
-    }
-  }
+
 
   const scrollToSection = () => {
     if (sectionRef.current) {
@@ -156,93 +132,55 @@ export default function Home() {
                 </button>
               </div>
               {!statusCode && user ? (
-                <div className="flex justify-center items-center ">
-                  <LoadingAnimation />
-                </div>
-              ) : (
-                <>
-                  <div className="flex flex-col items-center sm:flex-row  gap-4  mx-2 mb-4 rounded p-1">
-                    <div className="flex items-center shadow-lg shadow-indigo-500/40 rounded basis-1/2">
-                      <Image
-                        priority={true}
-                        className=""
-                        src={logoHome}
-                        alt="logo"
-                        width={500}
-                        height={500}
-                      />
-                    </div>
+  <div className="flex justify-center items-center ">
+    <LoadingAnimation />
+  </div>
+) : (
+  <>
+    <div className="flex flex-col items-center sm:flex-row gap-4 mx-2 mb-4 rounded p-1">
+      <div className="flex items-center shadow-lg shadow-indigo-500/40 rounded basis-1/2">
+        <Image
+          priority={true}
+          className=""
+          src={logoHome}
+          alt="logo"
+          width={500}
+          height={500}
+        />
+      </div>
 
-                    <div className="flex flex-col justify-center items-center">
-                      <div className="flex flex-col justify-center items-center sm: h-1/5">
-                        <div className="flex flex-col object-fill sm: h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10  max-w-full relative">
-                          <button
-                            onClick={handleToggleToTerms}
-                            className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
-                          >
-                            <div className="flex items-center px-10">
-                              <Image
-                                priority={true}
-                                src={googleIcon}
-                                alt="Google Icon"
-                                width={20}
-                                height={20}
-                              />
-                              <span className="ml-2 text-base sm:text-lg lg:text-xl whitespace-nowrap">
-                                Sign Up!
-                              </span>
-                            </div>
-                          </button>
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center sm:h-1/5">
+          <div className="flex flex-col object-fill sm:h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 max-w-full relative">
+            <button
+              onClick={signIn}
+              className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
+            >
+              <div className="flex items-center px-10">
+                <Image
+                  priority={true}
+                  src={googleIcon}
+                  alt="Google Icon"
+                  width={20}
+                  height={20}
+                />
+                <span className="ml-2 text-base sm:text-lg lg:text-xl whitespace-nowrap">
+                  Continue With Google
+                </span>
+              </div>
+            </button>
+          </div>
+          <h3 className="ml-4 mt-0 md:text-xs mt-4" onClick={handleToggleAgreement}><strong>By Continuing you Agree to our Terms and Agreement. To Read Click here</strong></h3>
+        </div>
+        {toggleAgreement && (<TermsAndConditions setToggleAgreement={setToggleAgreement}/>)}
+      </div>
+    </div>
+    <div className="flex flex-col">
+      <LandingPageSlideshow />
+    </div>
+  </>
+)}
 
-                          <div className="flex">
-                            {termsAgreed ? (
-                              <Check
-                                style={{
-                                  width: "40px",
-                                  height: "30px",
-                                  stroke: "var(--jyellow)",
-                                }}
-                              />
-                            ) : null}
-                          </div>
-                          {toggleAgreement && (
-                            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black h-screen w-screen bg-opacity-50">
-                              <TermsAndConditions
-                                setTermsAgreed={setTermsAgreed}
-                                setToggleAgreement={setToggleAgreement}
-                              />
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="flex flex-col object-fill sm: h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 mb-5 p-10  max-w-full relative">
-                          <h2 className="text-sm">Already have an account?</h2>
-                          <button
-                            className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
-                            onClick={signIn}
-                          >
-                            <div className="flex items-center px-10">
-                              <Image
-                                priority={true}
-                                src={googleIcon}
-                                alt="Google Icon"
-                                width={20}
-                                height={20}
-                              />
-                              <span className="ml-2  whitespace-nowrap">
-                                Sign In
-                              </span>
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col">
-                    <LandingPageSlideshow />
-                  </div>
-                </>
-              )}
               {showConsent && (
                 <div className="absolute z-2 inset-0 flex items-center justify-center">
                   <CookieConsent onAccept={handlerCookiesAccept} />
@@ -299,7 +237,7 @@ export default function Home() {
                     <TeamCard
                       imgSrc={"https://media.licdn.com/dms/image/D5603AQEz09g2bgcPeA/profile-displayphoto-shrink_800_800/0/1698718854517?e=1707955200&v=beta&t=Wicn5et3ZkJ12jy_7h0oxbETDzrlax2FmljHk7-7Ry0"}
                       name="Kai Hasuike"
-                      role="FullStack Engineer"
+                      role="Full Stack Engineer"
                       socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
