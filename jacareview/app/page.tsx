@@ -156,13 +156,13 @@ export default function Home() {
       {cookiesAccepted ? null : (<div className="absolute inset-0 bg-black bg-opacity-0 z-3"></div>)}
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
-        <div className="flex w-auto justify-end my-2 shadow-lg shadow-indigo-500/40">
+        <div className="">
+        <main className="container mx-auto lg:px-8 max-w-screen-lg">
+        <div className="flex w-auto justify-end my-2 shadow-lg shadow-indigo-500/40 rounded">
         <button className="text-jgreen p-2 px-4 my-4 cursor-pointer font-semibold" onClick={scrollToSection}>
               About Us
             </button>
         </div>
-        <div className="">
-        <main className="container mx-auto lg:px-8 max-w-screen-lg">
             {!statusCode && user? (
               <div className="flex justify-center items-center ">
                 <LoadingAnimation/>
