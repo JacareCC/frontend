@@ -238,7 +238,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col  gap-3 ">
+                  <div className="flex flex-col">
                     <LandingPageSlideshow />
                   </div>
                 </>
@@ -250,10 +250,10 @@ export default function Home() {
               )}
               <section
                 ref={sectionRef}
-                className="pt-20 md:pb-32  bg-indigo-100 md:mb-8 rounded shadow-lg shadow-indigo-500/40"
+                className="pt-8 md:pt-20 md:pb-32  bg-indigo-100 mt-8 md:mb-8 rounded shadow-lg shadow-indigo-500/40"
               >
                 <div className="container mx-auto px-4">
-                  <div className="flex flex-wrap justify-center text-center mb-24">
+                  <div className="flex flex-wrap justify-center text-center mb-8">
                     <div className="w-full lg:w-6/12 px-4">
                       <h2 className="text-4xl font-semibold">Our team</h2>
                       <p className="text-lg leading-relaxed m-4 text-gray-600"></p>
@@ -280,10 +280,10 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={Will.src}
+                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEPd0xEYC_hkA/profile-displayphoto-shrink_800_800/0/1700786087720?e=1707955200&v=beta&t=_qChzWPELyUj65pkCsdpxbnprHjWhQPPU4TI1AWkq4E"}
                       name="Will Brammer"
                       role="Tech Lead"
-                      socialLinks={[
+                      socialLinks={[    
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
@@ -297,19 +297,19 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={"../public/jaca-business.png"}
-                      name="Kai kun"
+                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEz09g2bgcPeA/profile-displayphoto-shrink_800_800/0/1698718854517?e=1707955200&v=beta&t=Wicn5et3ZkJ12jy_7h0oxbETDzrlax2FmljHk7-7Ry0"}
+                      name="Kai Hasuike"
                       role="FullStack Engineer"
                       socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
-                          url: "https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/",
+                          url: "https://www.linkedin.com/in/kai-eugene-5b1882162/",
                         },
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png",
                           color: "",
-                          url: "https://github.com/GONZALEZ-RODRIGUES",
+                          url: "https://github.com/kyougene",
                         },
                       ]}
                     />

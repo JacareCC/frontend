@@ -29,7 +29,7 @@ export default function LandingPageSlideshow() {
       focusOnSelect: false,
       autoplay: autoplay,
       autoplaySpeed: 7000,
-      arrows:true,
+      arrows: false,
       pauseOnHover:true,
    
     };
@@ -43,7 +43,7 @@ export default function LandingPageSlideshow() {
   
     return (
         <div className='' onClick={handlePause}>
-        <Slider  {...settings} className="mx-auto">
+        <Slider  {...settings} className="">
           <LandingPageSearchSlide/>
           <LandingAnonReviewsSlide/>
           <LandingPageRewardsSlide/>

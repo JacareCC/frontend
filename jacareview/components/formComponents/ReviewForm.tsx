@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "../../app/globals.css";
 import FormFivePoints from "./FormFivePoints";
-import { Accessibility, CircleDollarSignIcon, CoinsIcon } from "lucide-react";
-import BinaryChoice from "./FormBinaryChoice";
 import TextInput from "./FormTextInput";
 import { useRouter } from "next/navigation";
+import ThankYou from "../loading/ThankYouJacoin";
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface ReviewFormProps {
   userUid: string;
@@ -85,7 +85,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const onSubmitHandler = async (data: ReviewData) => {
     setDataToSend(data);
   };
-  console.log(restaurantName);
+
+  useEffect(()=> {
+    setBack(false);
+  },[])
+
   useEffect(() => {
     if (dataToSend) {
       dataToSend.id = restaurantPlaceId;
@@ -98,9 +102,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
     }
   }, [sendReady]);
 
-  useEffect(() => {
-    if (back) router.push("/user");
-  }, [back]);
+ 
+
+  
 
   const submitReview = async () => {
     const results = await fetch(
@@ -137,8 +141,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const handleSendReady = () => {
     setSendReady(true);
   };
+
   const handleBack = () => {
-    setBack(true);
+   
   };
 
   useEffect(() => {
@@ -425,7 +430,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                 type="button"
                 onClick={handlePrevPage}
               >
-                {"<"}
+                <ArrowBigLeft/>
               </button>
               <button
                 className={`mt-2 bg-jgreen text-white p-2 px-5 rounded-full shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl  ${
@@ -434,7 +439,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                 type="button"
                 onClick={handleNextPage}
               >
-                {">"}
+                <ArrowBigRight/>
               </button>
               <button
                 className={`mt-2 bg-orange text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl px-8 ${
@@ -455,94 +460,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         </div>
       ) : (
         <div className="fixed top-0 right-0 left-0 bottom-0 bg-white flex flex-col justify-center items-center">
-          <div className="bg-emerald-500 p-2 rounded-full">
-            <img
-              src={"./thanks.gif"}
-              alt="Thanks"
-              className="w-full h-full rounded-full border-2 border-white"
-            />
-          </div>
-          <p className="text-jgreen text-xl mt-4">You Earned 1 Jacoin!</p>
-          <button
-            className="flex  flex-col items-center bg-gradient-to-r mt-4 ml-4 from-yellow-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded shadow-md hover:scale-105 transform transition-transform duration-300"
-            onClick={handleBack}
-          >
-            Back to Jacareview
-          </button>
+          <ThankYou/>
         </div>
       )}{" "}
     </>
   );
 
-  //     return (
-  //         <div className="flex flex-col justify-center items-center">
-  //             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit(onSubmitHandler)}>
-  //                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-2 bg-jgreen text-base sm:text-lg md:text-xl lg:text-2xl">
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white">General Points</h2>
-  //                 <div className="rounded">
-  //                 <FormFivePoints register={register} name='accessibility' title='Accessibility'/>
-  //                 <FormFivePoints register={register} name='value_for_price' title='Value for Price' />
-  //                 <FormFivePoints register={register} name='customer_service' title='Customer Service' />
-  //                 <FormFivePoints register={register} name='atmosphere' title='Atmosphere' />
-  //                 <FormFivePoints register={register} name='food_quality' title='Food Quality' />
-  //                 </div>
-  //                 </div>
-  //                 <div className=" max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white ">Accessibility Points</h2>
-  //                 <div className="py-2">
-
-  //                 <TextInput register={register} name='parking' title='Parking lot' placeholder='Convenient parking with dedicated spaces for patrons.'/>
-  //                 <TextInput register={register} name='public_transit_access'title="Public transit access" placeholder='Easily accessible via public transportation (e.g., bus, subway).'/>
-  //                 <TextInput register={register} name='findability' title='Findability' placeholder='Clearly marked entrance and easy to locate within the area.'/>
-  //                 <TextInput register={register} name='disability_access' title ='Disability Access' placeholder="Wheelchair ramps, elevators, and other accessible features available."/>
-  //                 </div>
-  //                 </div>
-  //                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white">Food quality Points</h2>
-  //                 <div className="py-2">
-
-  //                 <TextInput register={register} name='ingredients_quality' title='Ingredients Quality' placeholder="Fresh, locally sourced ingredients used in all dishes."/>
-  //                 <TextInput register={register} name='amount_of_food' title="Portion size" placeholder='Generous portion sizes that satisfy customers.'/>
-  //                 <TextInput register={register} name='presentation' title='Presentation' placeholder='Artfully presented dishes that are visually appealing.'/>
-  //                 <TextInput register={register} name='drink_menu' title="Drink Menu" placeholder='Extensive drink menu with a variety of options.'/>
-  //                 </div>
-  //                 </div>
-  //                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
-
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white">Customer service Points</h2>
-  //                 <div className="py-2">
-
-  //                 <TextInput register={register} name='staff_knowledge' title="Staff knowledge" placeholder='Well-informed staff with knowledge about the menu and dietary options.'/>
-  //                 <TextInput register={register} name='courtesy' title="Courtesy" placeholder='Friendly and courteous staff providing excellent customer service.'/>
-  //                 <TextInput register={register} name='table_wait_time' title="Table wait time in minutes" placeholder='Efficient service with minimal wait times for seating.'/>
-  //                 <TextInput register={register} name='food_wait_time' title="Food wait time in minutes" placeholder='Prompt preparation and delivery of meals.'/>
-  //                 <TextInput register={register} name='foreigner_friendly' title='Foreigner Friendly' placeholder='Welcoming to international visitors with English-speaking staff.'/>
-  //                 <TextInput register={register} name='dietary_description' title="Dietary Description" placeholder='Clear and detailed dietary information for each menu item.'/>
-  //                 </div>
-  //                 </div>
-  //                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
-
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white">Atmosphere Points</h2>
-  //                 <div className="py-2">
-
-  //                 <TextInput register={register} name='interior_design' title='Interior Design' placeholder='Cozy and inviting interior with stylish decor.'/>
-  //                 <TextInput register={register} name='exterior_design' title='Exterior Design' placeholder='Eye-catching exterior design that stands out.'/>
-  //                 <TextInput register={register} name='cleanliness' title='Cleanliness' placeholder='Impeccably clean and well-maintained facilities.'/>
-  //                 <TextInput register={register} name='comfort' title="Comfort" placeholder='Comfortable seating and a relaxed dining atmosphere.'/>
-  //                 </div>
-  //                 </div>
-  //                 <div className="max-w-screen-md shadow-xl w-11/12 mx-6 my-4 bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl">
-
-  //                 <h2 className="flex justify-center font-semibold p-2 bg-white">Value for price Points</h2>
-  //                 <div className="py-2">
-
-  //                 <TextInput register={register} name='competitive_price'title="Competitive price" placeholder='Reasonable prices with good value for the quality of food and service.'/>
-  //                 </div>
-  //                 </div>
-  //                 <button className="py-2 shadow-lg shadow-xl text-lg flex justify-center items-center w-11/12 mx-6 my-4 rounded bg-green-500 text-white p-2" type="submit">Submit</button>
-  //             </form>
-  //         </div>
-  //     )
 };
 
 export default ReviewForm;

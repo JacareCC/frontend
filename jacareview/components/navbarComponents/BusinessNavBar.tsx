@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
-import "../../app/globals.css"
-
+import "../../app/globals.css";
 
 const BusinessNavBar: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
@@ -81,7 +80,7 @@ const BusinessNavBar: React.FC = () => {
                           key={index}
                         >
                           <div className="pb-1">
-                            {element.reviews ? (
+                            {Array.isArray(element.reviews) ? (
                               <div>
                                 <h1>
                                   You have {element.reviews.length} reviews

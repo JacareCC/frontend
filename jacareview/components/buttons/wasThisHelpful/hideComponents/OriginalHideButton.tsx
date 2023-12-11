@@ -17,7 +17,7 @@ const HideRestaurantButton: React.FC<HideProps> = ({ id }) => {
   return (
     <div className="flex flex-col items-center mt-8">
       <button
-        className="bg-red-500 text-white px-4 py-2 rounded-full mb-4"
+        className="bg-red-500 text-white px-4 py-2 rounded-md mb-4"
         onClick={bringUpConfirm}
       >
         Click To Hide Review

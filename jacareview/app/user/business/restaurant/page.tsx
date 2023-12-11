@@ -227,7 +227,7 @@ const BusinessPageWithId: React.FC = () => {
                   />
                 </div>
                 <div className="w-auto md:w-1/2 md:mr-2">
-                  <ReviewListBusiness reviews={parsedPageData[0].review} />
+                  <ReviewListBusiness reviews={parsedPageData[0].reviews} />
                 </div>
               </div>
               <div className="flex justify-star items-center mt-2"></div>
