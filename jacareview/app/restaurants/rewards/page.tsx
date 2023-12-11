@@ -36,6 +36,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
   const [points, setPoints] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [business, setBusiness] = useState<Business | null>(null);
+  const [userData, setUserData] = useState<any>(null)
   const id = searchParams.get("id");
 
   initFirebase();
@@ -70,6 +71,11 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
     setIsLoading(false);
   }, [uid]);
 
+  useEffect(() => {
+    console.log(business)
+    console.log(userData)
+  },[business, userData])
+
   async function getBusinessData() {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}business/profile/${id}`,
@@ -100,6 +106,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
       })
       .then((data) => {
         setPoints(data.success.points);
+        setUserData(data.success);
       });
   }
 
@@ -126,31 +133,34 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
         <NewNav />
       </div>
       <div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
-        <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
+        <div className="flex flex-col w-4/5 gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
           {isLoading ? (
             <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
               <LoadingAnimation />
             </div>
           ) : (
             <>
-              <h1>{business?.name}</h1>
+              <div className="flex flex-col">
+              <h1><strong>{business?.name}</strong></h1>
               <p>Your Jacoins: {points}</p>
               <ul>
-                {business?.rewards.map((reward) => {
+                {business?.rewards.map((reward:any, index:number) => {
                   return (
-                    <li>
-                      <p>
+                    <li key={`c${index}`}>
+                      <p key={`a${index}`}>
                         {reward.reward_level}: {reward.reward_description},
                         Jacoins:
                         {reward.points_required}
                       </p>
-                      <button onClick={() => handleBuy(reward.id)}>Buy</button>
+                      <button key={`b${index}`}onClick={() => handleBuy(reward.id)}>Buy</button>
                     </li>
                   );
                 })}
               </ul>
+              </div>
             </>
           )}
+          
         </div>
       </div>
     </div>

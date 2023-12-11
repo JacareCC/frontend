@@ -69,8 +69,8 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
   useEffect(() => {
     setEditedDescription(description || '');
     setEditedPoints(points || 0);
-
-  }, [points, description]);
+    setEditedRefresh(refresh || 1);
+  }, [points, description, refresh]);
 
   function handleClose() {
         setButtonActive((prev:boolean) => !prev);
@@ -124,7 +124,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
           <input
             type="number"
             id="refresh"
-            value={formData.refresh}
+            value={editedRefresh}
             onChange={(e) => setEditedRefresh(parseInt(e.target.value))}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-jyellow text-black"
           />
