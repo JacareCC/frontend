@@ -237,7 +237,7 @@ export default function Home() {
                     <TeamCard
                       imgSrc={"https://media.licdn.com/dms/image/D5603AQEz09g2bgcPeA/profile-displayphoto-shrink_800_800/0/1698718854517?e=1707955200&v=beta&t=Wicn5et3ZkJ12jy_7h0oxbETDzrlax2FmljHk7-7Ry0"}
                       name="Kai Hasuike"
-                      role="FullStack Engineer"
+                      role="Full Stack Engineer"
                       socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",

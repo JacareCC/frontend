@@ -14,7 +14,7 @@ function handleShowPrivacyPolicy() {
 }
 
   return (
-    <div className="container relative mx-auto mt-4 p-4 bg-white rounded-lg shadow-lg terms-container z-10 max-w-full w-4/5 max-h-[60vh] overflow-y-auto">        
+    <div className="container relative mx-auto mt-4 p-4 bg-white rounded-lg shadow-lg terms-container z-10 max-w-full w-11/12 md:w-2/5 max-h-[60vh] overflow-y-auto">        
         <h1 className="text-md font-bold mb-2">Terms and Conditions</h1>
         <p className="mb-0.5 text-xs">Read these terms and conditions carefully before using our web application.</p>
 
