@@ -13,6 +13,7 @@ interface BusinessEditFormProps {
     contactPerson?: string;
     phoneNumber?: string;
   }) => void;
+  businessId: number
 }
 
 const BusinessEditForm: React.FC<BusinessEditFormProps> = ({
@@ -22,6 +23,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({
   user_uid,
   register,
   onEditSave,
+  businessId
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEmail, setEditedEmail] = useState(email || "");
@@ -45,6 +47,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({
         email: editedEmail,
         contactPerson: editedContactPerson,
         phoneNumber: editedPhoneNumber,
+        businessId: businessId
       };
 
       setFormData((prevData) => ({
@@ -58,7 +61,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({
 
       try {
         const results = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}user/edit/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}business/update/`,
           {
             method: "PATCH",
             headers: {

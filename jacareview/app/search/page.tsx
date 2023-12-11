@@ -193,8 +193,8 @@ async function fetchRestaurants() {
                     </div>
                     <div className=" p-4 sm:p-0 md:flex flex-col items-center justify-center w-full md:w-1/2">
                       {/* Section 1 */}
-                      <div className="flex flex-col items-center justify-center"></div>
-                      <h1 className="text-2xl font-bold text-jgreen mb-2 border-b flex flex-col items-center justify-center">Search</h1>
+                      <div className="flex flex-col items-center justify-center md:pt-4"></div>
+                      <h1 className="text-2xl font-bold text-jgreen mb-2border-b flex flex-col items-center justify-center">Search</h1>
                       <div className="flex items-center justify-center ml-4 mr-4 mb-2 space-x-4 md:space-x-8">
                         <FunSearchButton text="One JacaRestaurant" fetchData={handleSubmitWithLocationOne} />
                         <FunSearchButton text="Three JacaRestaurants" fetchData={handleSubmitWithLocation} />
@@ -241,7 +241,7 @@ async function fetchRestaurants() {
                   </>
                 ) : (
 
-                  <div className="flex items-center justify-center h-screen">
+                  <div className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-white flex justify-center items-center">
                     {!resultsFetched && (
                       <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                         <img

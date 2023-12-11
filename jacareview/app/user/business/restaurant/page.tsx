@@ -32,6 +32,13 @@ const BusinessPageWithId: React.FC = () => {
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
+    if (parsedPageData) {
+      console.log("🤍", parsedPageData[0].review);
+      console.log("🤍", parsedPageData[0]);
+    }
+  }, [parsedPageData]);
+
+  useEffect(() => {
     if (id && user) {
       FetchBusinesses(user.uid, setPageData);
       const parse = JSON.parse(id);
@@ -55,11 +62,11 @@ const BusinessPageWithId: React.FC = () => {
       setParsedPageData(filteredData);
     }
   }, [pageData]);
- 
+
   useEffect(() => {
     if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
       setReviewsToSend(parsedPageData[0].reviews);
-      console.log(parsedPageData[0])
+      console.log(parsedPageData[0]);
 
       parsedPageData[0].rewards.forEach((element: { reward_level: string }) => {
         if (element.reward_level === "bronze") {
@@ -74,8 +81,8 @@ const BusinessPageWithId: React.FC = () => {
   }, [parsedPageData]);
 
   useEffect(() => {
-    console.log(bronzeExists)
-  },[bronzeExists])
+    console.log(bronzeExists);
+  }, [bronzeExists]);
 
   useEffect(() => {
     if (statusCode === 201) {
@@ -212,6 +219,7 @@ const BusinessPageWithId: React.FC = () => {
               <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/2 flex flex-col justify-center">
                   <BusinessEditForm
+                    businessId={Number(parsedId)}
                     email={parsedPageData[0]?.email}
                     contactPerson={parsedPageData[0]?.contact_person}
                     phoneNumber={parsedPageData[0].phone_number}
@@ -219,7 +227,7 @@ const BusinessPageWithId: React.FC = () => {
                   />
                 </div>
                 <div className="w-auto md:w-1/2 md:mr-2">
-                  <ReviewListBusiness reviews={parsedPageData[0].reviews} />
+                  <ReviewListBusiness reviews={parsedPageData[0].review} />
                 </div>
               </div>
               <div className="flex justify-star items-center mt-2"></div>

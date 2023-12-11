@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "@/firebase/firebaseapp";
 import Link from "next/link";
 import LoadingAnimation from "../loading/Loading";
-import { Star } from "lucide-react";
+import { Star, MapPinIcon } from "lucide-react";
 import SavedOneRestaurant from "./SavedOneRestaurant";
 import CalculateTimeDifference from "@/app/globalfunctions/CalculateTimeDifference";
 import { getPreciseDistance } from "geolib";
@@ -210,8 +210,9 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
                       Remove
                     </button>
                     <div className="flex w-full items-center">
-                      <a className='w-full flex items-center justify-center rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/search/?api=1&query=${element.name.replace(/ /g, "+")}&location=${element.location.latitude},${element.location.longitude}&query._place_id=${element.googlePlaceId}`} target='_blank'>
-                        Go to map
+                      <a className='w-full flex items-center justify-center gap-2 rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/search/?api=1&query=${element.name.replace(/ /g, "+")}&location=${element.location.latitude},${element.location.longitude}&query._place_id=${element.googlePlaceId}`} target='_blank'>
+                        Go to maps 
+                        <MapPinIcon className="" />
                       </a>
                     </div>
                   </div>
