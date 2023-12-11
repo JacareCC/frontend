@@ -80,7 +80,6 @@ const BusinessPageWithId: React.FC = () => {
     }
   }, [parsedPageData]);
 
-
   useEffect(() => {
     if (statusCode === 201) {
       window.location.reload();
