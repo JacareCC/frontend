@@ -30,6 +30,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
     const [location, setLocation] = useState<any>(null);
     const [statusCode, setStatusCode] = useState<number | null>(null);
     const [statusCodeOk, setStatusCodeOk] = useState<boolean>(false);
+    const [fetchMadeForFilter, setFetchMadeForFilter] = useState<boolean>(false);
 
     initFirebase();
     const auth = getAuth(); 
@@ -64,9 +65,32 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
 
     useEffect(() => {
         if(savedData && savedData !== "No saved restaurants"){
+            
             setFetchedData(true);
         }
     }, [savedData])
+
+    useEffect(() => {
+      if(fetchMadeForFilter){
+        if (Array.isArray(savedData)) {
+          let filteredHistory = savedData.filter((obj: any, pos: any, arr: any) => {
+            return arr.map((mapObj: any) => mapObj["date_visited"]).indexOf(obj["date_visited"]) === pos;
+          });
+          filteredHistory = filteredHistory.sort(function (a: any, b: any) {
+            return b.created_at < a.created_at
+              ? -1
+              : b.created_at > a.created_at
+              ? 1
+              : 0;
+          });
+          filteredHistory.reverse();
+          setSavedData(filteredHistory);
+        }
+      }
+
+
+
+    },[fetchMadeForFilter])
 
 
 
@@ -121,6 +145,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
           });
           const data = await results.json();
           setSavedData(data.message);
+          setFetchMadeForFilter(true);
         } catch (error) {
           console.error('Error fetching saved restaurants:', error);
         }
@@ -183,7 +208,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
               </div>
             )}
             {fetchedData && !randomOneClicked && (
-              [...savedData].reverse().map((element: any, index: number) => (
+              [...savedData].map((element: any, index: number) => (
 
                 <div className="bg-test flex flex-col items-start shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
                   <div className="flex flex-col items-center w-full font-semibold border-b pb-4">{element.name}</div>
