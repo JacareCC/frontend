@@ -13,7 +13,7 @@ export default function ReviewListBusiness({ reviews }: { reviews: any }) {
   const [theyWentBack, setTheyWentBack] = useState<boolean>(false);
 
   useEffect(() => {
-    if (reviews) {
+    if (Array.isArray(reviews) && reviews.length > 0) {
       let reverseReviews = reviews.sort();
       reverseReviews = reverseReviews.sort(function (a: any, b: any) {
         return b.created_at < a.created_at
