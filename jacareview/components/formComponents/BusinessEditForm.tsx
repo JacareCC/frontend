@@ -58,7 +58,7 @@ const BusinessEditForm: React.FC<BusinessEditFormProps> = ({
 
       try {
         const results = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}user/edit/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}business/update/`,
           {
             method: "PATCH",
             headers: {

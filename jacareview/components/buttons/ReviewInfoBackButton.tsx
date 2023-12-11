@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect } from "react"
-import { ArrowLeft } from "lucide-react"
+import { ArrowBigLeft } from "lucide-react"
 
 interface ReviewBackProps {
     setIsClicked: any;
@@ -28,9 +28,9 @@ return (
     <>
      <button
       onClick={handleGoBack}
-      className="bg-gray-800 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-gray-700 focus:outline-none"
+      className="mb-2 ml-2 w-1/4 md:w-1/2 md:w-2/12 bg-gray-400  p-2 rounded shadow-lg shadow-xl text-white flex gap-4"
     >
-      <ArrowLeft size={20} />
+      <ArrowBigLeft/>
       Back
     </button>
     </>

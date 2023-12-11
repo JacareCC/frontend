@@ -25,6 +25,12 @@ const starMapping: Record<number, string> = {
 
 
 const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, setTheyVerified, setTheyWentBack }) => {
+
+  function formatKey(key:string) {
+    return key
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, (match:any) => match.toUpperCase());
+  }
   
   return (
     <>
@@ -43,7 +49,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, se
 
               return (
                 <li key={key} className="mb-2">
-                  <strong>{key.replace(/_/g, ' ')}</strong>: {displayValue}
+                  <strong>{formatKey(key)}</strong>: {displayValue}
                 </li>
               );
             }
@@ -52,7 +58,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, se
             if (value && !excludedKeys.includes(key)) {
               return (
                 <li key={key} className="mb-2">
-                  <strong>{key.replace(/_/g, ' ')}</strong>: {value}
+                  <strong>{formatKey(key)}</strong>: {value}
                 </li>
               );
             }
