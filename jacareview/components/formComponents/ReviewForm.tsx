@@ -5,6 +5,7 @@ import FormFivePoints from "./FormFivePoints";
 import TextInput from "./FormTextInput";
 import { useRouter } from "next/navigation";
 import ThankYou from "../loading/ThankYouJacoin";
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface ReviewFormProps {
   userUid: string;
@@ -429,7 +430,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                 type="button"
                 onClick={handlePrevPage}
               >
-                {"<"}
+                <ArrowBigLeft/>
               </button>
               <button
                 className={`mt-2 bg-jgreen text-white p-2 px-5 rounded-full shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl  ${
@@ -438,7 +439,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                 type="button"
                 onClick={handleNextPage}
               >
-                {">"}
+                <ArrowBigRight/>
               </button>
               <button
                 className={`mt-2 bg-orange text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center text-base sm:text-lg md:text-xl lg:text-2xl px-8 ${
