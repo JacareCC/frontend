@@ -64,7 +64,7 @@ export default function Home() {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
     setCookiesAccepted(!!cookiesAccepted);
     setShowConsent(!cookiesAccepted);
-  }, []);
+  }, [showConsent]);
 
   useEffect(() => {
     if(termsAgreed){
