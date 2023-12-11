@@ -83,7 +83,7 @@ const BusinessNavBar: React.FC = () => {
                             {Array.isArray(element.reviews) ? (
                               <div>
                                 <h1>
-                                  You have {element.reviews.length} reviews
+                                  You have {element.reviews.length - 1} reviews
                                 </h1>
                               </div>
                             ) : (
