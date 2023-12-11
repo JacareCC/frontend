@@ -145,52 +145,91 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
       <div className="">
         <NewNav />
       </div>
-      <div className="flex flex-col container mx-auto  md:shadow-2xl md:mt-10 bg-test rounded">
-        <div className="flex flex-col md:flex-row  flex-grow items-center rounded ">
-        <div className="sm:mt-0 md:w-1/2">
-                <img className="md:rounded-l" src='../jaca-date.png' alt="Gator Searching" />
-            </div>
-      <div className="flex flex-col justify-around items-center w-full gap-4 h-full my-4">
-
-      <p className="flex justify-center font-semibold  bg-test">Your Jacoins: {points}</p>
-          {isLoading ? (
-            <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
-              <LoadingAnimation />
-            </div>
-          ) : (
-            <>
-              <div className="flex flex-col items-center gap-4 w-full h-full">
-              <h1><strong>{business?.name}</strong></h1>
-              <ul className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded w-full md:w-auto">
-                {business?.rewards.map((reward:any, index:number) => {
-                  const rewardClass = getRewardClass(reward.reward_level);
-                  return (
-                    <li className={`p-4 rounded font-semibold ${rewardClass}`} key={`c${index}`}>
-                      <p className="text-center text-xl border-b mb-1"
-                        key={`a${index}`}>
-                        {(reward.reward_level).toUpperCase()} 
-                      </p>
-                        <p className="text-left py-2">
-                        {reward.reward_description}
-                        </p>
-                        <p className="text-left">
-                        Jacoins: {reward.points_required}
-                        </p>
-                      <button className="bg-jgreen  text-jyellow mt-2 p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4 w-full"
-                       key={`b${index}`}onClick={() => handleBuy(reward.id)}>Buy</button>
-                    </li>
-                  );
-                })}
-              </ul>
+      <div className="flex flex-col container mx-auto md:shadow-2xl md:mt-10 bg-test rounded">
+        <div className="flex flex-col md:flex-row flex-grow items-center rounded">
+          <div className="sm:mt-0 md:w-1/2">
+            <img className="md:rounded-l w-full h-full" src='../jaca-date.png' alt="Gator Searching" />
+          </div>
+          <div className="flex flex-col justify-around items-center w-full gap-4 h-full my-4">
+            <p className="flex justify-center font-semibold bg-test">Your Jacoins: {points}</p>
+            {isLoading ? (
+              <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
+                {/* Loading Animation component goes here */}
+                {/* Replace the following line with your LoadingAnimation component */}
+                <div>Loading Animation...</div>
               </div>
-            </>
-          )}
-          
+            ) : (
+              <>
+                <div className="flex flex-col items-center gap-4 w-full h-full">
+                  <h1><strong>{business?.name}</strong></h1>
+                  <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded w-full md:w-auto">
+                    {/* Render rewards based on reward_level */}
+                    <div className="p-4 rounded font-semibold bg-bronze">
+                      <h2 className="text-center text-xl border-b mb-1">BRONZE</h2>
+                      {business?.rewards
+                        .filter((reward) => reward.reward_level === "bronze")
+                        .map((reward, index) => (
+                          <div key={`c${index}`}>
+                            <p className="text-left py-2">{reward.reward_description}</p>
+                            <p className="text-left">Jacoins: {reward.points_required}</p>
+                            <button
+                              className="bg-jgreen text-jyellow mt-2 p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4 w-full"
+                              onClick={() => handleBuy(reward.id)}
+                              key={`b${index}`}
+                            >
+                              Buy
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+
+                    <div className="p-4 rounded font-semibold bg-silver">
+                      <h2 className="text-center text-xl border-b mb-1">SILVER</h2>
+                      {business?.rewards
+                        .filter((reward) => reward.reward_level === "silver")
+                        .map((reward, index) => (
+                          <div key={`c${index}`}>
+                            <p className="text-left py-2">{reward.reward_description}</p>
+                            <p className="text-left">Jacoins: {reward.points_required}</p>
+                            <button
+                              className="bg-jgreen text-jyellow mt-2 p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4 w-full"
+                              onClick={() => handleBuy(reward.id)}
+                              key={`b${index}`}
+                            >
+                              Buy
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+
+                    <div className="p-4 rounded font-semibold bg-gold">
+                      <h2 className="text-center text-xl border-b mb-1">GOLD</h2>
+                      {business?.rewards
+                        .filter((reward) => reward.reward_level === "gold")
+                        .map((reward, index) => (
+                          <div key={`c${index}`}>
+                            <p className="text-left py-2">{reward.reward_description}</p>
+                            <p className="text-left">Jacoins: {reward.points_required}</p>
+                            <button
+                              className="bg-jgreen text-jyellow mt-2 p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4 w-full"
+                              onClick={() => handleBuy(reward.id)}
+                              key={`b${index}`}
+                            >
+                              Buy
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default RestaurantRewardsPage;
