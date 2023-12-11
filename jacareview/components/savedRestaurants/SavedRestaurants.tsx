@@ -66,7 +66,6 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         if(savedData && savedData !== "No saved restaurants"){
             setFetchedData(true);
         }
-        console.log(savedData)
     }, [savedData])
 
 
@@ -179,7 +178,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
         <div className="card w-full max-h-[500px] xl:max-h-[800] overflow-y-scroll scrollbar-thin">
           <div className="flex flex-col align-center items-center w-full">
             {savedData === "No saved restaurants" && (
-              <div className="shadow-xl w-11/12 mx-6 my-2 rounded bg-gradient-to-r from-green-200 from-10% via-green-100 via-30% to-green-100 to-90% text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+              <div className="flex flex-col items-center justify-center w-full font-semibold border-b p-4 ml-4 mt-2 rounded bg-test">
                 <div>No saved restaurants</div>
               </div>
             )}
