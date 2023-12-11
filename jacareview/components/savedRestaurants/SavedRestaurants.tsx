@@ -183,7 +183,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
               </div>
             )}
             {fetchedData && !randomOneClicked && (
-              [...savedData].reverse().map((element: any, index: number) => (
+              [...savedData].map((element: any, index: number) => (
 
                 <div className="bg-test flex flex-col items-start shadow-xl w-11/12 mx-6 my-2 rounded bg-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl px-2 py-4" key={`a${index}`}>
                   <div className="flex flex-col items-center w-full font-semibold border-b pb-4">{element.name}</div>
