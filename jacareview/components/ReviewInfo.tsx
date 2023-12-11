@@ -37,8 +37,9 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, se
 
     {data && ( <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
       <div className="bg-white p-8 rounded-md max-w-2xl w-full h-96 overflow-y-auto">
+        <div className="mb-4">
       <ReviewBack setTheyVerified={setTheyVerified} setTheyWentBack={setTheyWentBack} setIsClicked={setIsClicked} />
-        
+      </div>
         {element.isVerified ? <h2 className="text-3xl font-semibold mb-4">Review Information: You found this review helpful</h2> : <h2 className="text-3xl font-semibold mb-4">Review Information</h2>}
         <ul>
           {Object.entries(data).map(([key, value]) => {
@@ -66,7 +67,9 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, se
             return null; 
           })}
         </ul>
+        <div className="mt-4">
         <WasThisHelpful setTheyVerified={setTheyVerified} verified={element.isVerified} id={element.id}/>
+        </div>
       </div>
     </div>)}
     </>
