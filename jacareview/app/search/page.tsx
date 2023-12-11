@@ -147,22 +147,24 @@ async function fetchRestaurants() {
   async function handleSubmitWithLocation() {
     if(location){
     fetchRestaurants();
+    setSearchClicked((prev:boolean) => !prev);
     }
     if(!location){
       setTurnOnLocation((prev:boolean) => !prev)
     }
-    setSearchClicked((prev:boolean) => !prev);
+  
   }
 
   async function handleSubmitWithLocationOne() {
     searchObject.amountOfOptions = 1;
     if(location){
       fetchRestaurants();
+      setSearchClicked((prev:boolean) => !prev);
       }
       if(!location){
         setTurnOnLocation((prev:boolean) => !prev)
       }
-    setSearchClicked((prev:boolean) => !prev);
+    
   }
 
   
