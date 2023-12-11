@@ -280,10 +280,10 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={Will.src}
+                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEPd0xEYC_hkA/profile-displayphoto-shrink_800_800/0/1700786087720?e=1707955200&v=beta&t=_qChzWPELyUj65pkCsdpxbnprHjWhQPPU4TI1AWkq4E"}
                       name="Will Brammer"
                       role="Tech Lead"
-                      socialLinks={[
+                      socialLinks={[    
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
@@ -297,19 +297,19 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={"../public/jaca-business.png"}
-                      name="Kai kun"
+                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEz09g2bgcPeA/profile-displayphoto-shrink_800_800/0/1698718854517?e=1707955200&v=beta&t=Wicn5et3ZkJ12jy_7h0oxbETDzrlax2FmljHk7-7Ry0"}
+                      name="Kai Hasuike"
                       role="FullStack Engineer"
                       socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
-                          url: "https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/",
+                          url: "https://www.linkedin.com/in/kai-eugene-5b1882162/",
                         },
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png",
                           color: "",
-                          url: "https://github.com/GONZALEZ-RODRIGUES",
+                          url: "https://github.com/kyougene",
                         },
                       ]}
                     />
