@@ -57,7 +57,7 @@ function NewNav() {
         <nav>
             <div className="mx-auto">
                 <div className="flex items-start mx-auto justify-between">
-                    <div className="flex sm: items-start justify-start my-0 md:justify-around w-full mx-auto my-12 md:ml-8 md:mr-16 lg:ml-4 lg:mr-8 xl:ml-8 xl:mr-4">
+                    <div className="flex items-start justify-start my-0 md:justify-around w-full mx-auto md:ml-8 md:mr-16 lg:ml-4 lg:mr-8 xl:ml-8 xl:mr-4">
 
                         <div>
                             <a
