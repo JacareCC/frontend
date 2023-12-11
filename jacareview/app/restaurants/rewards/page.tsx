@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import "../../../app/globals.css";
 import NewNav from "@/components/navbarComponents/NewNav";
+import RefreshPopUp from "@/components/RefreshBuyPopUp";
 import LoadingAnimation from "@/components/loading/Loading";
 
 interface RestaurantRewardsPageProps {}
@@ -37,6 +38,9 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [business, setBusiness] = useState<Business | null>(null);
   const [userData, setUserData] = useState<any>(null)
+  const [statusCodeForBuy, setStatusCodeForBuy]= useState<number>(0);
+const [refreshPopUp, setRefreshPopUp] = useState<boolean>(false);
+
   const id = searchParams.get("id");
 
   initFirebase();
@@ -64,6 +68,14 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
   }, [user]);
 
   useEffect(() => {
+    if(statusCodeForBuy === 400) {
+      setRefreshPopUp(true);
+    }
+  }, [statusCodeForBuy]);
+
+ 
+
+  useEffect(() => {
     if (uid) {
       getUserData();
       getBusinessData();
@@ -71,10 +83,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
     setIsLoading(false);
   }, [uid]);
 
-  useEffect(() => {
-    console.log(business)
-    console.log(userData)
-  },[business, userData])
+
 
   async function getBusinessData() {
     const response = await fetch(
@@ -124,7 +133,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
           uid: uid,
         }),
       }
-    ).then((res) => res.json());
+    ).then((res) => {setStatusCodeForBuy(res.status)});
   }
 
   const getRewardClass = (rewardLevel: string): string => {
@@ -142,6 +151,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
 
   return (
     <div>
+      {refreshPopUp &&(<div><RefreshPopUp setRefreshPopUp={setRefreshPopUp} setStatusCodeForBuy={setStatusCodeForBuy}/></div>)}
       <div className="">
         <NewNav />
       </div>
@@ -154,8 +164,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
             <p className="flex justify-center font-semibold bg-test">Your Jacoins: {points}</p>
             {isLoading ? (
               <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
-                {/* Loading Animation component goes here */}
-                {/* Replace the following line with your LoadingAnimation component */}
+                <LoadingAnimation/>
                 <div>Loading Animation...</div>
               </div>
             ) : (
