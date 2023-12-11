@@ -212,6 +212,7 @@ const BusinessPageWithId: React.FC = () => {
               <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/2 flex flex-col justify-center">
                   <BusinessEditForm
+                    businessId={Number(parsedId)}
                     email={parsedPageData[0]?.email}
                     contactPerson={parsedPageData[0]?.contact_person}
                     phoneNumber={parsedPageData[0].phone_number}
