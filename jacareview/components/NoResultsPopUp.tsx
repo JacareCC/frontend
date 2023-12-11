@@ -1,13 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 
 
 const NoResultsPopup = () => {
   const [isMounted, setIsMounted] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -15,7 +13,7 @@ const NoResultsPopup = () => {
   }, []);
 
   function handleBack() {
-    router.push("/search");
+    window.location.reload()
   }
 
   return (

@@ -121,6 +121,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (results) {
+      console.log(results)
       setResultsFetched(true);
     }
   }, [results]);
@@ -258,7 +259,7 @@ async function fetchRestaurants() {
             )}
           </div>
         )}
-        {resultsFetched && results.length === 0 ? <NoResultsPopup/> :(
+        {resultsFetched && results.result.length === 0 ? <NoResultsPopup/> :(
           
           <div className="flex-grow">
            
