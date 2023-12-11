@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import { FC, useState } from 'react';
-import ConfirmHide from './ComfirmHide';
+import { FC, useState } from "react";
+import ConfirmHide from "./ComfirmHide";
 
 interface HideProps {
-    id: number
+  id: number;
 }
 
-
-const HideRestaurantButton: React.FC<HideProps> = ({id}) => {
+const HideRestaurantButton: React.FC<HideProps> = ({ id }) => {
   const [isHidden, setIsHidden] = useState(true);
 
-  function bringUpConfirm (){
-    setIsHidden(false)
+  function bringUpConfirm() {
+    setIsHidden(false);
   }
 
   return (
@@ -22,10 +21,10 @@ const HideRestaurantButton: React.FC<HideProps> = ({id}) => {
         onClick={bringUpConfirm}
       >
         Click To Hide Review
-         </button>
+      </button>
       {!isHidden && (
         <div className="bg-red-500 text-white px-6 py-3 rounded-md">
-          <ConfirmHide id={id} setIsHidden={setIsHidden}/>
+          <ConfirmHide id={id} setIsHidden={setIsHidden} />
         </div>
       )}
     </div>
