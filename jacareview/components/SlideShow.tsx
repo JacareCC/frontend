@@ -31,7 +31,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
       focusOnSelect: false,
       autoplay: autoplay,
       autoplaySpeed: 7000,
-      arrows:true,
+      arrows: false,
       afterChange: (index: number) => {
         
       },
