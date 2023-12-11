@@ -42,7 +42,7 @@ export default function LandingPageSlideshow() {
    
   
     return (
-        <div onClick={handlePause}>
+        <div className='' onClick={handlePause}>
         <Slider  {...settings} className="mx-auto">
           <LandingPageSearchSlide/>
           <LandingAnonReviewsSlide/>

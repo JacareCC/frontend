@@ -16,7 +16,7 @@ import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
 import LandingPageSlideshow from "@/components/landingPage/landingPageSlides/LandingPageSlideShow";
-import Will from "../public/Will-Photo.jpg"
+import Will from "../public/Will-Photo.png"
 
 
 export default function Home() {
@@ -157,7 +157,7 @@ export default function Home() {
       {statusCode !== 200 && statusCode !== 201 ? (
         <>
         <div className="flex w-auto justify-end my-2 shadow-lg shadow-indigo-500/40">
-        <button className="text-jgreen p-2 px-4  rounded shadow-lg shadow-indigo-500/40 cursor-pointer" onClick={scrollToSection}>
+        <button className="text-jgreen p-2 px-4 my-4 cursor-pointer font-semibold" onClick={scrollToSection}>
               About Us
             </button>
         </div>
@@ -171,8 +171,8 @@ export default function Home() {
               <>  
 
 
-                <div className="flex flex-col items-center sm:flex-row  gap-4  mx-2 pt-4 mb-4 rounded p-1">
-                  <div className="flex items-center shadow-lg shadow-indigo-500/40 m-2 rounded basis-1/2">
+                <div className="flex flex-col items-center sm:flex-row  gap-4  mx-2 mb-4 rounded p-1">
+                  <div className="flex items-center shadow-lg shadow-indigo-500/40 rounded basis-1/2">
                     <Image priority={true} className="" src={logoHome} alt="logo" width={500} height={500} />
                   </div>
 
@@ -212,14 +212,9 @@ export default function Home() {
                     </div>
                   </div>
                   </div>
-
-
                 </div>
                   <div className="flex flex-col  gap-3 ">
-                    
                    <LandingPageSlideshow/>
-                  
-                    
                     </div>
                    </>
             )}
@@ -228,7 +223,7 @@ export default function Home() {
                 <CookieConsent onAccept={handlerCookiesAccept} />
               </div>
             )}
-              <section ref={sectionRef} className="pt-20 md:pb-32 bg-indigo-100 md:mb-8 rounded shadow-lg shadow-indigo-500/40">
+              <section ref={sectionRef} className="pt-20 md:pb-32  bg-indigo-100 md:mb-8 rounded shadow-lg shadow-indigo-500/40">
                 <div className="container mx-auto px-4">
                   <div className="flex flex-wrap justify-center text-center mb-24">
                     <div className="w-full lg:w-6/12 px-4">
