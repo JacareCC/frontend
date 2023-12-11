@@ -80,9 +80,6 @@ const BusinessPageWithId: React.FC = () => {
     }
   }, [parsedPageData]);
 
-  useEffect(() => {
-    console.log(bronzeExists);
-  }, [bronzeExists]);
 
   useEffect(() => {
     if (statusCode === 201) {
