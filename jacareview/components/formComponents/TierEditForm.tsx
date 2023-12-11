@@ -10,7 +10,7 @@ interface TierEditFormProps {
   placeholder?: string | undefined;
   refresh: number;
   register?: UseFormRegister<FieldValues>;
-  onEditSave?: (data: { description: string; points: number}) => void;
+  onEditSave?: (data: { description: string; points: number, refresh: number}) => void;
 }
 
 const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, points, tierId, register, onEditSave, setButtonActive, setShowForm }) => {
@@ -18,17 +18,34 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
   const [editedDescription, setEditedDescription] = useState(description || '');
   const [editedPoints, setEditedPoints] = useState(points || 0);
   const [editedRefresh, setEditedRefresh] = useState(points || 0);
+  const [dataToSend, setDataToSend] = useState<any> (null)
   
+  useEffect(() => {
+    console.log(editedDescription, editedPoints, editedRefresh)
+    let newObj = {
+      description: editedDescription,
+      cost: editedPoints,
+      refresh: editedRefresh
+    }
+
+    setDataToSend(newObj);
+    
+  },[editedDescription, editedPoints, editedRefresh])
+
+  useEffect(() => {
+    console.log(dataToSend)
+    
+  },[dataToSend])
 
   const [formData, setFormData] = useState({
-    description: description || '',
-    points: points || 0,
-    refresh: refresh || 1,
+    description: editedDescription || '',
+    points: editedPoints || 0,
+    refresh: editedRefresh || 1,
   });
 
   const handleEditSaveClick = async () => {
     if (isEditing) {
-      const data = {
+      let data = {
         description: description || "",
         points: points || 0,
         refresh: refresh || 1,
@@ -40,7 +57,11 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
       }));
 
       if (onEditSave) {
-        onEditSave(data);
+        onEditSave(data ={
+          description: editedDescription,
+          points: editedPoints,
+          refresh:editedRefresh
+        });
       }
 
       try {
@@ -50,10 +71,11 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
             'Content-Type': 'application/json',
             
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(dataToSend),
         });
 
         if (results.ok) {
+          window.location.reload();
           console.log('Changes saved successfully');
         } else {
           console.error('Error saving changes:', results.statusText);
