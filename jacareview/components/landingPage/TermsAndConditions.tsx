@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-export default function TermsAndConditions({ setTermsAgreed, setToggleAgreement }: { setTermsAgreed: any, setToggleAgreement: any }) {
+export default function TermsAndConditions({ setToggleAgreement }: {setToggleAgreement: any }) {
     const [showPrivacyPolicy, setShowPrivacyPolicy] = useState<boolean>(false);
 
-    
-// handler
-function handleAgreeClick() {
-    setTermsAgreed((prev: boolean) => !prev);
-    setToggleAgreement((prev: boolean) => !prev);
-}
 
 function handleCloseTerms() {
     setToggleAgreement((prev: boolean) => !prev);
@@ -45,7 +39,6 @@ function handleShowPrivacyPolicy() {
         <h2 className="text-sm font-semibold mb-0.5">Privacy Policy</h2>
         <p className="mb-0.5 text-xs" onClick={handleShowPrivacyPolicy}><u>Click here to view our Privacy Policy</u></p>
 
-        <button className="text-xs button-4 ml-4 p-2 mt-4 bg-jgreen rounded" onClick={handleAgreeClick}>Agree</button>
         <button className="text-xs text-white button-4 ml-4 rounded p-2 mt-4 bg-gray-800" onClick={handleCloseTerms}>Back</button>
         {showPrivacyPolicy && (
          <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
