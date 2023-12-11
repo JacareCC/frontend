@@ -211,8 +211,8 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
                     </button>
                     <div className="flex w-full items-center">
                       <a className='w-full flex items-center justify-center gap-2 rounded bg-secl text-white px-4 py-2 mt-2' href={`https://www.google.com/maps/search/?api=1&query=${element.name.replace(/ /g, "+")}&location=${element.location.latitude},${element.location.longitude}&query._place_id=${element.googlePlaceId}`} target='_blank'>
-                        Go to map 
-                        <MapPinIcon />
+                        Go to maps 
+                        <MapPinIcon className="" />
                       </a>
                     </div>
                   </div>

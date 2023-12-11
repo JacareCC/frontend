@@ -6,6 +6,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import GoogleMap from './GoogleMap';
+import { MapPinIcon } from 'lucide-react';
 
 
 export default function Slideshow({ slides, location, user }: { slides: any; location: any, user:any }) {
@@ -70,8 +71,10 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
                 <div className="flex flex-col  justify-center items-center m-2 text-jgreen text-lg">
                   Distance:{' '}
                   {slide.location ? getDistanceInApproxKm(slide.location, location) : 'unknown'}{' '}
-                <a className=' bg-jgreen text-white p-2 rounded shadow-lg shadow-xl' 
-                href={`https://www.google.com/maps/search/?api=1&query=${slide.displayName.text.replace(/ /g, "+")}&location=${slide.location.latitude},${slide.location.longitude}&query_place_id=${slide.place_id}`} target='_blank'>Click to go to Google Maps</a>
+                <a className='flex gap-2 mt-2 bg-jgreen text-white p-2 rounded shadow-lg shadow-xl' 
+                href={`https://www.google.com/maps/search/?api=1&query=${slide.displayName.text.replace(/ /g, "+")}&location=${slide.location.latitude},${slide.location.longitude}&query_place_id=${slide.place_id}`} target='_blank'>
+                  Go to Maps<MapPinIcon />
+                  </a>
                 </div>
                 <div className="flex flex-col  justify-center items-center text-gray-600">
                   {slide.priceLevel ? (
