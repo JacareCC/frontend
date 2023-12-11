@@ -460,7 +460,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
       ) : (
         <div className="fixed top-0 right-0 left-0 bottom-0 bg-white flex flex-col justify-center items-center">
           <ThankYou/>
-          <p className="text-jgreen text-xl mt-4">You Earned 1 Jacoin!</p>
         </div>
       )}{" "}
     </>
