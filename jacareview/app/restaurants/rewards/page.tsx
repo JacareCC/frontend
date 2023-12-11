@@ -127,32 +127,57 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
     ).then((res) => res.json());
   }
 
+  const getRewardClass = (rewardLevel: string): string => {
+    switch (rewardLevel.toLowerCase()) {
+      case 'gold':
+        return 'bg-gold';
+      case 'silver':
+        return 'bg-silver';
+      case 'bronze':
+        return 'bg-bronze';
+      default:
+        return 'bg-test';
+    }
+  };
+
   return (
     <div>
       <div className="">
         <NewNav />
       </div>
-      <div className="flex flex-col container mx-auto md:mt-10 md:shadow-2xl bg-test rounded">
-        <div className="flex flex-col w-4/5 gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
+      <div className="flex flex-col container mx-auto  md:shadow-2xl md:mt-10 bg-test rounded">
+        <div className="flex flex-col md:flex-row  flex-grow items-center rounded ">
+        <div className="sm:mt-0 md:w-1/2">
+                <img className="md:rounded-l" src='../jaca-date.png' alt="Gator Searching" />
+            </div>
+      <div className="flex flex-col justify-around items-center w-full gap-4 h-full my-4">
+
+      <p className="flex justify-center font-semibold  bg-test">Your Jacoins: {points}</p>
           {isLoading ? (
             <div className="fixed h-screen w-screen flex justify-center items-center top-0 left-0 right-0 bg-white">
               <LoadingAnimation />
             </div>
           ) : (
             <>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center gap-4 w-full h-full">
               <h1><strong>{business?.name}</strong></h1>
-              <p>Your Jacoins: {points}</p>
-              <ul>
+              <ul className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded w-full md:w-auto">
                 {business?.rewards.map((reward:any, index:number) => {
+                  const rewardClass = getRewardClass(reward.reward_level);
                   return (
-                    <li key={`c${index}`}>
-                      <p key={`a${index}`}>
-                        {reward.reward_level}: {reward.reward_description},
-                        Jacoins:
-                        {reward.points_required}
+                    <li className={`p-4 rounded font-semibold ${rewardClass}`} key={`c${index}`}>
+                      <p className="text-center text-xl border-b mb-1"
+                        key={`a${index}`}>
+                        {(reward.reward_level).toUpperCase()} 
                       </p>
-                      <button key={`b${index}`}onClick={() => handleBuy(reward.id)}>Buy</button>
+                        <p className="text-left py-2">
+                        {reward.reward_description}
+                        </p>
+                        <p className="text-left">
+                        Jacoins: {reward.points_required}
+                        </p>
+                      <button className="bg-jgreen  text-jyellow mt-2 p-2 rounded shadow-lg shadow-xl flex justify-center items-center gap-4 w-full"
+                       key={`b${index}`}onClick={() => handleBuy(reward.id)}>Buy</button>
                     </li>
                   );
                 })}
@@ -161,6 +186,7 @@ const RestaurantRewardsPage: FC<RestaurantRewardsPageProps> = () => {
             </>
           )}
           
+          </div>
         </div>
       </div>
     </div>
