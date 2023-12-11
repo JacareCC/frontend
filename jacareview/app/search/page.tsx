@@ -241,7 +241,7 @@ async function fetchRestaurants() {
                   </>
                 ) : (
 
-                  <div className="flex items-center justify-center h-screen">
+                  <div className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-white flex justify-center items-center">
                     {!resultsFetched && (
                       <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                         <img
