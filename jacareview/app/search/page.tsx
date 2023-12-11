@@ -14,6 +14,7 @@ import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import NewNav from "@/components/navbarComponents/NewNav";
 import LocationPopup from "@/components/LocationOnPopUp";
+import NoResultsPopup from "@/components/NoResultsPopUp";
 
 
 
@@ -34,6 +35,7 @@ export default function SearchPage() {
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
   const [searchClicked, setSearchClicked] = useState<boolean>(false)
   const [turnOnLocation, setTurnOnLocation] = useState<boolean>(false);
+
 
   initFirebase();
   const auth = getAuth();
@@ -256,7 +258,8 @@ async function fetchRestaurants() {
             )}
           </div>
         )}
-        {resultsFetched && (
+        {resultsFetched && results.length === 0 ? <NoResultsPopup/> :(
+          
           <div className="flex-grow">
            
             <Slideshow slides={results} location={location} user={user} />
