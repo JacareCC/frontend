@@ -15,7 +15,9 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   
     useEffect(() => {
+      if(slides){
       setResultArray(slides.result);
+      }
     }, [slides]);
   
     const settings = {
