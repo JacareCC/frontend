@@ -269,7 +269,8 @@ export default function Home() {
 </section>
             </main>
           </div>
-          { showPrivacyPolicyContactUs && (<div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50"><PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicyContactUs}/></div>)}
+          { showPrivacyPolicyContactUs && (<div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
+            <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicyContactUs}/></div>)}
         </>
       ) : (
         <LoadingAnimation />
