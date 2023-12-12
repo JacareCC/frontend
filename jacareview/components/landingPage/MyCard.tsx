@@ -10,7 +10,7 @@ interface TeamCardProps {
 const TeamCard: React.FC<TeamCardProps> = ({ imgSrc, name, role, socialLinks }) => {
   return (
     <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-      <div className="px-6">
+      <div className="h-[40vh] px-6">
         <img
           alt={name}
           src={imgSrc}

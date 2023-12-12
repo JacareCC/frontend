@@ -11,22 +11,20 @@ import "./globals.css";
 import Image from "next/image";
 import googleIcon from "../public/google.png";
 import logoHome from "../public/logo-home-bgnashi.png";
-import { Check } from "lucide-react";
 import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
 import LandingPageSlideshow from "@/components/landingPage/landingPageSlides/LandingPageSlideShow";
-import Will from "../public/Will-Photo.png";
+import PrivacyPolicy from "@/components/landingPage/PrivacyPolicy";
+
 
 export default function Home() {
   const [uid, setUid] = useState<string | null | undefined>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
-  const [termsAgreed, setTermsAgreed] = useState<boolean>(false);
   const [toggleAgreement, setToggleAgreement] = useState<boolean>(false);
-  const [registrationReady, setRegistrationReady] = useState<boolean>(false);
-  const [loginTry, setLoginTry] = useState<boolean>(false);
   const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(false);
   const [showConsent, setShowConsent] = useState<boolean>(true);
+  const [showPrivacyPolicyContactUs, setShowPrivacyPolicyContactUs] = useState<boolean>(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   initFirebase();
@@ -103,6 +101,10 @@ export default function Home() {
     setToggleAgreement(true);
   }
 
+  function handlePrivacyPolicyOnLandingClick(){
+    setShowPrivacyPolicyContactUs(true);
+  }
+
 
 
 
@@ -170,9 +172,13 @@ export default function Home() {
               </div>
             </button>
           </div>
-          <h3 className="ml-4 mt-0 md:text-xs mt-4" onClick={handleToggleAgreement}><strong>By Continuing you Agree to our Terms and Agreement. To Read Click here</strong></h3>
+          <h3 className="ml-4 mt-0 md:text-xs mt-4 justify-center items-center text-center font-semibold" >By Continuing you Agree to our Terms and Agreement. To Read <a onClick={handleToggleAgreement} className="text-blue-500 underline font-semibold" >Click here</a></h3>
         </div>
-        {toggleAgreement && (<TermsAndConditions setToggleAgreement={setToggleAgreement}/>)}
+        {toggleAgreement && (
+           <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
+        <TermsAndConditions setToggleAgreement={setToggleAgreement}/>
+        </div>
+        )}
       </div>
     </div>
     <div className="flex flex-col">
@@ -203,7 +209,7 @@ export default function Home() {
                         "https://avatars.githubusercontent.com/u/55517364?s=400&u=e267aa5b3d8479ce7da963f204c85c07adb92dee&v=4"
                       }
                       name="Júlio Gonzalez"
-                      role="Project Owner"
+                      role="Product Owner"
                       socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
@@ -252,10 +258,18 @@ export default function Home() {
                       ]}
                     />
                   </div>
+                  <div className="flex flex-row justify-center items-center mt-12">  
+    <p className="text-center mr-4 mb-4 font-semibold">Contact us at: <a className="text-blue-500 underline font-semibold" href="mailto:jacareview@gmail.com">jacareview@gmail.com</a></p>
+    <p className="text-center mb-4 mr-4 font-semibold">Read our <a className="text-blue-500 underline font-semibold" onClick={handlePrivacyPolicyOnLandingClick}>Privacy Policy</a></p>
+    </div>  
                 </div>
               </section>
+              <section>
+       
+</section>
             </main>
           </div>
+          { showPrivacyPolicyContactUs && (<div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50"><PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicyContactUs}/></div>)}
         </>
       ) : (
         <LoadingAnimation />

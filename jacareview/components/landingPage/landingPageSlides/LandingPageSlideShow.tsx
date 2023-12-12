@@ -44,10 +44,16 @@ export default function LandingPageSlideshow() {
     return (
         <div className='' onClick={handlePause}>
         <Slider  {...settings} className="">
+       
           <LandingPageSearchSlide/>
+              
           <LandingAnonReviewsSlide/>
+          
           <LandingPageRewardsSlide/>
+          
+      
           <LandingPageBusinessSlide/>
+        
         </Slider>
         </div>
       );
