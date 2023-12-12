@@ -21,7 +21,7 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
   const [dataToSend, setDataToSend] = useState<any> (null)
   
   useEffect(() => {
-    console.log(editedDescription, editedPoints, editedRefresh)
+  
     let newObj = {
       description: editedDescription,
       cost: editedPoints,
@@ -32,10 +32,6 @@ const TierEditForm: React.FC<TierEditFormProps> = ({ refresh, description, point
     
   },[editedDescription, editedPoints, editedRefresh])
 
-  useEffect(() => {
-    console.log(dataToSend)
-    
-  },[dataToSend])
 
   const [formData, setFormData] = useState({
     description: editedDescription || '',
