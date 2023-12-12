@@ -7,11 +7,10 @@ function handleClosePrivacyPolicy(){
     setShowPrivacyPolicy((prev:boolean)=> !prev)
 }
 return (
-    <div className="container flex justify-center items-center relative mx-auto mt-4 p-4 bg-white rounded shadow-lg terms-container z-50 max-w-full w-4/5 max-h-[50vh] overflow-y-auto">        
-     
-      <div className="bg-white p-8 rounded-lg shadow-lg privacy-container z-20 max-w-full w-4/5 overflow-y-auto">
-      
-      <h1 className="text-md font-bold mb-2">Privacy Policy</h1>
+  
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div className="bg-white p-8 rounded-lg shadow-lg privacy-container max-w-full w-4/5 overflow-y-auto">
+    <h1 className="text-md font-bold mb-2">Privacy Policy</h1>
 
         <p className="mb-0.5 text-xs">Last updated: November 21st, 2023</p>
 
@@ -48,6 +47,7 @@ return (
     Back
 </button>
       </div>
-    </div>
+      </div>
+   
   );
 };

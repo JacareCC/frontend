@@ -46,9 +46,11 @@ function handleShowPrivacyPolicy() {
 </button>
 
         {showPrivacyPolicy && (
-         <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
-        <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicy} />
-        </div>)
+       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+       <div className="bg-white p-8 rounded-lg shadow-lg privacy-container max-w-full w-4/5 overflow-y-auto">
+         <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicy} />
+       </div>
+     </div>)
         }
     </div>
 
