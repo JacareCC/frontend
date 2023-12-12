@@ -9,7 +9,7 @@ function handleClosePrivacyPolicy(){
 return (
   
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-  <div className="bg-white p-8 rounded-lg shadow-lg privacy-container max-w-full w-4/5 overflow-y-auto">
+  <div className="bg-white p-8 shadow-lg privacy-container max-w-full w-4/5 h-4/5 flex flex-col   overflow-y-auto">
     <h1 className="text-md font-bold mb-2">Privacy Policy</h1>
 
         <p className="mb-0.5 text-xs">Last updated: November 21st, 2023</p>

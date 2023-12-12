@@ -36,7 +36,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = ({ data, element, setIsClicked, se
     <>
 
     {data && ( <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-md max-w-2xl w-full h-96 overflow-y-auto">
+      <div className="bg-white p-8 max-w-2xl w-full h-96 overflow-y-auto">
         <div className="mb-4">
       <ReviewBack setTheyVerified={setTheyVerified} setTheyWentBack={setTheyWentBack} setIsClicked={setIsClicked} />
       </div>
