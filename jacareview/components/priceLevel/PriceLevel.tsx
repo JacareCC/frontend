@@ -12,7 +12,7 @@ const PriceLevelComponent: React.FC<PriceLevelProps> = ({
   }) => {
     const [text, setText]=useState<any>("");
     
-console.log(text)
+
     useEffect(()=>{
         if(priceLevel){
             let multiplier = priceMultiplier(priceLevel)

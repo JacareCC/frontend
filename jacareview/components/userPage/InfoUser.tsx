@@ -46,7 +46,6 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
       }
 
       try {
-        console.log(data)
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/edit/`, {
           method: 'PATCH',
           headers: {
@@ -57,7 +56,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         });
 
         if (results.ok) {
-          console.log('sucess');
+          console.log('success');
         } else {
           console.error('Error:', results.statusText);
         }

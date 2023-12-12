@@ -43,10 +43,7 @@ const BusinessNavBar: React.FC = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    console.log(businessList);
-  }, [businessList]);
-
+  
   //
   function handleTab(event: any) {
     const text = event.target.innerText;

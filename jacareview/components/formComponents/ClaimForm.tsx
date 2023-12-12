@@ -35,7 +35,7 @@ const ClaimForm: React.FC<ClaimFormProps> = ({ userUid }) => {
             },
             body: JSON.stringify(data),
         })
-            .then(response => console.log(response));
+            
 
         toast.success('Claim submitted!'
         , {
@@ -45,7 +45,7 @@ const ClaimForm: React.FC<ClaimFormProps> = ({ userUid }) => {
             router.push('/userpage');
         }, 3000); 
 
-        console.log(data);
+       
     }
 
     useEffect(() => {

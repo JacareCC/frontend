@@ -31,12 +31,6 @@ const BusinessPageWithId: React.FC = () => {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
 
-  useEffect(() => {
-    if (parsedPageData) {
-      console.log("🤍", parsedPageData[0].review);
-      console.log("🤍", parsedPageData[0]);
-    }
-  }, [parsedPageData]);
 
   useEffect(() => {
     if (id && user) {
@@ -66,7 +60,7 @@ const BusinessPageWithId: React.FC = () => {
   useEffect(() => {
     if (parsedPageData && Array.isArray(parsedPageData[0].rewards)) {
       setReviewsToSend(parsedPageData[0].reviews);
-      console.log(parsedPageData[0]);
+     
 
       parsedPageData[0].rewards.forEach((element: { reward_level: string }) => {
         if (element.reward_level === "bronze") {

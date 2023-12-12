@@ -80,7 +80,6 @@ export default function RestViewed() {
         return response.json();
       })
       .then((data) => {
-        console.log(data.success.history);
         setHistoryData(data.success.history);
         setTriggerRefresh(data.status);
       });
