@@ -75,6 +75,8 @@ Don't forget to give the project a star! Thanks again!
 
 Email - jacareview@gmail.com
 
+Project URL: [www.jacareview.com](www.jacareview.com)
+
 Project Link: [https://github.com/JacareCC/frontend](https://github.com/JacareCC/frontend)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
