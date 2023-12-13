@@ -142,9 +142,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
     setSendReady(true);
   };
 
-  const handleBack = () => {
-   
-  };
+  
 
   useEffect(() => {
     setValue("restaurant_place_id", restaurantPlaceId);
@@ -266,7 +264,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   register={register}
                   name="disability_access"
                   title="Disability Access"
-                  placeholder="Wheelchair ramps, elevators, and other accessible features available."
+                  placeholder="Wheelchair ramps, elevators, and other accessiblility features available."
                 />
               </div>
             </div>
@@ -291,7 +289,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   register={register}
                   name="amount_of_food"
                   title="Portion Size"
-                  placeholder="Generous portion sizes that satisfy customers."
+                  placeholder="Generous/Proper portion sizes that satisfy customers."
                 />
                 <TextInput
                   setValue={setValue}
