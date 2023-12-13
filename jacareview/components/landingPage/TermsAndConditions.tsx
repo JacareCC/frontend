@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
+import { ArrowBigLeft } from "lucide-react";
 
-export default function TermsAndConditions({ setTermsAgreed, setToggleAgreement }: { setTermsAgreed: any, setToggleAgreement: any }) {
+export default function TermsAndConditions({ setToggleAgreement }: {setToggleAgreement: any }) {
     const [showPrivacyPolicy, setShowPrivacyPolicy] = useState<boolean>(false);
 
-    
-// handler
-function handleAgreeClick() {
-    setTermsAgreed((prev: boolean) => !prev);
-    setToggleAgreement((prev: boolean) => !prev);
-}
 
 function handleCloseTerms() {
     setToggleAgreement((prev: boolean) => !prev);
@@ -40,17 +35,22 @@ function handleShowPrivacyPolicy() {
         <p className="mb-0.5 text-xs">Jacareview and its affiliates shall not be liable for any damages or loss of profits.</p>
 
         <h2 className="text-sm font-semibold mb-0.5">Contact Us</h2>
-        <p className="mb-0.5 text-xs">For questions, contact us at <a href="mailto:jacareview@gmail.com">jacareview@gmail.com</a>.</p>
+        <p className="mb-0.5 text-xs">For questions, contact us at <a className="text-blue-500 underline"  href="mailto:jacareview@gmail.com">jacareview@gmail.com</a>.</p>
 
         <h2 className="text-sm font-semibold mb-0.5">Privacy Policy</h2>
-        <p className="mb-0.5 text-xs" onClick={handleShowPrivacyPolicy}><u>Click here to view our Privacy Policy</u></p>
+        <p className="mb-0.5 text-xs" onClick={handleShowPrivacyPolicy}><a className="text-blue-500 underline" >Click here to view our Privacy Policy</a></p>
 
-        <button className="text-xs button-4 ml-4 p-2 mt-4 bg-jgreen rounded" onClick={handleAgreeClick}>Agree</button>
-        <button className="text-xs text-white button-4 ml-4 rounded p-2 mt-4 bg-gray-800" onClick={handleCloseTerms}>Back</button>
+        <button onClick={handleCloseTerms} className="mt-4 mb-2 ml-2 w-1/4 bg-gray-400 p-2 rounded shadow-lg text-white flex items-center justify-center">
+    <ArrowBigLeft className="text-white" />
+    Back
+</button>
+
         {showPrivacyPolicy && (
-         <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
-        <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicy} />
-        </div>)
+       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+       <div className="bg-white p-8 rounded-lg shadow-lg privacy-container max-w-full w-4/5 overflow-y-auto">
+         <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicy} />
+       </div>
+     </div>)
         }
     </div>
 

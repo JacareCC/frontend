@@ -19,6 +19,19 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
   const [editedName, setEditedName] = useState(name || '');
   const [editedPoints, setEditePoints] = useState<string | undefined | any>(name || '');
   const [editedBirthday, setEditedBirthday] = useState<string | undefined | any>(birthday);
+  const [dataToSend, setDataToSend] = useState<any> (null)
+  
+  useEffect(() => {
+  
+    let newObj = {
+      username: editedName,
+      email: editedEmail,
+      birthday: editedBirthday
+    }
+
+    setDataToSend(newObj);
+    
+  },[editedName, editedPoints, editedBirthday])
 
   const [formData, setFormData] = useState({
     user_uid: user_uid || '',
@@ -46,18 +59,17 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
       }
 
       try {
-        console.log(data)
         const results = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/edit/`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
             Authorization: user_uid || '',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(dataToSend),
         });
 
         if (results.ok) {
-          console.log('sucess');
+          console.log('success');
         } else {
           console.error('Error:', results.statusText);
         }

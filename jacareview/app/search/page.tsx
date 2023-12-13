@@ -121,7 +121,6 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (results) {
-      console.log(results)
       setResultsFetched(true);
     }
   }, [results]);

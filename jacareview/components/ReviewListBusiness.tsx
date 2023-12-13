@@ -27,9 +27,6 @@ export default function ReviewListBusiness({ reviews }: { reviews: any }) {
     }
   }, [reviews]);
 
-  useEffect(() => {
-    console.log(historyData);
-  }, [historyData]);
 
   useEffect(() => {
     if (theyVerified && theyWentBack) {

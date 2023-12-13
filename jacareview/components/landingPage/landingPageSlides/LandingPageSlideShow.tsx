@@ -12,10 +12,6 @@ export default function LandingPageSlideshow() {
     const [autoplay, setAutoplay] = useState(true);
    
   
-    useEffect(() => {
-      console.log(autoplay)
-    }, [autoplay]);
-  
     const settings = {
         accessibility:true,
       dots: true,
@@ -44,10 +40,16 @@ export default function LandingPageSlideshow() {
     return (
         <div className='' onClick={handlePause}>
         <Slider  {...settings} className="">
+       
           <LandingPageSearchSlide/>
+              
           <LandingAnonReviewsSlide/>
+          
           <LandingPageRewardsSlide/>
+          
+      
           <LandingPageBusinessSlide/>
+        
         </Slider>
         </div>
       );

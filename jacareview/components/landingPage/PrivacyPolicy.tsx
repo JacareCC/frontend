@@ -1,3 +1,5 @@
+import { ArrowBigLeft } from "lucide-react";
+
 export default function PrivacyPolicy({setShowPrivacyPolicy}:{setShowPrivacyPolicy: any}){
 
 //handler
@@ -5,11 +7,10 @@ function handleClosePrivacyPolicy(){
     setShowPrivacyPolicy((prev:boolean)=> !prev)
 }
 return (
-    <div className="container relative mx-auto mt-4 p-4 bg-white rounded shadow-lg terms-container z-50 max-w-full w-4/5 max-h-[50vh] overflow-y-auto">        
-     
-      <div className="bg-white p-8 rounded-lg shadow-lg privacy-container z-20 max-w-full w-4/5 overflow-y-auto">
-      
-      <h1 className="text-md font-bold mb-2">Privacy Policy</h1>
+  
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div className="bg-white p-8 shadow-lg privacy-container max-w-full w-4/5 h-4/5 flex flex-col   overflow-y-auto">
+    <h1 className="text-md font-bold mb-2">Privacy Policy</h1>
 
         <p className="mb-0.5 text-xs">Last updated: November 21st, 2023</p>
 
@@ -39,10 +40,14 @@ return (
         <p className="mb-0.5 text-xs">Our web app may contain links to third-party websites. We have no control over the content and practices of these sites and are not responsible for their privacy policies.</p>
 
         <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
-        <p className="mb-0.5 text-xs">If you have any questions about our privacy policy, please contact us at <a href="mailto:jacareview@gmail.com">jacareview@gmail.com</a>.</p>
+        <p className="mb-0.5 text-xs">If you have any questions about our privacy policy, please contact us at <a  className="text-blue-500 underline" href="mailto:jacareview@gmail.com">jacareview@gmail.com</a>.</p>
 
-        <button className="text-s text-white button-4 p-2 mt-4 bg-gray-800 rounded" onClick={handleClosePrivacyPolicy}>Back</button>
+        <button onClick={handleClosePrivacyPolicy} className="mt-4 mb-2 ml-2 w-1/4 bg-gray-400 p-2 rounded shadow-lg text-white flex items-center justify-center">
+    <ArrowBigLeft className="text-white" />
+    Back
+</button>
       </div>
-    </div>
+      </div>
+   
   );
 };
