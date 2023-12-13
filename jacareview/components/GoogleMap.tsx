@@ -68,7 +68,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
 
 
   return (
-    <div style={{height:"400px"}} ref={mapRef}>
+    <div style={{height:"500px"}} ref={mapRef}>
       
     </div>
   );
