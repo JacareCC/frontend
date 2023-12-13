@@ -94,7 +94,7 @@ const InfosUser: React.FC<InfosUserProps> = ({ email, name, birthday, user_uid, 
         <p className=' text-lg rounded text-jgreen'>{points} jacoins</p>
       </div>
   
-      <div className='mb-2 flex flex-col'>
+      <div className='mb-2 flex flex-col border-solid border-b border-gray-300'>
         <label className='text-sm text-gray-500'>Email</label>
         {isEditing ? (
           <input
