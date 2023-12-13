@@ -13,7 +13,7 @@ return(
       <div className="flex flex-col md:w-[70%] p-2">
     <div>
     <h2 className="font-yaro text-jgreen p-2" >Incredible Rewards</h2></div>
-        <div><p className="text-zinc-700  pl-2 pt-2">Earn exclusive rewards for reviewing. The more you share, the more benefits you receive.</p>
+        <div><p className="text-zinc-700  pl-2 pt-2">Earn exclusive rewards. Review and profit!</p>
       </div>
     </div>
       </div>
