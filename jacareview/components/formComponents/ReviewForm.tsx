@@ -94,6 +94,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
     if (dataToSend) {
       dataToSend.id = restaurantPlaceId;
     }
+    console.log(dataToSend);
+    
   }, [dataToSend]);
 
   useEffect(() => {
@@ -249,7 +251,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   setValue={setValue}
                   register={register}
                   name="public_transit_access"
-                  title="Public Transit Tccess"
+                  title="Public Transit Access"
                   placeholder="Easily accessible via public transportation (e.g., bus, subway)."
                 />
                 <TextInput

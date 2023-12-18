@@ -13,19 +13,22 @@ const InputText: React.FC<FormTextInputProps> = ({ register, name, title, placeh
 
   const [rating, setRating] = useState<string | null>(null);
 
+  useEffect(() => {
+    if(rating){
+    console.log(rating)
+    
+    register(name, { value: rating });
+    setValue(name, rating);
+    }
+  }, [rating])
+
   const handleUnfocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     const newRating = event.target.value;
     setRating(newRating);
-
-    // Register the new value immediately
+  
     register(name, { value: newRating });
-    
-    // If setValue is available, update the value in the form state
-    if (setValue) {
-      setValue(name, newRating);
-    }
+    setValue(name, newRating);
   };
-
 
     return (
         <div className="flex flex-col px-4">
