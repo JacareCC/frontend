@@ -17,14 +17,14 @@ import TeamCard from "@/components/landingPage/MyCard";
 import LandingPageSlideshow from "@/components/landingPage/landingPageSlides/LandingPageSlideShow";
 import PrivacyPolicy from "@/components/landingPage/PrivacyPolicy";
 
-
 export default function Home() {
   const [uid, setUid] = useState<string | null | undefined>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [toggleAgreement, setToggleAgreement] = useState<boolean>(false);
   const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(false);
   const [showConsent, setShowConsent] = useState<boolean>(true);
-  const [showPrivacyPolicyContactUs, setShowPrivacyPolicyContactUs] = useState<boolean>(false);
+  const [showPrivacyPolicyContactUs, setShowPrivacyPolicyContactUs] =
+    useState<boolean>(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   initFirebase();
@@ -53,7 +53,7 @@ export default function Home() {
       router.push("/search");
     }
     if (statusCode === 401 && user) {
-      handleUserRegistration(user.uid, user?.email)
+      handleUserRegistration(user.uid, user?.email);
     }
   }, [statusCode]);
 
@@ -62,8 +62,6 @@ export default function Home() {
     setCookiesAccepted(!!cookiesAccepted);
     setShowConsent(!cookiesAccepted);
   }, [showConsent]);
-
-  
 
   async function handleUserRegistration(uid: string, email: string | null) {
     const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
@@ -97,16 +95,13 @@ export default function Home() {
     }
   };
 
-  function handleToggleAgreement(){
+  function handleToggleAgreement() {
     setToggleAgreement(true);
   }
 
-  function handlePrivacyPolicyOnLandingClick(){
+  function handlePrivacyPolicyOnLandingClick() {
     setShowPrivacyPolicyContactUs(true);
   }
-
-
-
 
   const scrollToSection = () => {
     if (sectionRef.current) {
@@ -134,58 +129,69 @@ export default function Home() {
                 </button>
               </div>
               {!statusCode && user ? (
-  <div className="flex justify-center items-center ">
-    <LoadingAnimation />
-  </div>
-) : (
-  <>
-    <div className="flex flex-col items-center sm:flex-row gap-4 mx-2 mb-4 rounded p-1">
-      <div className="flex items-center shadow-lg shadow-indigo-500/40 rounded basis-1/2">
-        <Image
-          priority={true}
-          className=""
-          src={logoHome}
-          alt="logo"
-          width={500}
-          height={500}
-        />
-      </div>
+                <div className="flex justify-center items-center ">
+                  <LoadingAnimation />
+                </div>
+              ) : (
+                <>
+                  <div className="flex flex-col items-center sm:flex-row gap-4 mx-2 mb-4 rounded p-1">
+                    <div className="flex items-center shadow-lg shadow-indigo-500/40 rounded basis-1/2">
+                      <Image
+                        priority={true}
+                        className=""
+                        src={logoHome}
+                        alt="logo"
+                        width={500}
+                        height={500}
+                      />
+                    </div>
 
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center sm:h-1/5">
-          <div className="flex flex-col object-fill sm:h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 max-w-full relative">
-            <button
-              onClick={signIn}
-              className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
-            >
-              <div className="flex items-center px-10">
-                <Image
-                  priority={true}
-                  src={googleIcon}
-                  alt="Google Icon"
-                  width={20}
-                  height={20}
-                />
-                <span className="ml-2 text-base sm:text-lg lg:text-xl whitespace-nowrap">
-                  Continue With Google
-                </span>
-              </div>
-            </button>
-          </div>
-          <h3 className="ml-4 mt-0 md:text-xs mt-4 justify-center items-center text-center font-semibold" >By Continuing you Agree to our Terms and Agreement. To Read <a onClick={handleToggleAgreement} className="text-blue-500 underline font-semibold" >Click here</a></h3>
-        </div>
-        {toggleAgreement && (
-           <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
-        <TermsAndConditions setToggleAgreement={setToggleAgreement}/>
-        </div>
-        )}
-      </div>
-    </div>
-    <div className="flex flex-col">
-      <LandingPageSlideshow />
-    </div>
-  </>
-)}
+                    <div className="flex flex-col justify-center items-center">
+                      <div className="flex flex-col justify-center items-center sm:h-1/5">
+                        <div className="flex flex-col object-fill sm:h-[10vh] items-center fixed top-1/2 space-y-2 ml-5 mr-5 p-10 max-w-full relative">
+                          <button
+                            onClick={signIn}
+                            className="bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
+                          >
+                            <div className="flex items-center px-10">
+                              <Image
+                                priority={true}
+                                src={googleIcon}
+                                alt="Google Icon"
+                                width={20}
+                                height={20}
+                              />
+                              <span className="ml-2 text-base sm:text-lg lg:text-xl whitespace-nowrap">
+                                Continue With Google
+                              </span>
+                            </div>
+                          </button>
+                        </div>
+                        <h3 className="ml-4 mt-0 md:text-xs mt-4 justify-center items-center text-center font-semibold">
+                          By Continuing you Agree to our Terms and Agreement. To
+                          Read{" "}
+                          <a
+                            onClick={handleToggleAgreement}
+                            className="text-blue-500 underline font-semibold"
+                          >
+                            Click here
+                          </a>
+                        </h3>
+                      </div>
+                      {toggleAgreement && (
+                        <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
+                          <TermsAndConditions
+                            setToggleAgreement={setToggleAgreement}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <LandingPageSlideshow />
+                  </div>
+                </>
+              )}
 
               {showConsent && (
                 <div className="absolute z-2 inset-0 flex items-center justify-center">
@@ -224,10 +230,12 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEPd0xEYC_hkA/profile-displayphoto-shrink_800_800/0/1700786087720?e=1707955200&v=beta&t=_qChzWPELyUj65pkCsdpxbnprHjWhQPPU4TI1AWkq4E"}
+                      imgSrc={
+                        "https://media.licdn.com/dms/image/D5603AQEPd0xEYC_hkA/profile-displayphoto-shrink_800_800/0/1700786087720?e=1707955200&v=beta&t=_qChzWPELyUj65pkCsdpxbnprHjWhQPPU4TI1AWkq4E"
+                      }
                       name="Will Brammer"
                       role="Tech Lead"
-                      socialLinks={[    
+                      socialLinks={[
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
@@ -241,7 +249,9 @@ export default function Home() {
                       ]}
                     />
                     <TeamCard
-                      imgSrc={"https://media.licdn.com/dms/image/D5603AQEz09g2bgcPeA/profile-displayphoto-shrink_800_800/0/1698718854517?e=1707955200&v=beta&t=Wicn5et3ZkJ12jy_7h0oxbETDzrlax2FmljHk7-7Ry0"}
+                      imgSrc={
+                        "https://media.licdn.com/dms/image/D5635AQH6vqk-ieajCQ/profile-framedphoto-shrink_400_400/0/1702813389229?e=1703491200&v=beta&t=T1Y4uT5AzN9idavPst0ZoXlRbHWZ6b50sw12IqGu4j4"
+                      }
                       name="Kai Hasuike"
                       role="Full Stack Engineer"
                       socialLinks={[
@@ -258,19 +268,38 @@ export default function Home() {
                       ]}
                     />
                   </div>
-                  <div className="flex flex-row justify-center items-center mt-12">  
-    <p className="text-center mr-4 mb-4 font-semibold">Contact us at: <a className="text-blue-500 underline font-semibold" href="mailto:jacareview@gmail.com">jacareview@gmail.com</a></p>
-    <p className="text-center mb-4 mr-4 font-semibold">Read our <a className="text-blue-500 underline font-semibold" onClick={handlePrivacyPolicyOnLandingClick}>Privacy Policy</a></p>
-    </div>  
+                  <div className="flex flex-row justify-center items-center mt-12">
+                    <p className="text-center mr-4 mb-4 font-semibold">
+                      Contact us at:{" "}
+                      <a
+                        className="text-blue-500 underline font-semibold"
+                        href="mailto:jacareview@gmail.com"
+                      >
+                        jacareview@gmail.com
+                      </a>
+                    </p>
+                    <p className="text-center mb-4 mr-4 font-semibold">
+                      Read our{" "}
+                      <a
+                        className="text-blue-500 underline font-semibold"
+                        onClick={handlePrivacyPolicyOnLandingClick}
+                      >
+                        Privacy Policy
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </section>
-              <section>
-       
-</section>
+              <section></section>
             </main>
           </div>
-          { showPrivacyPolicyContactUs && (<div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
-            <PrivacyPolicy setShowPrivacyPolicy={setShowPrivacyPolicyContactUs}/></div>)}
+          {showPrivacyPolicyContactUs && (
+            <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">
+              <PrivacyPolicy
+                setShowPrivacyPolicy={setShowPrivacyPolicyContactUs}
+              />
+            </div>
+          )}
         </>
       ) : (
         <LoadingAnimation />
