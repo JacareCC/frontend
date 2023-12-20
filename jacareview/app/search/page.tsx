@@ -13,8 +13,8 @@ import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
 import PriceButton from "@/components/buttons/PriceButton";
 import NewNav from "@/components/navbarComponents/NewNav";
-import LocationPopup from "@/components/LocationOnPopUp";
-import NoResultsPopup from "@/components/NoResultsPopUp";
+import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
+import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 
 
 

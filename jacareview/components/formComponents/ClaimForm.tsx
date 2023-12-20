@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../app/globals.css';
 import TextInput from "./FormTextInputRequired";
-import ClaimConfirm from "../ClaimConfirm";
+import ClaimConfirm from "../popUpComponents/ClaimConfirm";
 import { useRouter } from "next/navigation";
 
 interface ClaimFormProps {

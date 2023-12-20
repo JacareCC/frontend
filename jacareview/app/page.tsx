@@ -5,7 +5,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-import CookieConsent from "@/components/Cookies";
+import CookieConsent from "@/components/popUpComponents/Cookies";
 import TermsAndConditions from "@/components/landingPage/TermsAndConditions";
 import "./globals.css";
 import Image from "next/image";
