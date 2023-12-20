@@ -8,7 +8,8 @@ interface StarButtonProps{
 
 const StarButton: React.FC<StarButtonProps> = ({ filled, onClick }) => {
   return (
-    <button className={`${styles.starButton} ${filled ? styles.filled : ''}`} onClick={onClick}>
+    <button className={`${styles.starButton} ${filled ? styles.filled : ''}`} onClick={onClick}
+    type='button'>
       ★
     </button>
   );

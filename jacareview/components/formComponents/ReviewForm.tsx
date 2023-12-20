@@ -84,6 +84,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const onSubmitHandler = async (data: ReviewData) => {
     setDataToSend(data);
+    setSendReady(true);
   };
 
   useEffect(()=> {
@@ -446,7 +447,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   currentPage !== totalPages ? "hidden" : ""
                 }`}
                 type="submit"
-                onClick={handleSendReady}
               >
                 Submit
               </button>
