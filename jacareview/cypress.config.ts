@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
 import { defineConfig } from 'cypress';
 import { plugin as cypressFirebasePlugin } from 'cypress-firebase'
-import * as serviceAccount from './serviceAccount.json'
+const serviceAccount = require('./serviceAccount.json')
 
 export default defineConfig({
   e2e: {
