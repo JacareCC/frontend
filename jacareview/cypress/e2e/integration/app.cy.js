@@ -21,7 +21,7 @@ describe('Home Page', () => {
     cy.login()
     
      // Assert that the user is redirected to the search page after successful sign-in
-    //  cy.url().should('include', '/search');
+     cy.url().should('include', '/search');
   
     });
   });
