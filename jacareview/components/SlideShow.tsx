@@ -13,9 +13,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
     const [resultArray, setResultArray] = useState<any>(null);
     const [autoplay, setAutoplay] = useState(true);
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    const [savedButton, setSavedButton] = useState<boolean>(false);
     const [historyData, setHistoryData] = useState<any>(null);
-    const [savedRestaurants, setSavedRestaurants] = useState<any>(null);
 
     useEffect(() => {
       if(slides){
@@ -66,6 +64,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
         return `${metersDistance} m`;
       }
     }
+    
     async function getHistoryData() {
       const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile/`, {
         method: 'GET',
@@ -79,44 +78,41 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
       })
       .then((data) => {
         setHistoryData(data.success.history);
-        // let saved = data.success.history.filter((rest) => rest.saved);
-        // console.log(saved)
-        // setSavedRestaurants(data.success.history.filter((rest: {saved: boolean; id: any}) => {
-        //   let saved = rest.saved;
-        //   console.log(saved)
-        //   return rest.saved && resultArray.filter((restList: any) => restList.id === rest.id)
-        // }))
-      })
-    }
-  //   { historyData.filter((rest: { saved: boolean; id: any; }) => !rest.saved && rest.id === resultArray[index].id)
-                    
-  // }
-    async function changeSaveRestaurant(restId: any) {
-      const histRest = historyData.filter((rest) => rest.restaurant_id_id === restId)
-      console.log(restId)
-      console.log(histRest[0])
-      const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add/`, 
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          uid: user.uid,
-          restaurantId: restId,
-          id: histRest[0].id,
-        })
-      })
-      .then((response) => {
-        setSavedButton(true)
-        setTriggerRefresh(response.status);
-        return response.json();
       })
     }
 
-    console.log(resultArray)
-    console.log(historyData)
-    // console.log(savedRestaurants)
+    async function changeSaveRestaurant(restId: any) {
+      const histRest = historyData.find((rest: { restaurant_id_id: any; }) => rest.restaurant_id_id === restId);
+    
+      try {
+        const isRestaurantSaved = historyData.some((rest: { restaurant_id_id: any; saved: any; }) => rest.restaurant_id_id === restId && rest.saved);
+    
+        if (!isRestaurantSaved) {
+          const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}user/favorites/add/`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              uid: user.uid,
+              restaurantId: restId,
+              id: histRest?.id,
+            })
+          });
+    
+          if (result.ok) {
+            const updatedHistoryData = [...historyData];
+            updatedHistoryData[isRestaurantSaved.id] = { ...histRest, saved: true };
+            setHistoryData(updatedHistoryData);
+          } else {
+            console.error('Error:', result.statusText);
+          }
+        }
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    }
+
     return (
         <Slider {...settings} className="max-w-screen-md mx-auto">
           {resultArray &&
@@ -145,9 +141,12 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
                     href={`https://www.google.com/maps/search/?api=1&query=${slide.displayName.text.replace(/ /g, "+")}&location=${slide.location.latitude},${slide.location.longitude}&query_place_id=${slide.place_id}`} target='_blank'>
                     Go to Maps<MapPinIcon />
                   </a>
-                  { historyData.some((rest) => rest.restaurant_id_id === slide.id && rest.saved
+                  { historyData.some((rest: { restaurant_id_id: any; saved: any; }) => rest.restaurant_id_id === slide.id && rest.saved
                     ) ? (
-                   null
+                      <button key={`${index}`} onClick={() => changeSaveRestaurant(slide.id)} className="flex gap-2 mt-2 bg-gray-300 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center" disabled>
+                      Saved
+                      <BookmarkIcon/>
+                    </button>
                   ) : (
                     <button key={`${index}`} onClick={() => changeSaveRestaurant(slide.id)} className="flex gap-2 mt-2 bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
                         Save
@@ -159,8 +158,5 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
             ))}
         </Slider>
       );
-                  }      
+}      
 
-function setTriggerRefresh(status: number) {
-  throw new Error('Function not implemented.');
-}
