@@ -5,7 +5,7 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Star } from "lucide-react";
+import { BookmarkIcon, Star } from "lucide-react";
 import LoadingAnimation from "../loading/Loading";
 
 export default function RestViewed() {
@@ -144,8 +144,10 @@ export default function RestViewed() {
                       <Star/>
                     </Link>
                     {!element.saved ? (
-                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="flex gap-4 bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        <BookmarkIcon className="text-lgreen"/>
                         Save
+                        <BookmarkIcon/>
                       </button>
                     ) : (
                         <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
