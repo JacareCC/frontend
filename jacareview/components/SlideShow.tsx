@@ -101,9 +101,13 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
           });
     
           if (result.ok) {
-            const updatedHistoryData = [...historyData];
-            updatedHistoryData[isRestaurantSaved.id] = { ...histRest, saved: true };
-            setHistoryData(updatedHistoryData);
+            const restaurantIndex = historyData.findIndex((rest: { restaurant_id_id: any; }) => rest.restaurant_id_id === restId);
+
+            if (restaurantIndex !== -1) {
+              const updatedHistoryData = [...historyData];
+              updatedHistoryData[restaurantIndex] = { ...histRest, saved: true };
+              setHistoryData(updatedHistoryData);
+            }            
           } else {
             console.error('Error:', result.statusText);
           }
