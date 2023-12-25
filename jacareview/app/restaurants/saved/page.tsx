@@ -21,7 +21,7 @@ export default function SavedRestaurantsPage() {
   </div>
   </div>
   <div className="flex flex-col items-center container mx-auto md:shadow-2xl rounded md:ml-4">
-    <h1 className="text-2xl pt-2 font-semibold m-2">My Saved Restaurants</h1>
+    <h1 className="text-2xl pt-2 font-semibold m-2">Favorites Restaurants</h1>
     {!randomOneClicked && (<button onClick={handleRandomGo} className="bg-gradient-to-r mb-4 from-yellow-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded shadow-md hover:scale-105 transform transition-transform duration-300">
       Surprise me!
     </button>)}
