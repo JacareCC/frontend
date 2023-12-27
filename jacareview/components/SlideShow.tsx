@@ -22,10 +22,10 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
     }, [slides]);
 
     useEffect(() => {
-      if (user !== null) {
+      if (user !== null && slides) {
         getHistoryData();
       }
-    }, [user]);
+    }, [user, slides]);
 
     const settings = {
         accessibility:true,
@@ -145,7 +145,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
                     href={`https://www.google.com/maps/search/?api=1&query=${slide.displayName.text.replace(/ /g, "+")}&location=${slide.location.latitude},${slide.location.longitude}&query_place_id=${slide.place_id}`} target='_blank'>
                     Go to Maps<MapPinIcon />
                   </a>
-                  { historyData.some((rest: { restaurant_id_id: any; saved: any; }) => rest.restaurant_id_id === slide.id && rest.saved
+                  { historyData && historyData.some((rest: { restaurant_id_id: any; saved: any; }) => rest.restaurant_id_id === slide.id && rest.saved
                     ) ? (
                       <button key={`${index}`} onClick={() => changeSaveRestaurant(slide.id)} className="flex gap-2 mt-2 bg-gray-300 text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center" disabled>
                       Saved
