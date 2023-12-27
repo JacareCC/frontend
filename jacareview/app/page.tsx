@@ -5,7 +5,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-import CookieConsent from "@/components/Cookies";
+import CookieConsent from "@/components/popUpComponents/Cookies";
 import TermsAndConditions from "@/components/landingPage/TermsAndConditions";
 import "./globals.css";
 import Image from "next/image";
@@ -220,7 +220,7 @@ export default function Home() {
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
-                          url: "https://www.linkedin.com/in/j%C3%BAlio-gonzalez-6000a6299/",
+                          url: "https://www.linkedin.com/in/gonzalez-rodrigues/",
                         },
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png",
@@ -258,7 +258,7 @@ export default function Home() {
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
                           color: "",
-                          url: "https://www.linkedin.com/in/kai-eugene-5b1882162/",
+                          url: "https://www.linkedin.com/in/kaihasuike/",
                         },
                         {
                           icon: "https://cdn1.iconfinder.com/data/icons/picons-social/57/github_rounded-512.png",

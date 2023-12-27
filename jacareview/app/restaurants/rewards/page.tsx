@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import "../../../app/globals.css";
 import NewNav from "@/components/navbarComponents/NewNav";
-import RefreshPopUp from "@/components/RefreshBuyPopUp";
+import RefreshPopUp from "@/components/popUpComponents/RefreshBuyPopUp";
 import LoadingAnimation from "@/components/loading/Loading";
 
 interface RestaurantRewardsPageProps {}

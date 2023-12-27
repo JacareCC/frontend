@@ -243,7 +243,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({setRandomOneClick
                 </div>
               ))
             )}
-            { fetchedData && randomOneClicked && (<SavedOneRestaurant savedData={savedData} setRandomOneClicked={setRandomOneClicked}/>)
+            { fetchedData && randomOneClicked && (<SavedOneRestaurant location={location} savedData={savedData} setRandomOneClicked={setRandomOneClicked}/>)
             }
           </div>
         </div>

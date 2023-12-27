@@ -1,8 +1,8 @@
 // components/GoogleMap.tsx
 import { Loader } from '@googlemaps/js-api-loader';
-import { version } from 'os';
 import React, { useRef, useEffect } from 'react';
-import a from "../public/gator-searching.png"
+import searching from "../public/IMG_8629.png"
+
 interface GoogleMapProps {
   apiKey: string |undefined;
   placeId: string | null;
@@ -40,7 +40,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
      
 
      const storeImage = {
-      url:'https://i.ibb.co/mtDDVXC/gator-searching.png',
+      url: searching.src,
       scaledSize: new google.maps.Size(50, 50)
   };
 
@@ -68,9 +68,9 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
 
 
   return (
-    <div style={{height:"500px"}} ref={mapRef}>
-      
-    </div>
+    <div style={{ height: "500px", marginLeft: "12px", marginRight: "12px" }} ref={mapRef}>
+    
+  </div>
   );
 };
 

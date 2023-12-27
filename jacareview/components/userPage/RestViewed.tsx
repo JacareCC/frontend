@@ -5,8 +5,10 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Star } from "lucide-react";
+import { BookmarkIcon, Star } from "lucide-react";
 import LoadingAnimation from "../loading/Loading";
+import { AnyARecord } from "dns";
+import { test } from "mocha";
 
 export default function RestViewed() {
   const [historyData, setHistoryData] = useState<any>(null);
@@ -106,14 +108,30 @@ export default function RestViewed() {
   }
 
   function filterToUniqueRestaurants(myArr: any, key: string) {
-    if (Array.isArray(historyData)) {
-      let filteredHistory = myArr.filter((obj: any, pos: any, arr: any) => {
+    if (Array.isArray(myArr)) {
+      let arrayWithSaves = myArr.filter((element:any) => element.saved === true);
+      let newArrayWithSaves = myArr.filter((element:any) => {
+        return arrayWithSaves.find(uniqueRestaurant => uniqueRestaurant.restaurant_id_id == element.restaurant_id_id) == undefined
+    })  
+
+      let newArrayToFilter = arrayWithSaves.concat(newArrayWithSaves);
+      let testFilteredHistory = newArrayToFilter.filter((obj: any, pos: any, arr: any) => {
         return arr.map((mapObj: any) => mapObj[key]).indexOf(obj[key]) === pos;
       });
-      filteredHistory.reverse();
-      setHistoryDataFiltered(filteredHistory);
+      
+      const sortedByDate = testFilteredHistory.sort((a, b) => {
+        const dateA = new Date(a.date_visited);
+        const dateB = new Date(b.date_visited);
+        return dateB.getTime() - dateA.getTime();
+      });
+      setHistoryDataFiltered(sortedByDate);
+      }
+      else{
+        throw new Error();
+      }
+
     }
-  }
+  
 
   return (
     <div className="flex flex-col align-center items-center bg-test pb-4">
@@ -144,8 +162,10 @@ export default function RestViewed() {
                       <Star/>
                     </Link>
                     {!element.saved ? (
-                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        <button key={`e${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className="flex gap-4 bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">
+                        <BookmarkIcon className="text-lgreen"/>
                         Save
+                        <BookmarkIcon/>
                       </button>
                     ) : (
                         <button key={`f${index}`} onClick={getRestaurantID} a-key={element.restaurant_id_id} b-key={element.id} className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center">

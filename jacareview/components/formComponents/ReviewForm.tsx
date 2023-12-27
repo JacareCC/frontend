@@ -84,6 +84,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const onSubmitHandler = async (data: ReviewData) => {
     setDataToSend(data);
+    setSendReady(true);
   };
 
   useEffect(()=> {
@@ -93,7 +94,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   useEffect(() => {
     if (dataToSend) {
       dataToSend.id = restaurantPlaceId;
-    }
+    }    
   }, [dataToSend]);
 
   useEffect(() => {
@@ -249,7 +250,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   setValue={setValue}
                   register={register}
                   name="public_transit_access"
-                  title="Public Transit Tccess"
+                  title="Public Transit Access"
                   placeholder="Easily accessible via public transportation (e.g., bus, subway)."
                 />
                 <TextInput
@@ -444,7 +445,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   currentPage !== totalPages ? "hidden" : ""
                 }`}
                 type="submit"
-                onClick={handleSendReady}
               >
                 Submit
               </button>

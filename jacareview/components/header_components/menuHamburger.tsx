@@ -15,7 +15,7 @@ const solutions = [
   { name: 'Profile',  href: '/user', icon: UserCircleIcon },
   { name: 'Search',  href: '/search', icon: MagnifyingGlassIcon },
   { name: 'My Business',  href: '/user/business', icon: BriefcaseIcon },
-  { name: 'Saved Restaurants',  href: '/restaurants/saved', icon: BookmarkIcon },
+  { name: 'Favorites',  href: '/restaurants/saved', icon: BookmarkIcon },
 //   { name: 'Viewed Restaraunts',  href: '/restaurantsviewed', icon: CursorArrowRaysIcon },
   { name: 'Logout', href: '#', icon: ArrowLeftOnRectangleIcon },
 ];

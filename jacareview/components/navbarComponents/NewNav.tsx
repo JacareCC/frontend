@@ -71,7 +71,7 @@ function NewNav() {
                         {/* primary */}
                         <div className="hidden lg:p-6  lg:flex lg:justify-between lg:gap-12 text-jgreen">
                             {user && (
-                                <><a href="/search">Search</a><a href="/user">Profile</a><a href="/restaurants/saved">Saved Restaurants</a><a href="/user/business">My Business</a><button onClick={handleLogout} className="text-jgreen">
+                                <><a href="/search">Search</a><a href="/user">Profile</a><a href="/restaurants/saved">My Favorites</a><a href="/user/business">My Business</a><button onClick={handleLogout} className="text-jgreen">
                                     Logout
                                 </button></>
                             )}
@@ -108,8 +108,8 @@ function NewNav() {
                     <div className="flex flex-col justify-end gap-8 font-bold tracking-wider text-jgreen">
                         <a href="/search">Search</a>
                         <a href="/user">Profile</a>
-                        <a href="/restaurants/saved">Saved Restaurants</a>
-                        <a href="/user/business">My business</a>
+                        <a href="/restaurants/saved">My Favorites</a>
+                        <a href="/user/business">My Business</a>
                         <a href="#" onClick={handleLogout}>Logout</a>
                     </div>
                 </div>
