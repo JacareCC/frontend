@@ -18,6 +18,7 @@ const NoResultsPopup = () => {
 
   return (
     <div
+    data-testid="no-data"
       className={`${
         isMounted ? "fixed z-50 inset-0 bg-black bg-opacity-50" : "hidden"
       } flex items-center justify-center`}

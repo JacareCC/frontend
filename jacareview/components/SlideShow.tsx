@@ -122,6 +122,7 @@ export default function Slideshow({ slides, location, user }: { slides: any; loc
           {resultArray &&
             resultArray.map((slide: any, index: number) => (
               <div
+              data-testid="slide-show"
                 key={index}
                 className="flex flex-col justify-center items-center md:p-4"
               >
