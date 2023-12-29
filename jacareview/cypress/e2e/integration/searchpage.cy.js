@@ -9,8 +9,8 @@ describe('SearchPage testing', () => {
             // Mock the desired geolocation coordinates
             const position = {
               coords: {
-                latitude: 37.7749,
-                longitude: -122.4194,
+                latitude: 35.6620,
+                longitude: 139.7038,
                 accuracy: 10,
               },
             };
