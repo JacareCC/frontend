@@ -250,7 +250,7 @@ export default function Home() {
                     />
                     <TeamCard
                       imgSrc={
-                        "https://media.licdn.com/dms/image/D5635AQH6vqk-ieajCQ/profile-framedphoto-shrink_400_400/0/1702813389229?e=1703491200&v=beta&t=T1Y4uT5AzN9idavPst0ZoXlRbHWZ6b50sw12IqGu4j4"
+                        "https://media.licdn.com/dms/image/D5603AQGer0OnQnnbeA/profile-displayphoto-shrink_400_400/0/1702813387394?e=1709769600&v=beta&t=CdZmZUxocbll_WrK6LIz1lQBuKofAl5gvoa7ckXJsg8"
                       }
                       name="Kai Hasuike"
                       role="Full Stack Engineer"
