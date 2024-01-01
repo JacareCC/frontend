@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface ColorChangingProps {
   setCuisineType: any;
   text: string;
   cuisineType: string[];
-  includeOthers: boolean |null;
+  includeOthers: boolean | null;
   count: number;
   setCount: any;
   setIncludeOthers: any;
-  resetCount:number;
+  resetCount: number;
 }
-
 
 const ColorChangingButton: React.FC<ColorChangingProps> = ({
   text,
@@ -30,30 +29,32 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
     }
   }, [isButtonActive, count]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setButtonActive(false);
-  },[resetCount])
+  }, [resetCount]);
 
   const getCuisineTypeToAdd = () => {
-    if (text.toLowerCase() === 'vegan') {
-      return 'vegan_restaurant';
-    } else if (text.toLowerCase() === 'vegetarian') {
-      return 'vegetarian_restaurant';
-    } else if (text.toLowerCase() === 'include other cuisines') {
-      return ''; // Return an empty string for 'include other cuisines'
+    if (text.toLowerCase() === "vegan") {
+      return "vegan_restaurant";
+    } else if (text.toLowerCase() === "vegetarian") {
+      return "vegetarian_restaurant";
+    } else if (text.toLowerCase() === "include other cuisines") {
+      return ""; // Return an empty string for 'include other cuisines'
     } else {
-      return ''; // Return an empty string for non-vegan and non-vegetarian text
+      return ""; // Return an empty string for non-vegan and non-vegetarian text
     }
   };
 
   function handleButtonClick() {
-    setButtonActive((prev:boolean) => !prev);
-    setCount((prev:number) => prev += 1);
+    setButtonActive((prev: boolean) => !prev);
+    setCount((prev: number) => (prev += 1));
 
     const cuisineTypeToAdd = getCuisineTypeToAdd();
 
-    if (text.toLowerCase() === 'include other cuisines') {
-      setIncludeOthers((prev: boolean | null) => (prev === null ? true : !prev));
+    if (text.toLowerCase() === "include other cuisines") {
+      setIncludeOthers((prev: boolean | null) =>
+        prev === null ? true : !prev
+      );
     } else if (cuisineTypeToAdd !== null) {
       if (!isButtonActive) {
         handleCuisineAdd();
@@ -64,29 +65,33 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
   }
 
   function handleCuisineAdd() {
-  setCuisineType((oldArray: string[]) => {
-    if (!Array.isArray(oldArray)) {
-      oldArray = [];
-    }
+    setCuisineType((oldArray: string[]) => {
+      if (!Array.isArray(oldArray)) {
+        oldArray = [];
+      }
 
-    const cuisineTypeToAdd = getCuisineTypeToAdd();
+      const cuisineTypeToAdd = getCuisineTypeToAdd();
 
-    if (!includeOthers || !oldArray.includes(cuisineTypeToAdd)) {
-      return [...oldArray, cuisineTypeToAdd].filter(Boolean);
-    } else {
-      return oldArray.filter((cuisine) => cuisine !== cuisineTypeToAdd);
-    }
-  });
-}
+      if (!includeOthers || !oldArray.includes(cuisineTypeToAdd)) {
+        return [...oldArray, cuisineTypeToAdd].filter(Boolean);
+      } else {
+        return oldArray.filter((cuisine) => cuisine !== cuisineTypeToAdd);
+      }
+    });
+  }
 
   function handleCuisineRemoval(cuisineTypeToRemove: string) {
     setCuisineType((oldArray: string[]) => {
       if (!Array.isArray(oldArray)) {
         oldArray = [];
       }
-       let newArray= oldArray.filter((cuisine) => cuisine !== cuisineTypeToRemove);
-       newArray.length === 0 ? newArray = ["restaurant"] : newArray = newArray;
-       return newArray;
+      let newArray = oldArray.filter(
+        (cuisine) => cuisine !== cuisineTypeToRemove
+      );
+      newArray.length === 0
+        ? (newArray = ["restaurant"])
+        : (newArray = newArray);
+      return newArray;
     });
   }
 
@@ -96,9 +101,14 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
         oldArray = [];
       }
       // return oldArray.filter((cuisine) => cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant");
-      let newArray= oldArray.filter((cuisine) => cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant");
-       newArray.length === 0 ? newArray = ["restaurant"] : newArray = newArray;
-       return newArray;
+      let newArray = oldArray.filter(
+        (cuisine) =>
+          cuisine === "vegan_restaurant" || cuisine === "vegetarian_restaurant"
+      );
+      newArray.length === 0
+        ? (newArray = ["restaurant"])
+        : (newArray = newArray);
+      return newArray;
     });
   }
 
@@ -106,8 +116,8 @@ const ColorChangingButton: React.FC<ColorChangingProps> = ({
     <button
       onClick={handleButtonClick}
       className={`${
-        isButtonActive ? 'bg-jgreen' : 'bg-gray-300'
-      } text-white p-2 m-1 rounded`}
+        isButtonActive ? "bg-jgreen" : "bg-gray-300"
+      } text-white w-24 p-2 m-1 rounded`}
     >
       {text}
     </button>

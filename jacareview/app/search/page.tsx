@@ -7,7 +7,7 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import ColorChangingButton from "@/components/buttons/ColorChangingButton";
 import "../globals.css";
-import FunSearchButton from "@/components/funSearchButton/FunSearchButton"
+import FunSearchButton from "@/components/loading/funSearchButton/FunSearchButton"
 import LoadingAnimation from "@/components/loading/Loading";
 import VerifyUser from "../globalfunctions/TokenVerification";
 import Slideshow from "@/components/SlideShow";
