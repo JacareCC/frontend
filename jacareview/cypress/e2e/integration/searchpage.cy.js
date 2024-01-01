@@ -44,6 +44,27 @@ describe("SearchPage testing", () => {
     cy.get('button:contains("Vegan")').should("exist");
     cy.get('button:contains("Vegetarian")').should("exist");
 
+    //Price range options should change to green when clicked
+    cy.contains("button", "$$$$").filter(':contains("$$$$")').click();
+    cy.get('button:contains("$$$$")').should("have.class", "bg-jgreen");
+    cy.contains("button", "$$$$").filter(':contains("$$$$")').click();
+    cy.get('button:contains("$$$$")').should("have.class", "bg-gray-300");
+
+    cy.contains("button", "$$$").filter(':contains("$$$")').click();
+    cy.get('button:contains("$$$")').should("have.class", "bg-jgreen");
+    cy.contains("button", "$$$").filter(':contains("$$$")').click();
+    cy.get('button:contains("$$$")').should("have.class", "bg-gray-300");
+
+    cy.contains("button", "$$").filter(':contains("$$")').click();
+    cy.get('button:contains("$$")').should("have.class", "bg-jgreen");
+    cy.contains("button", "$$").filter(':contains("$$")').click();
+    cy.get('button:contains("$$")').should("have.class", "bg-gray-300");
+
+    cy.contains("button", "$").filter(':contains("$")').click();
+    cy.get('button:contains("$")').should("have.class", "bg-jgreen");
+    cy.contains("button", "$").filter(':contains("$")').click();
+    cy.get('button:contains("$")').should("have.class", "bg-gray-300");
+
     //Vegan and vegetarian option should change to green when clicked
     cy.get('button:contains("Vegan")').click();
     cy.get('button:contains("Vegan")').should("have.class", "bg-jgreen");
