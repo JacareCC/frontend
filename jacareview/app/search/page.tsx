@@ -15,7 +15,7 @@ import PriceButton from "@/components/buttons/PriceButton";
 import NewNav from "@/components/navbarComponents/NewNav";
 import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
 import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
-
+import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
 
 
 
@@ -33,8 +33,9 @@ export default function SearchPage() {
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [statusCodeOK, setStatusCodeOk] = useState<boolean>(false);
   const [includeOthers, setIncludeOthers] = useState<boolean | null>(null);
-  const [searchClicked, setSearchClicked] = useState<boolean>(false)
+  const [searchClicked, setSearchClicked] = useState<boolean>(false);
   const [turnOnLocation, setTurnOnLocation] = useState<boolean>(false);
+  const [modeOfTransport, setModeOfTransport] = useState<string> ("Walking");
 
 
   initFirebase();
@@ -49,6 +50,19 @@ export default function SearchPage() {
       router.push("/");
     }
   });
+
+  useEffect(() => {
+    if(modeOfTransport === "Walking"){
+      setDistanceToTravel(500);
+    }
+    if(modeOfTransport === "Car"){
+      setDistanceToTravel(12500);
+    }
+  }, [modeOfTransport])
+
+  useEffect(() =>{
+    console.log(distanceToTravel);
+  }, [distanceToTravel])
 
   useEffect(()=>{
     if(statusCode && statusCode !== 200){
@@ -235,6 +249,17 @@ async function fetchRestaurants() {
                               setCount={setCount}
                               setIncludeOthers={setIncludeOthers}
                               resetCount={resetCount} />
+                          </div>
+                        </div>
+                        </div>
+
+                        <div className="flex flex-col items-center justify-center mb-8">
+                        {/* Section 4 */}
+                        <div className="flex flex-col items-center justify-center mb-0 m-4">
+                          <h1 className="text-xl font-bold text-jgreen mb-2 border-b">Dietary Restrictions</h1>
+                          <div className="flex flex-row">
+                            <ModeOfTransportButton setModeOfTransport={setModeOfTransport} modeOfTransport={modeOfTransport} text="Walking"/>
+                            <ModeOfTransportButton setModeOfTransport={setModeOfTransport} modeOfTransport={modeOfTransport} text="Car"/>
                           </div>
                         </div>
                         </div>
