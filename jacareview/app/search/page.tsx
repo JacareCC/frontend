@@ -60,10 +60,6 @@ export default function SearchPage() {
     }
   }, [modeOfTransport])
 
-  useEffect(() =>{
-    console.log(distanceToTravel);
-  }, [distanceToTravel])
-
   useEffect(()=>{
     if(statusCode && statusCode !== 200){
       router.push("/")
