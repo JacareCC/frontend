@@ -16,7 +16,7 @@ import NewNav from "@/components/navbarComponents/NewNav";
 import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
 import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
-import Coordinates from "../typeInterfaces/globals";
+import Coordinates from "../../typeInterfaces/globals";
 
 
 
@@ -123,7 +123,8 @@ export default function SearchPage() {
         const { coords } = position;
         const { latitude, longitude } = coords;
         setLocation({ latitude, longitude });
-      } catch (error:any) {
+      } catch (error) {
+        if(error instanceof Error)
         console.error("Error getting geolocation:", error.message);
         // Handle errors
       }
