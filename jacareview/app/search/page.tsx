@@ -17,13 +17,14 @@ import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
 import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
 import Coordinates from "../../typeInterfaces/globals";
+import { GeolibInputCoordinates } from "geolib/es/types";
 
 
 
 
 
 export default function SearchPage() {
-  const [location, setLocation] = useState<Coordinates | null>(null);
+  const [location, setLocation] = useState<GeolibInputCoordinates | null>(null);
   const [cuisineType, setCuisineType] = useState<string[]>(["restaurant"]);
   const [price, setPrice] = useState<number>(2);
   const [openNow, setOpenNow] = useState<boolean | null>(true);
@@ -78,7 +79,7 @@ export default function SearchPage() {
     openNow: boolean | null;
     amountOfOptions: number | null;
     distanceToTravel: number | null;
-    location: Coordinates | null;
+    location: GeolibInputCoordinates | null;
   }
 
   const searchObject: searchDataObject = {
@@ -121,7 +122,7 @@ export default function SearchPage() {
         });
 
         const { coords } = position;
-        const { latitude, longitude } = coords;
+        const { latitude, longitude }: Coordinates = coords;
         setLocation({ latitude, longitude });
       } catch (error) {
         if(error instanceof Error)

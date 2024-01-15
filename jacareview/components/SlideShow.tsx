@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GoogleMap from "./GoogleMap";
 import { BookmarkIcon, MapPinIcon } from "lucide-react";
-import Coordinates from "@/typeInterfaces/globals";
 import {User as FirebaseUser} from "firebase/auth";
 import GetHistoryObject from "../typeInterfaces/globals"
 
@@ -17,8 +16,8 @@ export default function Slideshow({
   user,
 }: {
   slides: any;
-  location: Coordinates;
-  user: FirebaseUser;
+  location: GeolibInputCoordinates | null;
+  user: FirebaseUser | null | undefined;
 }) {
   const [resultArray, setResultArray] = useState<any>(null);
   const [autoplay, setAutoplay] = useState(true);
@@ -86,7 +85,7 @@ export default function Slideshow({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${user.uid}`,
+          Authorization: `${user?.uid}`,
         },
       }
     )
@@ -118,7 +117,7 @@ export default function Slideshow({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              uid: user.uid,
+              uid: user?.uid,
               restaurantId: restId,
               id: histRest?.id,
             }),
@@ -168,7 +167,7 @@ export default function Slideshow({
             )}
             <div className="flex flex-col  justify-center items-center m-2 text-jgreen text-lg">
               Distance:{" "}
-              {slide.location
+              {slide.location && location
                 ? getDistanceInApproxKm(slide.location, location)
                 : "unknown"}{" "}
               {slide.priceLevel ? (
