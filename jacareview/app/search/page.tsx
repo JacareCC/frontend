@@ -16,11 +16,14 @@ import NewNav from "@/components/navbarComponents/NewNav";
 import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
 import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
+import Coordinates from "../typeInterfaces/globals";
+
+
 
 
 
 export default function SearchPage() {
-  const [location, setLocation] = useState<any>(null);
+  const [location, setLocation] = useState<Coordinates | null>(null);
   const [cuisineType, setCuisineType] = useState<string[]>(["restaurant"]);
   const [price, setPrice] = useState<number>(2);
   const [openNow, setOpenNow] = useState<boolean | null>(true);
@@ -75,7 +78,7 @@ export default function SearchPage() {
     openNow: boolean | null;
     amountOfOptions: number | null;
     distanceToTravel: number | null;
-    location: { latitude: number; longitude: number };
+    location: Coordinates | null;
   }
 
   const searchObject: searchDataObject = {
