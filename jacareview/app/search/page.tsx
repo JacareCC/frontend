@@ -277,7 +277,7 @@ export default function SearchPage() {
                             {/* Section 4 */}
                             <div className="flex flex-col items-center justify-center mb-0 m-4">
                               <h1 className="text-xl font-bold text-jgreen mb-2 border-b">
-                                Dietary Restrictions
+                                Mode of Transportation
                               </h1>
                               <div className="flex flex-row">
                                 <ModeOfTransportButton
