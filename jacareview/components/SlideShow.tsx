@@ -8,21 +8,22 @@ import "slick-carousel/slick/slick-theme.css";
 import GoogleMap from "./GoogleMap";
 import { BookmarkIcon, MapPinIcon } from "lucide-react";
 import {User as FirebaseUser} from "firebase/auth";
-import GetHistoryObject from "../typeInterfaces/globals"
+import { GetHistoryObject } from "@/typeInterfaces/globals";
+import { ApiResponseForSlides } from "@/typeInterfaces/globals";
 
 export default function Slideshow({
   slides,
   location,
   user,
 }: {
-  slides: any;
+  slides: ApiResponseForSlides;
   location: GeolibInputCoordinates | null;
   user: FirebaseUser | null | undefined;
 }) {
   const [resultArray, setResultArray] = useState<any>(null);
   const [autoplay, setAutoplay] = useState(true);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const [historyData, setHistoryData] = useState<any>(null);
+  const [historyData, setHistoryData] = useState<GetHistoryObject[] | null>(null);
 
   useEffect(() => {
     if (slides) {
@@ -98,13 +99,13 @@ export default function Slideshow({
   }
 
   async function changeSaveRestaurant(restId: number) {
-    const histRest = historyData.find(
-      (rest: { restaurant_id_id: number }) => rest.restaurant_id_id === restId
+    const histRest = historyData?.find(
+      (rest: { restaurant_id_id?: number }) => rest.restaurant_id_id === restId
     );
 
     try {
-      const isRestaurantSaved = historyData.some(
-        (rest: { restaurant_id_id: number; saved: boolean }) =>
+      const isRestaurantSaved = historyData?.some(
+        (rest: { restaurant_id_id?: number; saved: boolean }) =>
           rest.restaurant_id_id === restId && rest.saved
       );
 
@@ -125,12 +126,12 @@ export default function Slideshow({
         );
 
         if (result.ok) {
-          const restaurantIndex = historyData.findIndex(
-            (rest: { restaurant_id_id: number }) =>
+          const restaurantIndex = historyData?.findIndex(
+            (rest: { restaurant_id_id?: number |undefined }) =>
               rest.restaurant_id_id === restId
           );
 
-          if (restaurantIndex !== -1) {
+          if (restaurantIndex !== -1 && historyData && restaurantIndex !== undefined) {
             const updatedHistoryData = [...historyData];
             updatedHistoryData[restaurantIndex] = { ...histRest, saved: true };
             setHistoryData(updatedHistoryData);
@@ -194,7 +195,7 @@ export default function Slideshow({
               </a>
               {historyData &&
               historyData.some(
-                (rest: { restaurant_id_id: number; saved: boolean }) =>
+                (rest: { restaurant_id_id?: number; saved: boolean }) =>
                   rest.restaurant_id_id === slide.id && rest.saved
               ) ? (
                 <button

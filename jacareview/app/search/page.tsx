@@ -16,7 +16,7 @@ import NewNav from "@/components/navbarComponents/NewNav";
 import LocationPopup from "@/components/popUpComponents/LocationOnPopUp";
 import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
-import Coordinates from "../../typeInterfaces/globals";
+import {Coordinates} from "../../typeInterfaces/globals";
 import { GeolibInputCoordinates } from "geolib/es/types";
 
 

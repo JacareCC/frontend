@@ -1,38 +1,55 @@
-export default interface Coordinates { 
+export interface Coordinates { 
     latitude: number; 
     longitude: number 
 }
 
-export default interface GetHistoryObject {    
-date_visited: Date;
-id: number;
-name: string;
-restaurant_id_id: number;
+export interface GetHistoryObject {    
+date_visited?: Date |undefined;
+id?: number |undefined;
+name?: string |undefined;
+restaurant_id_id?: number |undefined;
 saved: boolean; 
-user_id_id:number
+user_id_id?:number |undefined;
 }
 
-// export default interface ResultSlides {
-    
-// currentOpeningHours
-// : 
-// {openNow: true, periods: Array(1), weekdayDescriptions: Array(7)}
-// displayName
-// : 
-// {text: 'Sukiya Ikeda shop', languageCode: 'en'}
-// id
-// : 
-// 12
-// location
-// : 
-// {latitude: 35.2440567, longitude: 139.68901209999999}
-// place_id
-// : 
-// "ChIJo1NKpCk-GGARhnRgxE8Vi3c"
-// priceLevel
-// : 
-// "PRICE_LEVEL_INEXPENSIVE"
-// tiers
-// : 
-// []
-// }
+export interface OpeningHoursPeriod {
+    close: {
+      day: number;
+      hour: number;
+      minute: number;
+      truncated: boolean;
+      date: any; 
+    };
+    open: {
+      day: number;
+      hour: number;
+      minute: number;
+      truncated: boolean;
+      date: any; 
+    };
+  }
+  
+  interface ResultItem {
+    currentOpeningHours: {
+      openNow: boolean;
+      periods: OpeningHoursPeriod[];
+      weekdayDescriptions: string[];
+    };
+    displayName: {
+      text: string;
+      languageCode: string;
+    };
+    id: number;
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+    place_id: string;
+    priceLevel: string;
+    tiers: any[];
+  }
+  
+  export interface ApiResponseForSlides {
+    result: ResultItem[];
+  }
+  
