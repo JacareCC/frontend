@@ -7,24 +7,28 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GoogleMap from "./GoogleMap";
 import { BookmarkIcon, MapPinIcon } from "lucide-react";
+import {User as FirebaseUser} from "firebase/auth";
+import { GetHistoryObject } from "@/typeInterfaces/globals";
+import { ApiResponseForSlides } from "@/typeInterfaces/globals";
 
 export default function Slideshow({
   slides,
   location,
   user,
 }: {
-  slides: any;
-  location: any;
-  user: any;
+  slides: ApiResponseForSlides;
+  location: GeolibInputCoordinates | null;
+  user: FirebaseUser | null | undefined;
 }) {
   const [resultArray, setResultArray] = useState<any>(null);
   const [autoplay, setAutoplay] = useState(true);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const [historyData, setHistoryData] = useState<any>(null);
+  const [historyData, setHistoryData] = useState<GetHistoryObject[] | null>(null);
 
   useEffect(() => {
     if (slides) {
       setResultArray(slides.result);
+      console.log(slides)
     }
   }, [slides]);
 
@@ -33,6 +37,12 @@ export default function Slideshow({
       getHistoryData();
     }
   }, [user, slides]);
+
+  useEffect(() => {
+    if(historyData){
+      console.log(historyData)
+    }
+  })
 
   const settings = {
     accessibility: true,
@@ -76,7 +86,7 @@ export default function Slideshow({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${user.uid}`,
+          Authorization: `${user?.uid}`,
         },
       }
     )
@@ -88,14 +98,14 @@ export default function Slideshow({
       });
   }
 
-  async function changeSaveRestaurant(restId: any) {
-    const histRest = historyData.find(
-      (rest: { restaurant_id_id: any }) => rest.restaurant_id_id === restId
+  async function changeSaveRestaurant(restId: number) {
+    const histRest = historyData?.find(
+      (rest: { restaurant_id_id?: number }) => rest.restaurant_id_id === restId
     );
 
     try {
-      const isRestaurantSaved = historyData.some(
-        (rest: { restaurant_id_id: any; saved: any }) =>
+      const isRestaurantSaved = historyData?.some(
+        (rest: { restaurant_id_id?: number; saved: boolean }) =>
           rest.restaurant_id_id === restId && rest.saved
       );
 
@@ -108,7 +118,7 @@ export default function Slideshow({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              uid: user.uid,
+              uid: user?.uid,
               restaurantId: restId,
               id: histRest?.id,
             }),
@@ -116,12 +126,12 @@ export default function Slideshow({
         );
 
         if (result.ok) {
-          const restaurantIndex = historyData.findIndex(
-            (rest: { restaurant_id_id: any }) =>
+          const restaurantIndex = historyData?.findIndex(
+            (rest: { restaurant_id_id?: number |undefined }) =>
               rest.restaurant_id_id === restId
           );
 
-          if (restaurantIndex !== -1) {
+          if (restaurantIndex !== -1 && historyData && restaurantIndex !== undefined) {
             const updatedHistoryData = [...historyData];
             updatedHistoryData[restaurantIndex] = { ...histRest, saved: true };
             setHistoryData(updatedHistoryData);
@@ -158,7 +168,7 @@ export default function Slideshow({
             )}
             <div className="flex flex-col  justify-center items-center m-2 text-jgreen text-lg">
               Distance:{" "}
-              {slide.location
+              {slide.location && location
                 ? getDistanceInApproxKm(slide.location, location)
                 : "unknown"}{" "}
               {slide.priceLevel ? (
@@ -185,7 +195,7 @@ export default function Slideshow({
               </a>
               {historyData &&
               historyData.some(
-                (rest: { restaurant_id_id: any; saved: any }) =>
+                (rest: { restaurant_id_id?: number; saved: boolean }) =>
                   rest.restaurant_id_id === slide.id && rest.saved
               ) ? (
                 <button

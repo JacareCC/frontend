@@ -11,7 +11,6 @@ import "./globals.css";
 import Image from "next/image";
 import googleIcon from "../public/google.png";
 import logoHome from "../public/logo-home-bgnashi.png";
-import VerifyUser from "./globalfunctions/TokenVerification";
 import LoadingAnimation from "@/components/loading/Loading";
 import TeamCard from "@/components/landingPage/MyCard";
 import LandingPageSlideshow from "@/components/landingPage/landingPageSlides/LandingPageSlideShow";
@@ -41,27 +40,22 @@ export default function Home() {
 
   useEffect(() => {
     if (uid && user) {
-      VerifyUser(user.uid, setStatusCode);
+      router.push("/search");
     }
   }, [uid]);
 
   useEffect(() => {
-    if (statusCode === 200 || statusCode === 201) {
-      router.push("/search");
-    }
-    if (statusCode === 400) {
-      router.push("/search");
-    }
-    if (statusCode === 401 && user) {
+    if (uid && user) {
       handleUserRegistration(user.uid, user?.email);
     }
-  }, [statusCode]);
+  }, [uid]);
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem("cookiesAccepted");
     setCookiesAccepted(!!cookiesAccepted);
     setShowConsent(!cookiesAccepted);
   }, [showConsent]);
+  
 
   async function handleUserRegistration(uid: string, email: string | null) {
     const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}register/`, {
@@ -109,7 +103,6 @@ export default function Home() {
     }
   };
 
-  statusCode !== 200 && statusCode !== 201;
 
   return (
     <>
