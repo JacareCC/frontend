@@ -5,18 +5,19 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BookmarkIcon, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import LoadingAnimation from "../loading/Loading";
-import { AnyARecord } from "dns";
-import { test } from "mocha";
+import SaveRestaurantButton from "./SaveRestaurantButton";
 
-export default function RestViewed() {
-  const [historyData, setHistoryData] = useState<any>(null);
+interface RestViewedProps {
+  historyData: any[];
+}
+
+const RestViewed: React.FC<RestViewedProps> = ({ historyData }) => {
   const [historyDataFiltered, setHistoryDataFiltered] = useState<any>(null);
   const [uid, setUid] = useState<string | null | undefined>(null);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
   const [historyId, setHistoryId] = useState<number | null>(null);
-  const [triggerRefresh, setTriggerRefresh] = useState<number | null>(null);
 
   initFirebase();
   const auth = getAuth();
@@ -30,12 +31,6 @@ export default function RestViewed() {
   }, [user]);
 
   useEffect(() => {
-    if (uid) {
-      getHistoryData();
-    }
-  }, [uid]);
-
-  useEffect(() => {
     if (historyData) {
       filterToUniqueRestaurants(historyData, "restaurant_id_id");
     }
@@ -46,12 +41,6 @@ export default function RestViewed() {
       changeSaveRestaurant();
     }
   }, [restaurantId]);
-
-  useEffect(() => {
-    if (triggerRefresh === 200) {
-      window.location.reload();
-    }
-  }, [triggerRefresh]);
 
   function calculateTimeDifference(visitDate: moment.MomentInput) {
     const now = moment();
@@ -70,25 +59,6 @@ export default function RestViewed() {
   }
 
   // helper
-  async function getHistoryData() {
-    const results = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}user/profile/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${uid}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setHistoryData(data.success.history);
-        setTriggerRefresh(data.status);
-      });
-  }
 
   function getRestaurantID(event: any) {
     const restaurantIdString: string = event.target.getAttribute("a-key");
@@ -112,7 +82,6 @@ export default function RestViewed() {
         }),
       }
     ).then((response) => {
-      setTriggerRefresh(response.status);
       return response.json();
     });
   }
@@ -193,29 +162,14 @@ export default function RestViewed() {
                             Review
                             <Star />
                           </Link>
-                          {!element.saved ? (
-                            <button
-                              key={`e${index}`}
-                              onClick={getRestaurantID}
-                              a-key={element.restaurant_id_id}
-                              b-key={element.id}
-                              className="flex gap-4 bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center"
-                            >
-                              <BookmarkIcon className="text-lgreen" />
-                              Save
-                              <BookmarkIcon />
-                            </button>
-                          ) : (
-                            <button
-                              key={`f${index}`}
-                              onClick={getRestaurantID}
-                              a-key={element.restaurant_id_id}
-                              b-key={element.id}
-                              className=" bg-lgreen  text-white p-2 rounded shadow-lg shadow-xl flex justify-center items-center"
-                            >
-                              Remove
-                            </button>
-                          )}
+
+                          <SaveRestaurantButton
+                            index={index}
+                            getRestaurantID={getRestaurantID}
+                            restaurantId={element.restaurant_id_id}
+                            elementId={element.id}
+                            isSaved={element.saved}
+                          />
                         </div>
                       </div>
                     </div>
@@ -227,4 +181,6 @@ export default function RestViewed() {
       </div>
     </div>
   );
-}
+};
+
+export default RestViewed;
