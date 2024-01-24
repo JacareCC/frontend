@@ -52,9 +52,7 @@ export default function SearchPage() {
   const router = useRouter();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      VerifyUser(user.uid, setStatusCode);
-    } else {
+    if (!user) {
       router.push("/");
     }
   });
@@ -67,14 +65,6 @@ export default function SearchPage() {
       setDistanceToTravel(12500);
     }
   }, [modeOfTransport]);
-
-  useEffect(() => {
-    if (statusCode && statusCode !== 200) {
-      router.push("/");
-    } else if (statusCode === 200) {
-      setStatusCodeOk(true);
-    }
-  }, [statusCode]);
 
   const searchObject: searchDataObject = {
     cuisineOptions: cuisineType,
@@ -174,7 +164,7 @@ export default function SearchPage() {
         {turnOnLocation && (
           <LocationPopup setTurnOnLocation={setTurnOnLocation} />
         )}
-        {statusCodeOK && (
+        {!loading && user && (
           <div className="">
             <NewNav />
           </div>
@@ -182,13 +172,13 @@ export default function SearchPage() {
         <div className="flex flex-col container mx-auto md: mt-0 shadow-2xl bg-test rounded">
           {!resultsFetched && (
             <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
-              {!statusCodeOK ? (
+              {loading && !user ? (
                 <div className="fixed top-0 right-0 left-0 h-screen w-screen flex items-center justify-center bg-white">
                   <LoadingAnimation />
                 </div>
               ) : (
                 <>
-                  {!resultsFetched && !searchClicked ? (
+                  {!resultsFetched && !searchClicked && user ? (
                     <>
                       <div className="sm:mt-0 md:w-1/2  flex flex-col items-center justify-center">
                         <img
@@ -298,7 +288,7 @@ export default function SearchPage() {
                     </>
                   ) : (
                     <div className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-white flex justify-center items-center">
-                      {!resultsFetched && (
+                      {!resultsFetched && user && (
                         <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                           <img
                             src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"
