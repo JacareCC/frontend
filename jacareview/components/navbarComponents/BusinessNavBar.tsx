@@ -6,14 +6,12 @@ import { initFirebase } from "@/firebase/firebaseapp";
 import { useRouter } from "next/navigation";
 import OnlyOneOkButtonBusiness from "@/components/buttons/onlyOneOkButton/OnlyOneOkButtonBusiness";
 import FetchBusinesses from "@/app/globalfunctions/FetchBusinesses";
-import VerifyUser from "@/app/globalfunctions/TokenVerification";
 import "../../app/globals.css";
 
 const BusinessNavBar: React.FC = () => {
   const [businessList, setBusinessList] = useState<any>(null);
   const [tierText, setTierText] = useState<null | string>(null);
   const [businessText, setBusinessText] = useState<null | string>(null);
-  const [statusCode, setStatusCode] = useState<number | null>(null);
   const [isButtonActiveBusiness, setButtonActiveBusiness] = useState<any>(null);
   const [uid, setUid] = useState<string>("");
 
@@ -23,27 +21,19 @@ const BusinessNavBar: React.FC = () => {
   const router = useRouter();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      VerifyUser(user.uid, setStatusCode);
-      setUid(user.uid);
-    } else {
+    if (!user) {
       router.push("/");
+    } else {
+      setUid(user.uid);
     }
   });
 
   useEffect(() => {
-    if (statusCode && statusCode !== 200) {
-      router.push("/");
+    if (uid && !businessList) {
+      FetchBusinesses(uid, setBusinessList);
     }
-  }, [statusCode]);
+  }, [uid]);
 
-  useEffect(() => {
-    if (user) {
-      FetchBusinesses(user.uid, setBusinessList);
-    }
-  }, [user]);
-
-  
   //
   function handleTab(event: any) {
     const text = event.target.innerText;

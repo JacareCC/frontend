@@ -11,7 +11,6 @@ import CalculateTimeDifference from "@/app/globalfunctions/CalculateTimeDifferen
 import { getPreciseDistance } from "geolib";
 import { GeolibInputCoordinates } from "geolib/es/types";
 import { useRouter } from "next/navigation";
-import VerifyUser from "@/app/globalfunctions/TokenVerification";
 
 interface SavedOneRestaurantsProps {
   setRandomOneClicked: any;
@@ -139,7 +138,6 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
   }
 
   function filterOutUndoneSave(restaurantID: string | null) {
-    console.log(savedData);
     setSavedData(
       savedData.filter((element: any) => {
         return element.restaurant_id_id !== Number(restaurantID);
