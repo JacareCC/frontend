@@ -8,7 +8,6 @@ import "../globals.css";
 import { useEffect, useState } from "react";
 import InfoUser from "@/components/userPage/InfoUser";
 import RestViewed from "@/components/userPage/RestViewed";
-import VerifyUser from "../globalfunctions/TokenVerification";
 import ClaimButton from "@/components/userPage/ClaimButton";
 import NewNav from "@/components/navbarComponents/NewNav";
 import LoadingAnimation from "@/components/loading/Loading";
