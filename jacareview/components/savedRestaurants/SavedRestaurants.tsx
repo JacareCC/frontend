@@ -27,10 +27,7 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
   const [uid, setUid] = useState<string | null>(null);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
   const [historyId, setHistoryId] = useState<number | null>(null);
-  const [refreshCount, setRefreshCount] = useState<number | null>(null);
   const [location, setLocation] = useState<any>(null);
-  const [statusCode, setStatusCode] = useState<number | null>(null);
-  const [statusCodeOk, setStatusCodeOk] = useState<boolean>(false);
   const [fetchMadeForFilter, setFetchMadeForFilter] = useState<boolean>(false);
 
   initFirebase();
@@ -39,20 +36,10 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
   const router = useRouter();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      VerifyUser(user.uid, setStatusCode);
-    } else {
+    if (!user) {
       router.push("/");
     }
   });
-
-  useEffect(() => {
-    if (statusCode && statusCode !== 200) {
-      router.push("/");
-    } else if (statusCode === 200) {
-      setStatusCodeOk(true);
-    }
-  }, [statusCode]);
 
   useEffect(() => {
     if (user) {
@@ -94,20 +81,18 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
 
   useEffect(() => {
     if (restaurantId && historyId) {
+      filterOutUndoneSave(restaurantId);
       undoSaveRestaurant();
-      setRefreshCount(1);
     }
   }, [restaurantId]);
 
   useEffect(() => {
-    if (refreshCount === 200) {
-      window.location.reload();
-    }
-  }, [refreshCount]);
-
-  useEffect(() => {
     requestGeolocation();
   }, []);
+
+  useEffect(() => {
+    console.log(savedData);
+  }, [savedData]);
 
   const requestGeolocation = async () => {
     if ("geolocation" in navigator) {
@@ -153,6 +138,15 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
     setHistoryId(historyIdNumber);
   }
 
+  function filterOutUndoneSave(restaurantID: string | null) {
+    console.log(savedData);
+    setSavedData(
+      savedData.filter((element: any) => {
+        return element.restaurant_id_id !== Number(restaurantID);
+      })
+    );
+  }
+
   async function undoSaveRestaurant() {
     try {
       const results = await fetch(
@@ -169,9 +163,8 @@ const SavedRestaurants: React.FC<SavedOneRestaurantsProps> = ({
           }),
         }
       );
-      const responseStatus = results.status;
-      setRefreshCount(responseStatus);
-      const responseData = await results.json();
+
+      setRestaurantId(null);
       // Handle response data if needed
     } catch (error) {
       console.error("Error undoing save restaurant:", error);
