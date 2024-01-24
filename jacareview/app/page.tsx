@@ -41,17 +41,17 @@ export default function Home() {
 
   useEffect(() => {
     if (uid && user) {
-      VerifyUser(user.uid, setStatusCode);
+      router.push("/search");
     }
   }, [uid]);
 
   useEffect(() => {
-    if (statusCode === 200 || statusCode === 201) {
-      router.push("/search");
-    }
-    if (statusCode === 400) {
-      router.push("/search");
-    }
+    // if (statusCode === 200 || statusCode === 201) {
+    //   router.push("/search");
+    // }
+    // if (statusCode === 400) {
+    //   router.push("/search");
+    // }
     if (statusCode === 401 && user) {
       handleUserRegistration(user.uid, user?.email);
     }
