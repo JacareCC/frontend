@@ -5,7 +5,7 @@ import "firebase/compat/firestore";
 import { attachCustomCommands } from "cypress-firebase";
 
 const fbConfig = {
-  apiKey: "AIzaSyAmzWPMeTfPbz6BYOc8QoUcVnRYc_D80VA",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE,
   authDomain: "jacareview.firebaseapp.com",
   projectId: "jacareview",
   storageBucket: "jacareview.appspot.com",
