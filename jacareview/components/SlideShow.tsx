@@ -28,7 +28,6 @@ export default function Slideshow({
   useEffect(() => {
     if (slides) {
       setResultArray(slides.result);
-      console.log(slides)
     }
   }, [slides]);
 
@@ -38,11 +37,7 @@ export default function Slideshow({
     }
   }, [user, slides]);
 
-  useEffect(() => {
-    if(historyData){
-      console.log(historyData)
-    }
-  })
+
 
   const settings = {
     accessibility: true,
