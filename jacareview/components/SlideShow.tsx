@@ -38,7 +38,6 @@ export default function Slideshow({
   }, [user, slides]);
 
 
-
   const settings = {
     accessibility: true,
     dots: true,
@@ -188,7 +187,7 @@ export default function Slideshow({
                 Go to Maps
                 <MapPinIcon />
               </a>
-              {historyData &&
+              {historyData ?
               historyData.some(
                 (rest: { restaurant_id_id?: number; saved: boolean }) =>
                   rest.restaurant_id_id === slide.id && rest.saved
@@ -211,7 +210,7 @@ export default function Slideshow({
                   Save
                   <BookmarkIcon />
                 </button>
-              )}
+              ): <></>}
             </div>
           </div>
         ))}
