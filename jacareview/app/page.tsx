@@ -103,6 +103,10 @@ export default function Home() {
     }
   };
 
+  const goToSearch = () => {
+    router.push("/search")
+  }
+
 
   return (
     <>
@@ -159,6 +163,7 @@ export default function Home() {
                               </span>
                             </div>
                           </button>
+                         
                         </div>
                         <h3 className="ml-4 mt-0 md:text-xs mt-4 justify-center items-center text-center font-semibold">
                           By Continuing you Agree to our Terms and Agreement. To
@@ -170,6 +175,18 @@ export default function Home() {
                             Click here
                           </a>
                         </h3>
+                        <div className="mt-4 flex flex-col justify-center items-center sm:h-1/5">
+                        <button
+                            onClick={goToSearch}
+                            className="mt-4 bg-emerald-100 text-indigo-500 p-2 rounded shadow-lg shadow-indigo-500/40 w-full sm:w-auto flex justify-center items-center"
+                          >
+                            <div className="flex items-center px-10">
+                              <span className="ml-2 text-base sm:text-xs lg:text-sm whitespace-nowrap">
+                                Continue without login
+                              </span>
+                            </div>
+                          </button>
+                          </div>
                       </div>
                       {toggleAgreement && (
                         <div className="fixed inset-0 flex items-center justify-center z-[101] bg-black bg-opacity-50">

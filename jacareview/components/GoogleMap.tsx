@@ -2,6 +2,7 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import React, { useRef, useEffect } from 'react';
 import searching from "../public/IMG_8629.png"
+import GenericShop from "../public/GenericShopColor.png"
 
 interface GoogleMapProps {
   apiKey: string |undefined;
@@ -40,12 +41,12 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
      
 
      const storeImage = {
-      url: searching.src,
+      url: GenericShop.src,
       scaledSize: new google.maps.Size(50, 50)
   };
 
   const profileImage = {
-    url: user.photoURL,
+    url: user?.photoURL || searching.src,
     scaledSize: new google.maps.Size(50, 50)
 };
 
