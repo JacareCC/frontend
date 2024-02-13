@@ -17,6 +17,8 @@ import NoResultsPopup from "@/components/popUpComponents/NoResultsPopUp";
 import ModeOfTransportButton from "@/components/buttons/ModeOfTransportButton";
 import { Coordinates } from "../../typeInterfaces/globals";
 import { GeolibInputCoordinates } from "geolib/es/types";
+import Image from "next/image";
+import logo from "../../public/logo-home-.png"
 
 interface searchDataObject {
   cuisineOptions: string[] | null;
@@ -44,6 +46,7 @@ export default function SearchPage() {
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
   const [turnOnLocation, setTurnOnLocation] = useState<boolean>(false);
   const [modeOfTransport, setModeOfTransport] = useState<string>("Walking");
+  const [isThereUser, setIsThereUser] = useState<boolean>(false);
 
   initFirebase();
   const auth = getAuth();
@@ -52,7 +55,10 @@ export default function SearchPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      router.push("/");
+      setIsThereUser(false);
+    }
+    else{
+      setIsThereUser(true);
     }
   });
 
@@ -157,17 +163,34 @@ export default function SearchPage() {
     }
   }
 
+  const goHome = () => {
+    router.push("/");
+  }
+
   return (
     <>
       <div className="h-[calc(100dvh)">
         {turnOnLocation && (
           <LocationPopup setTurnOnLocation={setTurnOnLocation} />
         )}
-        {!loading && user && (
+        {!loading && user ? (
           <div className="">
             <NewNav />
           </div>
-        )}
+        ): <div className="flex w-auto justify-between my-2 mb-4 shadow-lg shadow-indigo-500/40 rounded p-2">
+          <Image className="h-16 w-16 text-primary mx-6 cursor-pointer"
+                        src={logo.src}
+                        alt="Jacareview logo of an alligator with stars in its mouth"
+                        width={400}
+                        height={400}
+                        onClick={goHome}/>
+        <button
+          className="text-jgreen p-2 px-4 my-4 cursor-pointer font-semibold"
+          onClick={goHome}
+        >
+          Home
+        </button>
+      </div>}
         <div className="flex flex-col container mx-auto md: mt-0 shadow-2xl bg-test rounded">
           {!resultsFetched && (
             <div className="flex flex-col  gap-4 md:flex-row  flex-grow justify-around items-center rounded ">
@@ -177,7 +200,7 @@ export default function SearchPage() {
                 </div>
               ) : (
                 <>
-                  {!resultsFetched && !searchClicked && user ? (
+                  {!resultsFetched && !searchClicked ? (
                     <>
                       <div className="sm:mt-0 md:w-1/2  flex flex-col items-center justify-center">
                         <img
@@ -287,7 +310,7 @@ export default function SearchPage() {
                     </>
                   ) : (
                     <div className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-white flex justify-center items-center">
-                      {!resultsFetched && user && (
+                      {!resultsFetched && (
                         <div className=" relative w-80 h-80 md:w-96 md:h-96 lg:w-120 lg:h-120 xl:w-160 xl:h-160 overflow-hidden">
                           <img
                             src="https://media.giphy.com/media/VQUo8CBVIRliuz1TNI/giphy.gif"

@@ -1,7 +1,8 @@
 // components/GoogleMap.tsx
 import { Loader } from '@googlemaps/js-api-loader';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import searching from "../public/IMG_8629.png"
+import GenericShop from "../public/GenericShopColor.png"
 
 interface GoogleMapProps {
   apiKey: string |undefined;
@@ -12,12 +13,14 @@ interface GoogleMapProps {
 }
 
 const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, mylocation, user}) => {
+  const mapRef = useRef(null);  
 
-  const mapRef = useRef(null);
+  console.log(placeId)
 
   useEffect(()=>{
     initMap();
   },[])
+
 
   const initMap = async () =>{
     const myLatLng = { lat: mylocation.latitude, lng: mylocation.longitude };
@@ -29,6 +32,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
         lat: location.latitude,
         lng: location.longitude
       }
+  
+      
 
      const  mapOtions: google.maps.MapOptions = {
       center: storeLatLng,
@@ -40,12 +45,12 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ apiKey, placeId, location, myloca
      
 
      const storeImage = {
-      url: searching.src,
+      url: GenericShop.src,
       scaledSize: new google.maps.Size(50, 50)
   };
 
   const profileImage = {
-    url: user.photoURL,
+    url: user?.photoURL || searching.src,
     scaledSize: new google.maps.Size(50, 50)
 };
 
